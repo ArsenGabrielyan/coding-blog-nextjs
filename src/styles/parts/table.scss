@@ -1,0 +1,18 @@
+table {
+     width: 100%;
+     border-spacing: 0 !important;
+     border-collapse: collapse !important;
+     border-color: #222 !important;
+     display: block !important;
+     width: max-content !important;
+     max-width: 100% !important;
+     overflow: auto !important;
+     tbody, td, tfoot, th, thead, tr {
+          border-color: inherit !important;
+          border-style: solid !important;
+          border-width: 2px !important;
+     }
+     td,th{padding: 5px;}
+     tr:nth-child(even){background: #ddd;}
+     thead,tfoot{background: #ddd;th,td{color: #204829;}}
+}

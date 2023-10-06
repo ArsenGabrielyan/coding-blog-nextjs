@@ -1,0 +1,161 @@
+.formContainer{
+     min-height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: #1D976C; 
+     background: -webkit-linear-gradient(to right, #93F9B9, #1D976C); 
+     background: linear-gradient(to right, #93F9B9, #1D976C);
+     padding: 10px;
+     form{
+          .frmGroup,.options{display: flex;}
+          .frmGroup{
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+          }
+          &,.frmGroup,.error,.options{width: 100%;}
+          max-width: 420px;
+          background: #fff;
+          padding: 30px 40px;
+          border-radius: 10px;
+          box-shadow: 0 5px 25px rgba(0,0,0,.2);
+          .error{
+               background: #dc3545;
+               color: #fff;
+               padding: 0.5em;
+               margin: 15px 0 5px;
+               font-size: 18px;
+               border-radius: 10px;
+               &.signin{margin: 7.5px 0;}
+          }
+          .frmGroup{
+               position: relative;
+               margin-top: 15px;
+               input[type=text], input[type=email],input[type=date], input[type=password]{
+                    width: 100%;
+                    height: 50px;
+                    border-radius: 75px;
+                    padding: 1em;
+                    font-size: 16px;
+                    border: 2px solid #aaa;
+                    outline: none;
+                    transition: .3s ease-in-out all;
+                    &:focus{border-color: #1D976C;}
+               }
+               label{
+                    transition: .3s all ease-in-out;
+                    position: absolute;
+                    pointer-events: none;
+                    user-select: none;
+                    left: 20px;
+                    font-size: 16.5px;
+                    color: #888;
+                    padding: 0 5px;
+                    top: -10px;
+                    background: #fff;
+               }
+               .icon{
+                    transition: .3s all ease-in-out;
+                    position: absolute;
+                    font-size: 24px;
+                    top: 8px;
+                    right: 12px;
+                    color: #888;
+                    pointer-events: none;
+                    user-select: none;
+                    padding: 2px;
+               }
+               &:focus-within{
+                    label{color: #1D976C;}
+                    .icon{color: #1D976C;}
+               }
+               @import "../parts/radios.scss";
+               @import "../parts/automcomplete.scss";
+          }
+          .options{
+               justify-content: space-between;
+               align-items: center;
+          }
+     }
+     a,.gap,.steps,.stepBtns{width: 100%;}
+     a{
+          color: #1D976C;
+          font-weight: 550;
+          text-decoration: none;
+          margin: 3px 0;
+          &:hover,&:focus{text-decoration: underline;}
+          text-align: center;
+     }
+     .gap{
+          display: inline-block;
+          height: 2px !important;
+          background: #aaa;
+          margin-bottom: 5px;
+     }
+     h2{
+          font-size: 21px;
+          font-weight: 400;
+          text-align: center;
+     }
+     .signInBtn{margin-top: 10px;}
+     .providers{justify-content: center;}
+     .providers, .steps, .stepBtns{display: flex;align-items: center;}
+     .steps{
+          justify-content: space-between;
+          position: relative;
+          .circle{
+               width: 48px;height: 48px;
+               display: flex;color: #aaa;
+               justify-content: center;
+               align-items: center;z-index: 1;
+               font-size: 21px;background: #fff;
+               font-weight: 500;
+               border-radius: 50%;
+               border: 4px solid #aaa;
+               &.active{border-color: #1D976C;color: #1D976C;}
+          }
+          .progress-bar{
+               position: absolute;
+               height: 4px;
+               width: 99.5%;
+               background: #aaa;
+               z-index: 0;
+               .indicator{
+                    position: absolute;
+                    height: 100%;
+                    width: 10%;
+                    background: #1D976C;
+               }
+          }
+     }
+     .stepBtns{
+          margin-top: 15px;
+          justify-content: space-between;
+          button{margin: 0 5px;}
+     }
+     .form-title{
+          font-size: 27px;
+          margin-top: 5px;
+          font-weight: 500;
+          text-align: center;
+     }
+     h1{margin-bottom: 10px;font-weight: 600;text-align: center;}
+     .txt{margin-top: 5px;font-size: 16px;text-align: center;}
+}
+@media screen and (max-width: 500px){
+     .formContainer form{
+          padding: 20px;
+          text-align: center;
+          .frmGroup .radio-container{
+               flex-direction: column;
+               width: 100%;
+               .radio{
+                    &,.radio1,.radio2,.radioIcon{width: 100%;}
+                    .radio1,.radio2{border-radius: 10px;}
+               }
+          }
+          h1{font-size: 25px;}
+     }
+}
+@media screen and (max-width: 300px){.formContainer .txt{font-size: 18px;}}

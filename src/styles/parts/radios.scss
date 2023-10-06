@@ -1,0 +1,36 @@
+.radio-container{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 100%;
+     margin-top: 16.5px;
+     border-radius: 10px;
+     .radio{
+          position: relative;
+          .radio1, .radio2{
+               width: 170px;
+               height: 64px;
+               appearance: none;
+               background: #93F9B9;
+               &:checked{
+                    background: #1D976C;
+                    & + .radioIcon{color: #fff;}
+               }
+          }
+          .radio1{border-radius: 10px 0 0 10px;}
+          .radio2{border-radius: 0 10px 10px 0;}
+          .radioIcon{
+               position: absolute;
+               top: 0;
+               left: 0;
+               width: 170px;
+               height: 64px;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               font-size: 48px;
+               user-select: none;
+               pointer-events: none;
+          }
+     }
+}

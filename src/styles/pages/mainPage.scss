@@ -1,0 +1,21 @@
+.imgBg{
+     position: fixed;width: 100%;
+     top: 0;height: 100vh;z-index: -1;
+}
+.siteMain, .single-post-main{
+     display: grid;
+     position: relative;
+     grid-template-columns: repeat(2,50%);
+     @import "../layouts/widget.scss";
+}
+.siteMain{padding: 10px 50px;}
+.single-post-main{padding: 10px 20px;}
+@media screen and (max-width: 900px){
+     .siteMain,.single-post-main{
+          padding: 10px;
+          grid-template-columns: auto;
+     }
+}
+@media screen and (max-width: 500px){
+     .siteMain,.single-post-main{padding: 0;}
+}

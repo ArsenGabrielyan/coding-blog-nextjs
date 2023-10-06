@@ -1,0 +1,80 @@
+.userProfile{
+     flex-direction: column;
+     padding: 12px;
+     &,.header,.userPosts{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+     }
+     &,.header{width: 100%;}
+     .header, .userPosts{border-radius: 10px;}
+     .header{
+          padding: 12px 10px;
+          background: #fff;
+          img{
+               border-radius: 50%;
+               margin-right: 36px;
+               width: 200px;
+               height: 200px;
+          }
+          .details{
+               flex-direction: column;
+               h1{font-weight: 550;}
+               .userName{font-size: 21.5px;color: #777;}
+               &, .stats, .options{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+               }
+               .stats{
+                    &,.options{width: 100%;}
+                    margin: 8px 0;
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    span{font-size: 20px;}
+               }
+               .bio{margin-bottom: 10px;max-width: 550px;}
+               .options button{margin: 0 5px;}
+          }
+     }
+     .userPosts{
+          h2{
+               font-size: 27px;
+               font-weight: 500;
+               color: #444;
+               font-style: italic;
+               margin-top: 10px;
+          }
+     }
+}
+@media screen and (max-width: 900px){
+     .userProfile .header img{
+          width: 150px;
+          height: 150px;
+          margin-right: 12px;
+     }
+}
+@media screen and (max-width: 500px){
+     .userProfile .header{
+          flex-direction: column;
+          padding: 12px;text-align: center;
+          img{margin-right: 0;}
+          .details{
+               h1{font-size: 27px}
+               .userName{font-size: 18px;}
+               .bio{margin-bottom: 5px;}
+          }
+     }
+     .posts .empty{font-size: 25px;}
+}
+@media screen and (max-width: 400px){
+     .userProfile .header .details .stats span{font-size: 16px;}
+}
+@media screen and (max-width: 300px){
+     .userProfile .header .details .options{
+          flex-direction: column;
+          &,button{width: 100%;}
+          button{margin: 5px 0;}
+     }
+}

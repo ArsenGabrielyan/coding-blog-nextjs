@@ -1,0 +1,85 @@
+.btn, .btn-icon,.link-icon,.link{
+     padding: 0.5em 1em;
+     text-decoration: none;
+     border-radius: 10px;
+     transition: .3s;
+     cursor: pointer;
+     outline:none;
+     background: none;
+     font-size: 16px;
+}
+.btn{
+     &,&-icon{
+          border: 2px solid #146347;
+          color: #146347;
+          &:hover,&:focus{background: #146347;color: #fff;}
+     }
+     &-icon{
+          padding: 0.5em;
+          display: flex;
+          font-size: 18px;
+          justify-content: center;
+          align-items: center;
+     }
+     &.white,&-icon.white{
+          border: 2px solid #fff;
+          color: #fff;
+          &:hover,&:focus{background: #fff;color: #146347;}
+     }
+     &.fill,&-icon.fill{
+          border: 2px solid transparent;
+          background: #93F9B9;
+          color: #146347;
+          font-weight: 500;
+          &:hover,&:focus{background: #1D976C;color: #fff;}
+     }
+     &.fill:disabled,&:disabled{
+          user-select: none;
+          pointer-events: none;
+     }
+     &.fill:disabled{opacity: .5;}
+     &:disabled:not(&.fill:disabled){
+          color: #c0c0c0;
+          border-color: #c0c0c0;
+     }
+}
+.link{
+     border: 2px solid #fff;
+     color: #FFF;
+     &:hover,&:focus{background: #fff;color: #1D976C;}
+     &-icon{
+          border: none;
+          color: #fff;
+          background: none;
+          outline: none;
+          font-size: 25.5px;
+          margin-right: 5px;
+          &:hover,&:focus{background: #fff;color: #146347;}
+          padding: 0.25em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+     }
+}
+.frmBtn{
+     height: 50px;margin: 3px 0;
+     font-weight: 500;border-radius: 75px;
+     font-size: 18px;width: 100%;
+     &-icon{
+          font-size: 25px;
+          padding: 0.45em;
+          display: flex;
+          align-items: center;
+          border-radius: 10px;
+          margin: 5px;
+     }
+     &,&-icon{
+          cursor: pointer;
+          transition: .3s;
+          outline: none;
+          border: 2px solid #1D976C;
+          color: #1D976C;
+          background: #fff;
+          &:hover, &:focus{color: #fff;background: #1D976C;}
+     }
+}

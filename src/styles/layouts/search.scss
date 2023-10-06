@@ -1,0 +1,134 @@
+.search-pageTitle{
+     background: #1D976C;
+     width: 100%;
+     padding: 8px;
+     font-size: 36.5px;
+     color: #fff;
+     font-weight: 500;
+     text-align: center;
+}
+.search{
+     &-filter,&-container{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+     }
+     &-filter{
+          background: #1D976C;
+          width: 100%;
+          button{
+               font-size: 20px;
+               padding: 0.5em 1em;
+               margin: 0 5px;background: none;
+               border: solid transparent;
+               border-width: 0 0 2px 0;
+               color: #9fffc2;cursor: pointer;
+               &:hover,&:focus{border-color: #fff;}
+               &:active,&.active{border-color: #93F9B9;}
+          }
+     }
+     &-container{
+          text-align: center;
+          flex-direction: column;
+          padding: 10px;
+          .notFound{
+               color: #444;
+               font-weight: 500;
+               font-style: italic;
+          }
+          .user-searchElem, .post-searchElem{
+               width: 100%;border-radius: 20px;
+               max-width: 650px;display: flex;
+               justify-content: flex-start;
+               align-items: center;
+               margin-bottom: 10px;
+               background: #fff;
+               .details{
+                    width: 100%;
+                    h2{font-weight: 600;word-wrap: break-word;font-size: 22.5px;}
+               }
+          }
+          .user-searchElem{
+               padding: 20px;
+               img{border-radius: 50%;}
+               .details{
+                    p,.options{display: flex;align-items: center;}
+                    .username{
+                         color: #707070;
+                         font-style: italic;
+                         font-weight: 450;
+                    }
+                    p{
+                         width: 100%;font-size: 20px;
+                         justify-content: space-evenly;
+                         padding: 5px 0 8px;
+                         span{
+                              &:last-child::after{content: '';margin-left: 0;}
+                         }
+                    }
+                    .options{
+                         width: 100%;
+                         text-align: center;
+                         justify-content: center;
+                         button{
+                              margin-right: 7.5px;
+                              &:last-child{margin-right: 0;}
+                         }
+                    }
+               }
+          }
+          .post-searchElem{
+               padding: 10px;
+               img{border-radius: 10px;object-fit: cover;object-position: 0;}
+               .details{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    h2{
+                         width: 100%;
+                         max-width: 650px;
+                         display: -webkit-box;
+                         -webkit-box-orient: vertical;
+                         text-align: center;
+                         -webkit-line-clamp: 1;
+                         overflow: hidden;
+                    }
+                    .postDetails{
+                         margin: 12px 0;display: flex;align-items: center;
+                         svg{color: #1D976C;margin: 0 12px;font-size: 20px;}
+                    }
+               }
+          }
+     }
+}
+@media screen and (max-width: 500px){
+     .search-container{
+          .user-searchElem,.post-searchElem{
+               flex-direction: column;
+               align-items: center;
+               justify-content: center;
+               .details{
+                    margin-top: 10px;
+                    p{font-size: 18px;}
+                    h2{font-size: 20.5px;}
+               }
+          }
+          .post-searchElem{
+               img{width: 100%;max-width: 300px;height: 100%;max-height: 170px; aspect-ratio: 16/9;}
+          }
+          .user-searchElem{padding: 12px;}
+     }
+}
+@media screen and (max-width:400px){
+     .search-container .user-searchElem {
+          .details .options{
+               display: grid;
+               grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+               button{
+                    margin-right: 5px;
+                    &:first-child{grid-column: span 3;margin: 5px 0;}
+               }
+          }
+     }
+}
