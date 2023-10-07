@@ -1,16 +1,16 @@
 .sliderBtn{
      position: absolute;text-align: center;
      padding: 3px 0;cursor: pointer;
-     background: #14634df0;user-select: none;
+     background: $transpCol2;user-select: none;
      border: none;outline: none;display: flex;margin: 0 10px;
      border-radius: 50%;width: 36px;height: 36px;
      &,svg{transition: .3s;}
-     svg{font-size: 20px;color: #fff;}
+     svg{font-size: 20px;color: $white;}
      justify-content: center;align-items: center;
      &.right{right: 0;}&.left{left: 0;}
      &:hover{
-          background: #93F9B9f0;
-          svg{color: #222;}
+          background: $col2;
+          svg{color: $black;}
      }
 }
 .smallPost{
@@ -31,7 +31,7 @@
           flex-direction: column;
           padding: 20px 10px;
           background: rgba(0,0,0,.6);
-          color: #fff;text-align:center;
+          color: $white;text-align:center;
           h2{
                width: 100%;
                font-size: 21px;font-weight: 500;
@@ -40,8 +40,8 @@
                -webkit-line-clamp: 2;
                overflow: hidden;
           }
-          span,h2{filter: drop-shadow(0 0 5px #222);}
-          span svg{margin-right: 10px;color: #93F9B9;}
+          span,h2{filter: drop-shadow(0 0 5px $black);}
+          span svg{margin-right: 10px;color: $col2;}
      }
 }
 @media screen and (max-width: 500px){

@@ -44,7 +44,7 @@ export default function PostComment({data, session, postId, users, currUser}){
      return <div className="comment">
           <Link href={`/users/${data.name}`}><Image src={data.image} alt="account profile" className="comment-pfp" width={64} height={64}/></Link>
           {editMode ? <form className="editForm" onSubmit={applyEdit}>
-               <input type="text" name="comment" placeholder="Add Comment" value={newComment} onChange={e=>setNewComment(e.target.value)}/>
+               <textarea name="comment" placeholder="Add Comment" value={newComment} onChange={e=>setNewComment(e.target.value)}/>
                {newComment!=='' && <div className="options">
                     <button type="button" onClick={cancelEdit} className="btn cancel">Cancel</button>
                     <button type='submit' disabled={load || newComment===data.comment} className="btn">{load?"Loading...":"Apply Changes"}</button>

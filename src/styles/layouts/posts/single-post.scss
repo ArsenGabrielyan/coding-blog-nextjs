@@ -1,6 +1,7 @@
-.single-post{border-radius: 10px;
+.single-post{
+     border-radius: 10px;
      padding: 12px;
-     background: #fff;
+     background: $white;
      &,&-user{text-align: center;justify-content: center;}
      &,&-header,&-body{width: 100%;}
      &,&-container,&-user{
@@ -17,7 +18,7 @@
           font-size: 36px;
           font-weight: 500;
           padding: 10px;
-          border-bottom: 2px solid #146347;
+          border-bottom: 2px solid $col4;
      }
      &-header{
           position: relative;
@@ -45,22 +46,22 @@
                h2.md-h1{font-size: 32px;}
                h2,h3,h4,h5,h6{font-weight: 600;}
                ol,ul{margin-left: 20px;}
-               code,pre{background: #eee;border-radius: 5px;font-family: 'Courier New', Courier, monospace, 'Lucida Console';padding: 3px;}
+               code,pre{background: $moreLightGrey;border-radius: 5px;font-family: 'Courier New', Courier, monospace, 'Lucida Console';padding: 3px;}
                code{font-weight: 550;}
                pre,img{width: 100%;}
                pre{&:has(div),code{background: none;}}
                blockquote{
-                    color: #808080;
+                    color: $medGrey;
                     font-size: 16px;
                     padding-left: 10px;
-                    border-left: 3px solid #bbb;
+                    border-left: 3px solid $mlg3;
                }
                img{height: 100%;}
                a{
-                    color: #146347;
+                    color: $col4;
                     font-weight: 500;
                     transition: .3s;
-                    &:hover{color: #888;}
+                    &:hover{color: $medGrey;}
                }
           }
           .details{
@@ -71,10 +72,10 @@
                &-upper{
                     span{
                          width: 100%;margin: 5px;font-size: 20px;
-                         svg{margin-right: 10px;color: #146347;}
+                         svg{margin-right: 10px;color: $col4;}
                          img{border-radius: 50%;margin-right: 10px;}
                          a{
-                              color: #204829;
+                              color: $col1;
                               text-decoration: none;
                               &:hover,&:focus{text-decoration: underline;}
                          }
@@ -86,10 +87,10 @@
                     margin-top: 8px;
                     span{
                          margin: 5px 10px;font-size: 18px;
-                         color: #146347;transition:.3s;
+                         color: $col4;transition:.3s;
                          cursor: pointer;
                          &:hover,&:focus{opacity: .6;}
-                         &.active{color: #01a86e}
+                         &.active{color: $col7}
                     }
                     &.edit-mode span{
                          cursor: auto;

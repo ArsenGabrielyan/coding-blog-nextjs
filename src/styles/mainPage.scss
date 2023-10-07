@@ -6,10 +6,13 @@
      display: grid;
      position: relative;
      grid-template-columns: repeat(2,50%);
-     @import "../layouts/widget.scss";
+     @import "./layouts/widget.scss";
 }
 .siteMain{padding: 10px 50px;}
-.single-post-main{padding: 10px 20px;}
+.single-post-main{
+     padding: 10px 20px;
+     &.full{grid-template-columns: 100%;}
+}
 @media screen and (max-width: 900px){
      .siteMain,.single-post-main{
           padding: 10px;

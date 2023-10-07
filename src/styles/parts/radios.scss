@@ -11,18 +11,17 @@
                width: 170px;
                height: 64px;
                appearance: none;
-               background: #93F9B9;
+               background: $col2;
                &:checked{
-                    background: #1D976C;
-                    & + .radioIcon{color: #fff;}
+                    background: $col3;
+                    & + .radioIcon{color: $white;}
                }
           }
           .radio1{border-radius: 10px 0 0 10px;}
           .radio2{border-radius: 0 10px 10px 0;}
           .radioIcon{
                position: absolute;
-               top: 0;
-               left: 0;
+               top: 0;left: 0;
                width: 170px;
                height: 64px;
                display: flex;

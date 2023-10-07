@@ -1,13 +1,13 @@
 .list-nav{
      width: 100%;
      text-align: center;
-     background: #fff;
+     background: $white;
      padding: 5px 0 0 0;
      box-shadow: 0 5px 25px rgba(255,255,255,.5);
      h1{
           font-weight: 600;
           font-size: 27.5px;
-          color: #146347;
+          color: $col4;
           word-wrap: break-word;
      }
      &-links,&-options{
@@ -21,22 +21,22 @@
      }
      &-links a{
           border-bottom: 2px solid transparent;
-          text-decoration: none;font-size: 21px;color: #aaa;
-          &:hover,&:focus{border-color: #aaa;}
-          &.active{color: #146347;border-color: #146347;}
+          text-decoration: none;font-size: 21px;color: $grey;
+          &:hover,&:focus{border-color: $grey;}
+          &.active{color: $col4;border-color: $col4;}
      }
      &-options{
-          background: #93F9B9;
+          background: $col2;
           padding-top: 5px;
           select{
                background: none;
-               border: solid #222;
+               border: solid $black;
                border-width: 0 0 2px 0;
                margin: 0 5px 5px;
                font-size: 16px;
                font-weight: 500;
-               &:hover{color: #808080;border-color: #808080;}
-               &:active,&:focus{color: #146347;border-color: #146347;}
+               &:hover{color: $medGrey;border-color: $medGrey;}
+               &:active,&:focus{color: $col4;border-color: $col4;}
           }
      }
 }

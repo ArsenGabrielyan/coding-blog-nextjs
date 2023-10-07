@@ -3,7 +3,7 @@
      z-index: 9999;
      justify-content: space-between;
      padding: 10px 20px;
-     transition: .3s ease-in-out all;background: #1D976C;
+     transition: .3s ease-in-out all;background: $col3;
      .logo{border-radius: 10px;box-shadow: 0 0 5px 5px rgba(255,255,255,.6);}
      &,.inner-content{display: flex;align-items: center;}
      .inner-content{
@@ -16,8 +16,8 @@
                border: none;
                cursor: pointer;
                font-size: 25px;
-               color: #fff;
-               &:hover,&:focus{color: #93F9B9;}
+               color: $white;
+               &:hover,&:focus{color: $col2;}
                display: none;
           }
           .search{
@@ -30,19 +30,19 @@
                     border-radius: 75px;
                     padding-left: 30px;
                     background: none;font-size: 16px;
-                    color: #fff;outline: none;
-                    border: 2px solid #fff;
-                    &::placeholder{color: #93F9B9;}
-                    &:focus{border-color: #93F9B9;& ~ .icon{color: #93F9B9;}}
+                    color: $white;outline: none;
+                    border: 2px solid $white;
+                    &::placeholder{color: $col2;}
+                    &:focus{border-color: $col2;& ~ .icon{color: $col2;}}
                }
-               .icon{position: absolute;color: #fff;top: 12px;left: 10px;}
+               .icon{position: absolute;color: $white;top: 12px;left: 10px;}
                button{
                     position: absolute;
                     top: 9px;right: 10px;
                     font-size: 24px;background: none;
                     border: none;outline: none;
-                    cursor: pointer;color: #fff;
-                    &:hover,&:focus{color: #93F9B9;}
+                    cursor: pointer;color: $white;
+                    &:hover,&:focus{color: $col2;}
                }
           }
      }
@@ -60,7 +60,7 @@
           }
           .menu,.notifMenu{
                position: absolute;
-               background: #167051;
+               background: $col6;
                top: 100%;right: 0;
                width: 250px;padding: 10px;
                margin-top: 15px;border-radius: 10px;
@@ -73,27 +73,27 @@
                          padding: 3px 10px;
                          justify-content: flex-start;
                          &,a{width: 100%;}
-                         svg{color: #93F9B9;font-size: 25px;}
+                         svg{color: $col2;font-size: 25px;}
                          a{
                               outline: none;
                               padding: 0.5em 1em;transition: .3s;
-                              text-decoration: none;color: #fff;
+                              text-decoration: none;color: $white;
                               &:hover,&:focus{
                                    background: none;
-                                   color: #93F9B9;
+                                   color: $col2;
                                    text-decoration: underline;
                               }
                          }
                     }
                }
                .full-name,.notifTitle{font-size: 21px;font-weight: 500;}
-               .username,.notifEmpty{color: #93F9B9;}
-               span{color: #fff;}
+               .username,.notifEmpty{color: $col2;}
+               span{color: $white;}
                text-align: center;
                &::before{
                     content: '';position: absolute;
                     width: 20px;height: 20px;
-                    background: #167051;
+                    background: $col6;
                     top: -5px;right: 22.5px;
                     transform: rotate(45deg);
                }
@@ -125,7 +125,7 @@
                     position: absolute;
                     width: 100%;top: 0;left: 0;
                     .searchBtn{display: none;}
-                    background: #1D976C;
+                    background: $col3;
                     z-index: 99999;
                     .search{display: block;}
                }

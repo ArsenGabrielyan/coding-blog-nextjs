@@ -15,6 +15,12 @@ const nextConfig = {
                     hostname: 'platform-lookaside.fbsbx.com',
                     port: '',
                     pathname: '/platform/**'
+               },
+               {
+                    protocol: 'https',
+                    hostname: 'avatars.githubusercontent.com',
+                    port: '',
+                    pathname: '/u/**'
                }
           ]
      }

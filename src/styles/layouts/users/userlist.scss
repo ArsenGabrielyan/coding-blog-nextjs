@@ -10,12 +10,12 @@
           justify-content: center;
      }
      flex-direction: column;
-     background: #fff;
+     background: $white;
      box-shadow: 0 5px 25px rgba(255,255,255,.3);
      border-radius: 15px;
      padding: 20px;margin: 0 12px 12px;
      width: 100%;max-width: 365px;
-     cursor: pointer;text-align: center;
+     text-align: center;
      .pfp{
           width: 178px;height: 175px;
           position: relative;
@@ -37,7 +37,7 @@
                margin-top: 7.5px;
                justify-content: space-between;
                align-items: center;
-               button{
+               button,a{
                     width: 100%;
                     margin-right: 10px;
                     &:last-child{margin-right: 0;}

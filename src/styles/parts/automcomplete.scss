@@ -8,18 +8,18 @@
      overflow-y: scroll;text-align: left;
      &::-webkit-scrollbar{width: 20px;}
      &::-webkit-scrollbar-thumb{
-          background: #777;
-          border: 5px solid #fff;
+          background: $midDarkGrey;
+          border: 5px solid $white;
           border-radius: 75px;
      }
      &,li{width: 100%;}
      li{
           padding: 10px;
           margin: 5px 0;
-          background: #fff;
-          border: 2px solid #aaa;
+          background: $white;
+          border: 2px solid $grey;
           border-radius: 10px;
-          color: #777;
+          color: $midDarkGrey;
           cursor: pointer;
      }
 }

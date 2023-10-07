@@ -6,7 +6,7 @@
      padding: 5px;
      &,.widget{display: flex;align-items: center;width: 100%;}
      .widget{
-          background: #fff;
+          background: $white;
           box-shadow: 0 5px 25px rgba(255,255,255,.33);padding: 12px;
           max-width: 450px;
           margin-bottom: 10px;border-radius: 10px; 
@@ -15,7 +15,7 @@
                font-weight: 550;
                padding-bottom: 5px;
                margin-top: 5px;
-               border-bottom: 2px solid #1D976C;
+               border-bottom: 2px solid $col3;
                width: 100%;
           }
           &,ul{flex-direction: column;}
@@ -33,12 +33,12 @@
                     margin: 3px;
                     a{
                          transition: .3s;
-                         color: #204829;
+                         color: $col1;
                          text-decoration: none;
                          border-radius: 10px;
-                         background: #93F9B9;
+                         background: $col2;
                          padding: 0.5em;
-                         &:hover{background: #204829;color:#93F9B9}
+                         &:hover{background: $col1;color:$col2}
                     }
                }
           }
@@ -47,7 +47,7 @@
                cursor: pointer;
                padding: 10px;
                &-img{
-                    width: 100px;height: 100px;position: relative;
+                    width: 85px;height: 85px;position: relative;
                     aspect-ratio: 1/1;margin-right: 10px;
                     img{
                          border-radius: 10px;
@@ -70,12 +70,21 @@
                          -webkit-line-clamp: 2;
                     }
                }
-               border-bottom: 1px solid #ddd;
+               border-bottom: 1px solid $lightGrey;
                &:last-child{border: 0;}
           }
      }
-     .time{font-size: 40px;}
-     .date{font-size: 20px;}
+     .blog-links{
+          justify-content: center;
+          flex-direction: row!important;
+          li{
+               margin: 10px 3px 0;
+               width: 100%;
+               a{width: inherit; font-size: 25px;}
+          }
+     }
+     .time{font-size: 32px;}
+     .date{font-size: 16px;}
 }
 @media screen and (max-width: 900px){.widgets{height: 100%;min-height: 100%;}}
 @media screen and (max-width: 500px){

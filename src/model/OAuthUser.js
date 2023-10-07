@@ -15,7 +15,8 @@ const oAuthSchema = new Schema({
      details: {
           likedPosts: [String],
           likedComments: [String],
-          savedPosts: [String]
+          savedPosts: [String],
+          followingUsers: [String]
      },
      otherData: {
           displayName: {type:String,default:''},

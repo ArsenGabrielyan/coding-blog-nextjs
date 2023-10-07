@@ -3,9 +3,9 @@
      display: flex;
      justify-content: center;
      align-items: center;
-     background: #1D976C; 
-     background: -webkit-linear-gradient(to right, #93F9B9, #1D976C); 
-     background: linear-gradient(to right, #93F9B9, #1D976C);
+     background: $col3; 
+     background: -webkit-linear-gradient(to right, $col2, $col3); 
+     background: linear-gradient(to right, $col2, $col3);
      padding: 10px;
      form{
           .frmGroup,.options{display: flex;}
@@ -16,13 +16,13 @@
           }
           &,.frmGroup,.error,.options{width: 100%;}
           max-width: 420px;
-          background: #fff;
+          background: $white;
           padding: 30px 40px;
           border-radius: 10px;
           box-shadow: 0 5px 25px rgba(0,0,0,.2);
           .error{
-               background: #dc3545;
-               color: #fff;
+               background: $error;
+               color: $white;
                padding: 0.5em;
                margin: 15px 0 5px;
                font-size: 18px;
@@ -38,10 +38,10 @@
                     border-radius: 75px;
                     padding: 1em;
                     font-size: 16px;
-                    border: 2px solid #aaa;
+                    border: 2px solid $grey;
                     outline: none;
                     transition: .3s ease-in-out all;
-                    &:focus{border-color: #1D976C;}
+                    &:focus{border-color: $col3;}
                }
                label{
                     transition: .3s all ease-in-out;
@@ -50,10 +50,10 @@
                     user-select: none;
                     left: 20px;
                     font-size: 16.5px;
-                    color: #888;
+                    color: $medGrey;
                     padding: 0 5px;
                     top: -10px;
-                    background: #fff;
+                    background: $white;
                }
                .icon{
                     transition: .3s all ease-in-out;
@@ -61,14 +61,14 @@
                     font-size: 24px;
                     top: 8px;
                     right: 12px;
-                    color: #888;
+                    color: $medGrey;
                     pointer-events: none;
                     user-select: none;
                     padding: 2px;
                }
                &:focus-within{
-                    label{color: #1D976C;}
-                    .icon{color: #1D976C;}
+                    label{color: $col3;}
+                    .icon{color: $col3;}
                }
                @import "../parts/radios.scss";
                @import "../parts/automcomplete.scss";
@@ -80,7 +80,7 @@
      }
      a,.gap,.steps,.stepBtns{width: 100%;}
      a{
-          color: #1D976C;
+          color: $col3;
           font-weight: 550;
           text-decoration: none;
           margin: 3px 0;
@@ -90,7 +90,7 @@
      .gap{
           display: inline-block;
           height: 2px !important;
-          background: #aaa;
+          background: $grey;
           margin-bottom: 5px;
      }
      h2{
@@ -106,26 +106,26 @@
           position: relative;
           .circle{
                width: 48px;height: 48px;
-               display: flex;color: #aaa;
+               display: flex;color: $grey;
                justify-content: center;
                align-items: center;z-index: 1;
-               font-size: 21px;background: #fff;
+               font-size: 21px;background: $white;
                font-weight: 500;
                border-radius: 50%;
-               border: 4px solid #aaa;
-               &.active{border-color: #1D976C;color: #1D976C;}
+               border: 4px solid $grey;
+               &.active{border-color: $col3;color: $col3;}
           }
           .progress-bar{
                position: absolute;
                height: 4px;
                width: 99.5%;
-               background: #aaa;
+               background: $grey;
                z-index: 0;
                .indicator{
                     position: absolute;
                     height: 100%;
                     width: 10%;
-                    background: #1D976C;
+                    background: $col3;
                }
           }
      }

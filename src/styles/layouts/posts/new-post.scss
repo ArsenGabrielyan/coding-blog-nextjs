@@ -7,9 +7,9 @@
           align-items: center; 
      }
      .options, .title, .signIn, .frmNewPost, .results{
-          background: #146347;
+          background: $col4;
           width: 100%;
-          color: #fff;
+          color: $white;
      }
      .title{border-radius: 10px 10px 0 0;}
      .title, .signIn{
@@ -27,19 +27,19 @@
           button{
                padding: 0.5em 1em;
                font-size: 20px;
-               background: #146347;
+               background: $col4;
                border: solid transparent;
                border-width: 0 0 2px 0;
-               color: #fff;
+               color: $white;
                cursor: pointer;
                transition: .3s;
                &:hover,&:focus,&.active{
-                    color: #93F9B9;
-                    border-color: #93F9B9;
+                    color: $col2;
+                    border-color: $col2;
                }
                &:disabled{
-                    color: #aaa;
-                    border-color: #aaa;
+                    color: $grey;
+                    border-color: $grey;
                     cursor: auto;
                     user-select: none;
                     pointer-events: none;
@@ -54,7 +54,7 @@
           min-height: 100%;
      }
      .results{
-          color: #222;
+          color: $black;
           .title{padding: 0;padding-bottom: 10px;}
           &-single-post{
                width: 100%;
@@ -72,7 +72,7 @@
           .frmErr{
                display: flex;
                align-items: center;
-               background: #dc3545;
+               background: $error;
                font-size: 18px;
                padding: 10px;
                border-radius: 10px;
@@ -87,7 +87,7 @@
                label{
                     position: absolute;
                     padding: 0 5px;
-                    background: #146347;
+                    background: $col4;
                     top: -5px;
                     left: 10px;
                }
@@ -96,17 +96,17 @@
                     width: 100%;
                     padding: 0.5em;
                     font-size: 16px;
-                    border: 2px solid #fff;
+                    border: 2px solid $white;
                     border-radius: 10px;
                     background: none;
-                    color: #fff;
+                    color: $white;
                     outline: none;
                     margin: 5px 0;
-                    caret-color: #93F9B9;
+                    caret-color: $col2;
                     transition: .3s;
-                    &::placeholder{color: #93F9B9cc;}
-                    &:focus{border-color: #93F9B9;}
-                    option{color: #222;}
+                    &::placeholder{color: $transpCol1;}
+                    &:focus{border-color: $col2;}
+                    option{color: $black;}
                }
                select{padding: 0.45em 0.5em;}
           }
@@ -121,8 +121,8 @@
                display: flex;
                align-items: center;
                button{
-                    border-radius: 0;color: #fff;
-                    border: solid white;
+                    border-radius: 0;color: $white;
+                    border: solid $white;
                     border-width: 2px 2px 2px 0;
                     &:first-child{
                          border-left-width: 2px;
@@ -133,8 +133,8 @@
                          border-right-width: 2px;
                     }
                     &:hover,&:focus,&.active{
-                         border-color: #93F9B9;
-                         color: #93F9B9;
+                         border-color: $col2;
+                         color: $col2;
                     }
                }
           }
@@ -142,7 +142,7 @@
                margin-top: 8px;width: 100%;
                font-weight: 500;font-size: 16px;
                padding: 10px;border-radius: 10px;
-               background: #93F9B9;color: #146347;
+               background: $col2;color: $col4;
                svg{font-size: 18px;margin-right: 5px;}
           }
           .btns{
@@ -164,9 +164,9 @@
                     cursor: pointer;
                     font-size: 20px;
                     padding: 0.5em;
-                    color: #fff;
-                    border: 2px dashed #fff;
-                    background: #146347;
+                    color: $white;
+                    border: 2px dashed $white;
+                    background: $col4;
                     outline: none;
                     margin-right: 6px;
                     transition: .3s;
@@ -174,12 +174,12 @@
                     &:nth-child(2){margin-right: 0;}
                     border-radius: 10px;
                     &:hover,&:focus{
-                         border-color: #93F9B9;
-                         color: #93F9B9;
+                         border-color: $col2;
+                         color: $col2;
                     }
                }
           }
-          .tagTitle{font-weight: 500;width: 100%;color: #93F9B9;}
+          .tagTitle{font-weight: 500;width: 100%;color: $col2;}
           .tagList{
                &,li,li button{
                     display: flex;
@@ -191,8 +191,8 @@
                width: 100%;margin-bottom: 5px;
                li{
                     &,button{justify-content: center;}
-                    background: #93F9B9;
-                    color: #146347;
+                    background: $col2;
+                    color: $col4;
                     font-size: 18px;
                     margin: 4px 0;
                     margin-right: 4px;
@@ -207,7 +207,7 @@
                          border: none;
                          outline: none;
                          margin-left: 5px;
-                         color: #146347;
+                         color: $col4;
                          cursor: pointer;
                          transition: .3s;
                          &:hover,&:focus{opacity: .75;}
@@ -217,7 +217,7 @@
           .btnTags, .hint{align-self: flex-start;}
           .hint{
                margin-bottom: 5px;
-               color: #93F9B9;
+               color: $col2;
           }
      }
 }

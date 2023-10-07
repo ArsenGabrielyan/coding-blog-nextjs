@@ -2,6 +2,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook"
+import GithubProvider from "next-auth/providers/github"
 import clientPromise from "./mongodb";
 import bcrypt from "bcrypt";
 import connectDB from "./connectDb";
@@ -37,6 +38,10 @@ export const nextAuthOptions = {
                clientId: process.env.FACEBOOK_ID,
                clientSecret: process.env.FACEBOOK_SECRET
           }),
+          GithubProvider({
+               clientId: process.env.GITHUB_ID,
+               clientSecret: process.env.GITHUB_SECRET
+          })
      ],
      adapter: MongoDBAdapter(clientPromise),
      session: {strategy: "jwt"},

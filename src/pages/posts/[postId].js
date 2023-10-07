@@ -3,47 +3,51 @@ import PostComment from "@/components/layout/post/comments/PostComment";
 import PostCommentContainer from "@/components/layout/post/comments/PostCommentContainer";
 import Widget from "@/layout/widgets/Widget";
 import PostWidget from "@/components/layout/widgets/Post-Widget";
+import Link from "next/link"; import Image from "next/image";
+import connectDB from "@/lib/connectDb";
+import Post from "@/model/Post";
+import Head from "next/head";
+import axios from "axios";
+import User from "@/model/CredentialsUser";
+import useInView from "@/lib/hooks/use-in-view";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-icons/fa";
 import { MdMoreHoriz } from "react-icons/md";
-import connectDB from "@/lib/connectDb";
-import Post from "@/model/Post";
 import { MarkdownContent } from "@/constants/markdown-options";
-import Head from "next/head";
-import axios from "axios";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import User from "@/model/CredentialsUser";
 import { serializeObject } from "@/constants/functions";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
-import useInView from "@/lib/hooks/use-in-view";
 
 export default function NewPost({post, author, users, likeCount, relatedPosts}){
      const router = useRouter(), {data, status} = useSession();
+     const [limit, setLimit] = useState(POST_COMMENT_LIMIT)
+     const {viewRef, inView} = useInView();
      const currUser = users.find(val=>val.email===data?.user.email)
      const isCurrUser = data?.user.email===post.email;
-     const [limit, setLimit] = useState(POST_COMMENT_LIMIT)
+     const isLiked=currUser?.details.likedPosts.includes(post.post_id);
+     const isSaved=currUser?.details.savedPosts.includes(post.post_id);
+     const isFollowed=currUser?.details.followingUsers.includes(author.user_id);
+     useEffect(()=>{
+          if(inView && limit!==post.comments.length) setLimit(limit+2);//eslint-disable-next-line
+     },[inView])
      const deletePost = async()=>{
           if(confirm('Are You Sure to Delete That Post?')){
                const res = await axios.delete(`/api/postEditor/${post.post_id}`,REQ_CONFIG);
                if(res.status===200) router.push(`/users/${data?.user.username}`)
           }
      }
-     const likePost = async()=>{
-          const res = await axios.patch('/api/postEditor',{type:'like',email:data?.user.email,id:post.post_id});
-          if(res.status===200) router.reload();
+     const clickOn = async(type)=>{
+          if(status==='authenticated') {
+               const res = await axios.patch('/api/postEditor',{type:type==='like'?'like':'save',email:data?.user.email,id:post.post_id});
+               if(res.status===200) router.reload();
+          } else router.replace('/auth/signin')
      }
-     const {viewRef, inView} = useInView();
-     useEffect(()=>{
-          if(inView && limit!==post.comments.length) setLimit(limit+2);//eslint-disable-next-line
-     },[inView])
      return <>
      <Head><title>{post.title}</title></Head>
      <Layout>
-     <main className="single-post-main">
+     <main className={`single-post-main ${relatedPosts.filter(val=>val.post_id!==post.post_id).length?'':'full'}`}>
           <section className="single-post-container">
                <div className="single-post">
                     <div className="single-post-header">
@@ -64,11 +68,11 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
                          </div>
                          <div className="details-lower">
                               <div>
-                                   <span title={currUser?.details.likedPosts.includes(post.post_id)?'Unlike':"Like"} className={currUser?.details.likedPosts.includes(post.post_id)?'active':""} onClick={likePost}><FaThumbsUp/> {likeCount}</span>
+                                   <span title={isLiked?'Unlike':"Like"} className={isLiked?'active':""} onClick={()=>clickOn('like')}><FaThumbsUp/> {likeCount}</span>
                                    <span title="Comment" onClick={()=>router.push('#comment')}><FaComment/> {post.comments.length}</span>
                               </div>
                               <div>
-                                   <span title="Save to Reading List"><FaBookmark/></span>
+                                   <span className={isSaved?'active':""} title={isSaved?'Remove From Reading List':"Save to Reading List"} onClick={()=>clickOn('save')}><FaBookmark/></span>
                                    <span title="Share"><FaShare/></span>
                               </div>
                          </div>
@@ -84,7 +88,7 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
                               <button className="btn">Manage Posts</button>
                               <button className="btn">Analytics</button>
                          </> : <>
-                              <button className="btn">Follow</button>
+                              <button className="btn">{isFollowed?'Unfollow':'Follow'}</button>
                               <button className="btn">About</button>
                               <button className="btn-icon" title="More"><MdMoreHoriz/></button>
                          </>}
@@ -95,13 +99,13 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
                     <span ref={viewRef}/>
                </PostCommentContainer>
           </section>
-          <aside className="widgets">
+          {!!relatedPosts.filter(val=>val.post_id!==post.post_id).length && <aside className="widgets">
                <Widget title="Related Posts">
                     <ul className="w-posts">
                          {relatedPosts.map(rPost=>rPost.post_id!==post.post_id && <PostWidget key={rPost.post_id} data={rPost}/>)}
                     </ul>
                </Widget>
-          </aside>
+          </aside>}
      </main>
      </Layout>
      </>
@@ -114,8 +118,8 @@ export async function getStaticPaths(){
           fallback: 'blocking'
      }
 }
-export async function getStaticProps(ctx){
-     const {postId} = ctx.params;
+export async function getStaticProps({params}){
+     const {postId} = params;
      await connectDB();
      const post = await Post.findOne({post_id: postId}),
      user = await User.find();

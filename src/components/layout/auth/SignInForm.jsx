@@ -2,7 +2,7 @@ import { LOGIN_INITIAL } from "@/constants/forms/formData";
 import { emailReg, passReg } from "@/constants/forms/regexp";
 import Link from "next/link";
 import { useState } from "react";
-import { FaFacebook, FaGoogle, FaUser } from "react-icons/fa";
+import { FaFacebook, FaGoogle, FaUser, FaGithub } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
 import {useSearchParams, useRouter} from "next/navigation";
 import { MdLock } from "react-icons/md";
@@ -61,6 +61,7 @@ export default function SignInForm(){
           <div className="providers">
                <button type="button" className="frmBtn-icon" onClick={()=>signIn('google')} title="Continue With Google"><FaGoogle/></button>
                <button type="button" className="frmBtn-icon" onClick={()=>signIn('facebook')} title="Continue With Facebook"><FaFacebook/></button>
+               <button type="button" className="frmBtn-icon" onClick={()=>signIn('github')} title="Continue With Github"><FaGithub/></button>
           </div>
           <p className="txt">Don&apos;t have an Account? <Link href='/auth/signup'>Sign Up</Link></p>
      </form>

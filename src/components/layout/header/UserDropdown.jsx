@@ -1,8 +1,8 @@
 import { signOut } from "next-auth/react"
 import Image from "next/image"; import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
-import {FaUser,FaQuestionCircle} from "react-icons/fa"
-import {MdSettings,MdLogout,MdNotifications,MdDashboard,MdPostAdd} from "react-icons/md"
+import {FaUser} from "react-icons/fa"
+import {MdSettings,MdLogout,MdNotifications,MdDashboard,MdPostAdd, MdBookmark, MdHelp} from "react-icons/md"
 
 export default function UserDropdown({user}){
      const [toggle, setToggle] = useState({pfp: false, notif: false})
@@ -13,7 +13,6 @@ export default function UserDropdown({user}){
                if(!notifRef.current?.contains(e.target)) setToggle({...toggle, notif: false});
           },true)//eslint-disable-next-line
      },[]);
-     
      const updateToggle = type => {
           switch(type){
                case 'pfp':
@@ -38,9 +37,10 @@ export default function UserDropdown({user}){
                <ul>
                     <li><FaUser/><Link href={`/users/${user?.id || user?.username}`}>Your Profile</Link></li>
                     <li><MdPostAdd/><Link href='/postEditor'>Create a Post</Link></li>
+                    <li><MdBookmark/><Link href='/saved'>Saved Posts</Link></li>
                     <li><MdDashboard/><Link href='#'>Dashboard</Link></li>
                     <li><MdSettings/><Link href='#'>Settings</Link></li>
-                    <li><FaQuestionCircle/><Link href='#'>Help and Feedback</Link></li>
+                    <li><MdHelp/><Link href='#'>Help and Feedback</Link></li>
                     <li><MdLogout/><Link href='#' onClick={async()=>await signOut()}>Sign Out</Link></li>
                </ul>
           </div>

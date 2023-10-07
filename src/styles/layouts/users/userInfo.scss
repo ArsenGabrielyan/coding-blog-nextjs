@@ -10,7 +10,7 @@
      .header, .userPosts{border-radius: 10px;}
      .header{
           padding: 12px 10px;
-          background: #fff;
+          background: $white;
           img{
                border-radius: 50%;
                margin-right: 36px;
@@ -20,7 +20,7 @@
           .details{
                flex-direction: column;
                h1{font-weight: 550;}
-               .userName{font-size: 21.5px;color: #777;}
+               .userName{font-size: 21.5px;color: $midDarkGrey;}
                &, .stats, .options{
                     display: flex;
                     justify-content: center;
@@ -38,15 +38,7 @@
                .options button{margin: 0 5px;}
           }
      }
-     .userPosts{
-          h2{
-               font-size: 27px;
-               font-weight: 500;
-               color: #444;
-               font-style: italic;
-               margin-top: 10px;
-          }
-     }
+     .userPosts h2{font-size: 27px;}
 }
 @media screen and (max-width: 900px){
      .userProfile .header img{
@@ -66,7 +58,6 @@
                .bio{margin-bottom: 5px;}
           }
      }
-     .posts .empty{font-size: 25px;}
 }
 @media screen and (max-width: 400px){
      .userProfile .header .details .stats span{font-size: 16px;}

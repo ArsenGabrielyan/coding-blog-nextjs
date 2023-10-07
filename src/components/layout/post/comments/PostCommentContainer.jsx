@@ -29,7 +29,7 @@ export default function PostCommentContainer({session, children, postId, router}
                     {session.currUser || session.status==='authenticated' ? <>
                     <Image src={session.currUser?.image || "/images/defaultPfp.webp"} alt="account profile" className="pfp" width={72} height={72}/>
                     <div className="fields">
-                         <input type="text" name="comment" placeholder="Add Comment" value={comment} onChange={e=>setComment(e.target.value)}/>
+                         <textarea name="comment" placeholder="Add Comment" value={comment} onChange={e=>setComment(e.target.value)}/>
                          {comment!=='' && <div className="options">
                          <button type="button" onClick={()=>setComment('')} className="btn cancel">Cancel</button>
                          <button type='submit' disabled={loading} className="btn">{loading?"Loading...":"Add Comment"}</button>

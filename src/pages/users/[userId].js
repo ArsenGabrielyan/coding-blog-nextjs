@@ -9,14 +9,17 @@ import Head from "next/head";
 import Image from "next/image"
 import { useState } from "react";
 import { MdMoreHoriz } from "react-icons/md";
-import { serializeObject } from "@/constants/functions";
+import { followUnfollow, serializeObject } from "@/constants/functions";
+import { useRouter } from "next/navigation";
 
-export default function UserProfile({user, posts, postCount}){
-     const {data} = useSession();
+export default function UserProfile({user, posts, postCount, followers, users}){
+     const {data, status} = useSession(), router = useRouter();
      const [userModal, setUserModal] = useState(false);
      const isCurrUser = data?.user.email===user.email;
+     const currUser = users.find(val=>val.email===data?.user.email);
+     const isFollowed = currUser?.details?.followingUsers.includes(user.user_id);
      return <>
-     <Head><title>{`${user.name} at Edu-Articles`}</title></Head>
+     <Head><title>{`${user.username} at Edu-Articles`}</title></Head>
      <Layout>
      <div className="userProfile">
           <div className="header">
@@ -27,9 +30,9 @@ export default function UserProfile({user, posts, postCount}){
                     <div className="stats">
                          <span id="posts">{postCount} posts</span>
                          <span>&middot;</span>
-                         <span id="followers">0 followers</span>
+                         <span id="followers">{followers} followers</span>
                          <span>&middot;</span>
-                         <span id="following">0 following</span>
+                         <span id="following">{user.details.followingUsers.length} following</span>
                     </div>
                     <p className="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
                     <div className="options">
@@ -37,8 +40,8 @@ export default function UserProfile({user, posts, postCount}){
                               <button className="btn">Edit Profile</button>
                               <button className="btn">Manage Posts</button>
                               <button className="btn">Analytics</button>
-                         </> : <>
-                         <button className="btn">Follow</button>
+                         </> : <> 
+                         <button className="btn" onClick={()=>followUnfollow(status,data?.user.email,user.user_id,router)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>
                          <button className="btn">About</button>
                          </>}
                          <button className="btn-icon" title="Options" onClick={()=>setUserModal(true)}><MdMoreHoriz/></button>
@@ -79,6 +82,7 @@ export async function getStaticProps({params}){
      const {userId} = params;
      await connectDB()
      const user = await User.findOne({user_id: userId}) || await User.findOne({username: userId});
+     const users = await User.find();
      if(!user) return {notFound: true}
      else {
           const userInfo = {...user}._doc;
@@ -86,6 +90,12 @@ export async function getStaticProps({params}){
           delete userInfo._id;
           const postList = await Post.find({email: userInfo.email})
           const posts = await Post.find({email: userInfo.email});
-          return {props: {user: userInfo, posts: !posts ? [] : serializeObject(posts.sort((a,b)=>a?-1:b?1:0)), postCount: postList.length}}
+          return {props: {
+               user: userInfo,
+               posts: !posts ? [] : serializeObject(posts.sort((a,b)=>a?-1:b?1:0)),
+               postCount: postList.length,
+               followers: users?.filter(val=>val.details.followingUsers.includes(user.user_id)).length,
+               users: serializeObject(users)
+          }}
      }
 }

@@ -8,7 +8,7 @@
      background: rgba(0,0,0,.5);
      .modal{
           padding: 15px;
-          background-color: #fff;
+          background-color: $white;
           border-radius: 10px;
           &,.modal-content{flex-direction: column;}
           max-width: 450px;
@@ -35,9 +35,9 @@
                          cursor: pointer;
                          &:hover,&:focus{text-decoration: underline;}
                          padding-bottom: 10px;
-                         border-bottom: 1px solid #ccc;
+                         border-bottom: 1px solid $mlg2;
                          &:last-child{border: 0;padding: 0;}
-                         &.redTxt{color: #dc3545;font-weight: 600;}
+                         &.redTxt{color: $error;font-weight: 600;}
                     }
                }
                .modal-close{
@@ -48,9 +48,9 @@
                     cursor: pointer;
                     font-weight: 550;
                     padding-top: 10px;
-                    border-top: 1px solid #ccc;
+                    border-top: 1px solid $mlg2;
                     &:hover, &:focus{
-                         color: #204829;
+                         color: $col1;
                          text-decoration: underline;
                     }
                }

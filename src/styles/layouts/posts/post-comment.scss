@@ -9,28 +9,31 @@
      &,.comments,h2:not(.advice){width: 100%;}
      h2:not(.advice){
           padding: 0.25em;font-weight: 500;
-          border-bottom: 2px solid #146347;
+          border-bottom: 2px solid $col4;
           margin-bottom: 10px;font-size: 27px;
      }
-     .advice{font-weight: 500;color: #888;}
+     .advice{font-weight: 500;color: $medGrey;}
      .frmComments-container, .comments .comment{
-          background: #fff;
+          background: $white;
           border-radius: 10px;
           padding: 15px;width: 100%;
      }
      .comments .comment .editForm, .frmComments-container .frmComments .fields{
           display: flex;align-items: center;
-          &,input{width: 100%;}
+          &,textarea{width: 100%;}
           height: 80px;
           flex-direction: column;
           align-items: flex-start;
-          input,button{border-radius: 75px;}
-          input{
+          textarea,button{border-radius: 75px;}
+          textarea{
+               resize: none;
+               min-height: 42px;
+               overflow: hidden;
                padding: 0.5em;
                margin-bottom: 3px;
-               border: 2px solid #aaa;
+               border: 2px solid $grey;
                font-size: 16px;outline:none;
-               &:focus{border-color: #146347;}
+               &:focus{border-color: $col4;}
           }
           .cancel{border-color: transparent;}
           .options{
@@ -57,8 +60,8 @@
                     h3{
                          font-size: 17.5px;
                          font-weight: 600;
-                         color: #204829;
-                         a{color: #204829;text-decoration: none;&:hover{text-decoration: underline;}}
+                         color: $col1;
+                         a{color: $col1;text-decoration: none;&:hover{text-decoration: underline;}}
                     }
                     p{font-size: 16px;word-wrap: break-word;margin: 5px 0;}
                }
@@ -67,30 +70,30 @@
                     align-items: center;
                     .comBtn{
                          margin-right: 5px;font-size: 16px;
-                         color: #204829;transition:.3s;cursor: pointer;
+                         color: $col1;transition:.3s;cursor: pointer;
                          &:hover,&:focus{opacity: .6;}
                          background: none;border: none;outline: none;
-                         &.active{color: #01a86e}
+                         &.active{color: $col7}
                     }
                     .com-opt{padding: 0.25em;border: none;}
                }
                &-options{
                     position: absolute;z-index: 10;
-                    background: #fff;left: 150px;
+                    background: $white;left: 150px;
                     padding: 5px;margin-left: 5px;
                     list-style: none;top: 72%;
                     border-radius: 0 5px 5px 5px;
-                    border: 2px solid #009661;
+                    border: 2px solid $col8;
                     li{
                          width: 100%;
                          justify-content: center;
-                         border: solid #ddd;
+                         border: solid $lightGrey;
                          border-width: 0 0 2px 0;
                          &,button{display: flex;align-items: center;}
                          button{
                               width: inherit;font-size: 18px;
                               padding: 3px;background: none;
-                              border: 0;color: #0e724f;
+                              border: 0;color: $col8;
                               cursor: pointer;
                               svg{margin-right: 5px;}
                               &:hover{opacity: .75;}

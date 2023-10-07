@@ -1,3 +1,5 @@
+import axios from "axios";
+import { REQ_CONFIG } from "./forms/formData";
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
      let newChar = '';
@@ -29,4 +31,10 @@ export const search = (val,q) => {
      val.username?.toLowerCase().includes(q.toLowerCase() ||
      val.keywords?.includes(q.toLowerCase())) ||
      val.otherData?.tags.includes(q.toLowerCase())
+}
+export const followUnfollow = async(status,email,userId,router)=>{
+     if(status==='authenticated'){
+          const res = await axios.patch('/api/userApi',{email, userId},REQ_CONFIG);
+          if(res.status===200) location.reload();
+     } else router.replace('/auth/signin')
 }

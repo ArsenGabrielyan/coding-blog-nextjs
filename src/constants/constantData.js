@@ -5,7 +5,6 @@ export const sortPostOptions = [
      {name: 'Relevance', value: 'default'},
      {name: 'Latest', value: 'latest'},
      {name: 'Oldest', value: 'oldest'},
-     {name: 'Most Popular', value: 'popular'},
      {name: 'Most Liked', value: 'liked'},
      {name: 'Name (A-Z)', value: 'name'},
      {name: 'Name (Z-A)', value: 'dName'},
