@@ -6,6 +6,7 @@ import { validateSignup } from "@/constants/forms/validators";
 import { signIn, useSession } from "next-auth/react";
 import {useRouter} from "next/navigation";
 import axios from "axios";
+import { MdError } from "react-icons/md";
 
 export default function SignUpForm(){
      const [signupData, setSignupData] = useState(REGISTER_INITIAL); 
@@ -49,8 +50,7 @@ export default function SignUpForm(){
                     <div className="indicator" style={{width: `${((currentIndex+1)/(steps.length))*100}%`}}></div>
                </div>
           </div>}
-          {err ? <><p className="error">{err}</p>
-          {step}</> : step}
+          {err ? <><p className="error"><MdError/>{err}</p>{step}</> : step}
           <div className="stepBtns">
                {!isFirst && <button type="button" className="frmBtn" onClick={back}>Back</button>}
                <button type="submit" className="frmBtn">{loaded ? 'Loading...' : isLast ? 'Sign Up' : 'Next'}</button>

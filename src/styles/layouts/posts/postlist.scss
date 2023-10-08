@@ -1,6 +1,6 @@
 .posts{
-     min-height: 100vh;padding: 5px;
-     justify-content: flex-start;
+     height: 100%;padding: 5px;
+     min-height: 100%;justify-content: flex-start;
      &,.post{
           width: 100%;display: flex;
           flex-direction: column;
@@ -65,8 +65,9 @@
           .post{max-width: 100%!important;margin: 0!important;}
      }
      &.small{
-          flex-direction: row;
-          align-items: flex-start;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: center;
           .post{
                padding: 12px;margin: 8px;
                max-width: 350px;
@@ -81,17 +82,6 @@
           align-items: center;
           flex-wrap: wrap;
           .post .blog-title{word-break: break-all;}
-     }
-}
-@media screen and (max-width: 900px){
-     .posts{
-          height: 100%;
-          min-height: 100%;
-          &.small{
-               flex-wrap: wrap;
-               align-items: center;
-               justify-content: center;
-          }
      }
 }
 @media screen and (max-width: 500px){

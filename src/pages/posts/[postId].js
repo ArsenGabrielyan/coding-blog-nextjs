@@ -28,7 +28,7 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
      const isCurrUser = data?.user.email===post.email;
      const isLiked=currUser?.details.likedPosts.includes(post.post_id);
      const isSaved=currUser?.details.savedPosts.includes(post.post_id);
-     const isFollowed=currUser?.details.followingUsers.includes(author.user_id);
+     const isFollowed=currUser?.details.followingUsers.includes(author?.user_id);
      useEffect(()=>{
           if(inView && limit!==post.comments.length) setLimit(limit+2);//eslint-disable-next-line
      },[inView])

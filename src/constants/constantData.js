@@ -1,11 +1,8 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
 export const sortPostOptions = [
      {name: 'Sort By'},
-     {name: 'Relevance', value: 'default'},
      {name: 'Latest', value: 'latest'},
      {name: 'Oldest', value: 'oldest'},
-     {name: 'Most Liked', value: 'liked'},
      {name: 'Name (A-Z)', value: 'name'},
      {name: 'Name (Z-A)', value: 'dName'},
 ]

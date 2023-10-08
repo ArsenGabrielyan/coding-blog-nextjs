@@ -2,20 +2,31 @@ import Layout from "@/components/Layout";
 import UserListItem from "@/components/layout/UserListItem";
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";
-import { useSession } from "next-auth/react";
 import ListNavbar from "@/components/ListNavbar";
 import Post from "@/model/Post";
+import Head from "next/head";
+import { useSession } from "next-auth/react";
 import { serializeObject } from "@/constants/functions";
+import { sortList } from "@/constants/functions";
+import { useState } from "react";
 
 export default function UserList({users}){
      const {data, status} = useSession();
      const currUser = users?.find(val=>val.email===data?.user.email);
-     return <Layout>
-          <ListNavbar userMode/>
+     const [options, setOptions] = useState({sortUser: 'default'})
+     const handleChangeOptions = e => setOptions({...options, [e.target.name]: e.target.value});
+     const userList = users.sort((a,b)=>sortList(a,b,'user',options));
+     return <>
+     <Head>
+          <title>Explore Users | Edu-Articles</title>
+     </Head>
+     <Layout>
+          <ListNavbar userMode options={options} handleChange={handleChangeOptions}/>
           {status!=='loading' && <section className="userlist">
-               {!users.length ? <h2>No User Found</h2> : users.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} isFollowed={currUser?.details?.followingUsers.includes(user.user_id)}/>)}
+               {!userList.length ? <h2 className="empty">No User Found</h2> : userList.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} isFollowed={currUser?.details?.followingUsers.includes(user.user_id)}/>)}
           </section>}
      </Layout>
+     </>
 }
 export async function getStaticProps(){
      await connectDB();

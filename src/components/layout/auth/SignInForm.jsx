@@ -2,15 +2,17 @@ import { LOGIN_INITIAL } from "@/constants/forms/formData";
 import { emailReg, passReg } from "@/constants/forms/regexp";
 import Link from "next/link";
 import { useState } from "react";
-import { FaFacebook, FaGoogle, FaUser, FaGithub } from "react-icons/fa";
+import { FaFacebook, FaGoogle, FaUser, FaGithub, FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
 import {useSearchParams, useRouter} from "next/navigation";
-import { MdLock } from "react-icons/md";
+import { MdError, MdLock } from "react-icons/md";
 
 export default function SignInForm(){
      const [data, setData] = useState(LOGIN_INITIAL);
      const [err, setErr] = useState('');
+     const [success, setSuccess] = useState('')
      const [loaded, setLoaded] = useState(false);
+     const [togglePass, setTogglePass] = useState(false)
      const query = useSearchParams(), router = useRouter();
      const {status} = useSession();
      const callbackUrl = query.get("callbackUrl") || "/";
@@ -32,18 +34,21 @@ export default function SignInForm(){
                     if(!res?.error) {
                          setErr('')
                          router.push(callbackUrl);
+                         setSuccess('Login Successful')
                          setData(LOGIN_INITIAL)
                     } else setErr(res.error);
                }
           } catch(err){
                setLoaded(false);
-               setErr(err.message)
+               setErr(err.message);
+               setSuccess('')
           }
      };
      if(status==='authenticated') router.push(callbackUrl)
      return <form onSubmit={handleSubmit}>
           <h1>Sign In</h1>
-          {err && <p className="error signin">{err}</p>}
+          {err && <p className="error signin"><MdError/>{err}</p>}
+          {success && <p className="success signin"><FaCheckCircle/>{success}</p>}
           <div className="frmGroup">
                <label htmlFor="email">Email Address</label>
                <input type="email" id='email' name="email" placeholder="name@example.com" value={data.email} onChange={handleChange}/>
@@ -51,7 +56,8 @@ export default function SignInForm(){
           </div>
           <div className="frmGroup">
                <label htmlFor="password">Password</label>
-               <input type="password" id="password" name="pass" value={data.pass} onChange={handleChange}/>
+               <button className="inputIcon" type="button" onClick={()=>setTogglePass(!togglePass)}>{!togglePass?<FaEye/>:<FaEyeSlash/>}</button>
+               <input type={togglePass?'text':"password"} id="password" name="pass" value={data.pass} onChange={handleChange}/>
                <div className="icon"><MdLock/></div>
           </div>
           <button type="submit" className="frmBtn signInBtn">{loaded ? "Loading..." : "Sign In"}</button>

@@ -7,11 +7,18 @@ import PostSearchElem from "@/components/layout/searchElem/PostSearch";
 import Post from "@/model/Post";
 import { useState } from "react";
 import { search, serializeObject } from "@/constants/functions";
+import Head from "next/head";
+import { useRouter } from "next/router";
    
 export default function Search({list, details, currUser}){
      const {data,status} = useSession();
+     const {query} = useRouter()
      const [selected, setSelected] = useState('all');
-     return <Layout>
+     return <>
+     <Head>
+          <title>{query.q} | Edu-Articles</title>
+     </Head>
+     <Layout>
           <h1 className="pageTitle">Search</h1>
           <div className="search-filter">
                <button className={selected==='all'?"active":''} onClick={()=>setSelected('all')}>All</button>
@@ -26,6 +33,7 @@ export default function Search({list, details, currUser}){
                {!list.length && <h2 className="notFound">Sorry, But No Results Found</h2>}
           </section>}
      </Layout>
+     </>
 }
 export async function getServerSideProps(ctx){
      await connectDB();

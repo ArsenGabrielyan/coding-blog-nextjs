@@ -25,7 +25,7 @@ export default function WidgetsFeature({recent}){
           </ul>
      </Widget>
      <Widget title="Categories">
-          <ul className="categories">{getCategories().map((category,i)=><li key={i}><Link href={`/categories/${category.value}`}>{category.name}</Link></li>)}</ul>
+          <ul className="categories">{getCategories().map((category,i)=><li key={i}><Link href={`/posts?category=${category.value}`}>{category.name}</Link></li>)}</ul>
      </Widget>
      {recent.length ? <Widget title="Recent Posts">
           <ul className="w-posts">

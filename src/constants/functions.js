@@ -1,5 +1,7 @@
 import axios from "axios";
 import { REQ_CONFIG } from "./forms/formData";
+import {createTransport} from "nodemailer";
+
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
      let newChar = '';
@@ -37,4 +39,57 @@ export const followUnfollow = async(status,email,userId,router)=>{
           const res = await axios.patch('/api/userApi',{email, userId},REQ_CONFIG);
           if(res.status===200) location.reload();
      } else router.replace('/auth/signin')
+}
+export const sendEmail = async(email,subject,text)=>{
+     const USER = process.env.BASE_EMAIL;
+     const transporter = createTransport({
+          service: 'gmail',
+          auth: {
+               user: USER,
+               pass: process.env.BASE_PASS
+          }
+     })
+     transporter.sendMail({
+          from: USER,
+          to: email,
+          subject,text
+     },(err,info)=>{
+          if(err) console.error("email didn't sent because of a following error: " + err);
+          else console.info(`email sent to ${email}: ${info.response}`)
+     });
+}
+export const sortList = (a,b,type,options)=>{
+     if(type==='post') switch(options.sortPost){
+          case 'name':
+               if(a.title>b.title) return 1;
+               if(a.title<b.title) return -1;
+               return 0;
+          case 'dName':
+               if(a.title>b.title) return -1;
+               if(a.title<b.title) return 1;
+               return 0;
+          case 'latest': return a?-1:b?1:0;
+          default: return a?1:b?-1:0;
+     } else switch(options.sortUser){
+          case 'followers':
+               if(a.followers>b.followers) return -1;
+               if(a.followers<b.followers) return 1;
+               return 0;
+          case 'dFollowers':
+               if(a.followers>b.followers) return 1;
+               if(a.followers<b.followers) return -1;
+               return 0;
+          case 'name':
+               if(a.name>b.name) return 1;
+               if(a.name<b.name) return -1;
+               return 0;
+          case 'dName':
+               if(a.name>b.name) return -1;
+               if(a.name<b.name) return 1;
+               return 0;
+          default:
+               if(a.user_id>b.user_id) return 1;
+               if(a.user_id<b.user_id) return -1;
+               return 0;
+     }
 }

@@ -20,15 +20,19 @@
           padding: 30px 40px;
           border-radius: 10px;
           box-shadow: 0 5px 25px rgba(0,0,0,.2);
-          .error{
-               background: $error;
-               color: $white;
+          .error, .success{
                padding: 0.5em;
                margin: 15px 0 5px;
                font-size: 18px;
                border-radius: 10px;
                &.signin{margin: 7.5px 0;}
+               color: $white;
+               display: flex;
+               align-items: center;
+               svg{margin-right: 10px;}
           }
+          .error{background: $error;}
+          .success{background: $col4;}
           .frmGroup{
                position: relative;
                margin-top: 15px;
@@ -36,7 +40,7 @@
                     width: 100%;
                     height: 50px;
                     border-radius: 75px;
-                    padding: 1em;
+                    padding: 1em 0 1em 2.75em;
                     font-size: 16px;
                     border: 2px solid $grey;
                     outline: none;
@@ -55,16 +59,25 @@
                     top: -10px;
                     background: $white;
                }
-               .icon{
+               .icon,.inputIcon{
                     transition: .3s all ease-in-out;
                     position: absolute;
                     font-size: 24px;
                     top: 8px;
-                    right: 12px;
                     color: $medGrey;
-                    pointer-events: none;
                     user-select: none;
                     padding: 2px;
+               }
+               .inputIcon{
+                    cursor: pointer;
+                    right: 12px;
+                    background: none;
+                    border: none;
+                    z-index: 10;
+               }
+               .icon{
+                    left: 12px;
+                    pointer-events: none;
                }
                &:focus-within{
                     label{color: $col3;}
