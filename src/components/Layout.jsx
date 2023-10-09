@@ -1,4 +1,4 @@
-import Header from "@/layout/header/Header";
+import Header from "@/components/header/Header";
 import Image from "next/image";
 
 export default function Layout({children}){

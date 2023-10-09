@@ -35,6 +35,14 @@ const nextConfig = {
                     pathname: '/u/**'
                }
           ]
-     }
+     },
+     async redirects() {
+          return [{
+              source: '/auth',
+              destination: '/auth/signin',
+              permanent: true,
+          }]
+     },
 }
+
 module.exports = nextConfig

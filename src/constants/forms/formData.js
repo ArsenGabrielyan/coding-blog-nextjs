@@ -1,6 +1,6 @@
-import PersonalDataForm from "@/components/signup-forms/BasicData"
-import BDateForm from "@/components/signup-forms/BirthDate"
-import FinalForm from "@/components/signup-forms/FinalForm";
+import PersonalDataForm from "@/components/forms/signup-forms/BasicData"
+import BDateForm from "@/components/forms/signup-forms/BirthDate"
+import FinalForm from "@/components/forms/signup-forms/FinalForm";
 
 export const INITIAL_SETTINGS = {
      displayName:'',

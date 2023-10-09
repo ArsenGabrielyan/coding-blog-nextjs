@@ -1,10 +1,10 @@
 import Layout from "@/components/Layout";
-import BlogPost from "@/components/layout/post/BlogPost";
-import PostsCarousel from "@/components/layout/BlogCarousel";
+import BlogPost from "@/components/postElem/BlogPost";
+import PostsCarousel from "@/components/features/posts-carousel";
 import connectDB from "@/lib/connectDb";
 import Post from "@/model/Post";
 import { serializeObject } from "@/constants/functions";
-import WidgetsFeature from "@/components/layout/widgets/WidgetFeature";
+import WidgetsFeature from "@/components/features/WidgetFeature";
 
 export default function Homepage({posts, recent}){
      return <Layout>

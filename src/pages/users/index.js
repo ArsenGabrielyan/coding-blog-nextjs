@@ -1,8 +1,8 @@
 import Layout from "@/components/Layout";
-import UserListItem from "@/components/layout/UserListItem";
+import UserListItem from "@/components/userElem/UserListItem";
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";
-import ListNavbar from "@/components/ListNavbar";
+import ListNavbar from "@/components/header/ListNavbar";
 import Post from "@/model/Post";
 import Head from "next/head";
 import { useSession } from "next-auth/react";

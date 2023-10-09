@@ -6,7 +6,7 @@
      display: grid;
      position: relative;
      grid-template-columns: repeat(2,50%);
-     @import "./layouts/widget.scss";
+     @import "./parts/widget.scss";
 }
 .siteMain{padding: 10px 50px;}
 .single-post-main{

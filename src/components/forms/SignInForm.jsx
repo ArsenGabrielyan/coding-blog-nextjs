@@ -2,10 +2,10 @@ import { LOGIN_INITIAL } from "@/constants/forms/formData";
 import { emailReg, passReg } from "@/constants/forms/regexp";
 import Link from "next/link";
 import { useState } from "react";
-import { FaFacebook, FaGoogle, FaUser, FaGithub, FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaFacebook, FaGoogle, FaGithub, FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
 import {useSearchParams, useRouter} from "next/navigation";
-import { MdError, MdLock } from "react-icons/md";
+import { MdError } from "react-icons/md";
 
 export default function SignInForm(){
      const [data, setData] = useState(LOGIN_INITIAL);
@@ -52,13 +52,11 @@ export default function SignInForm(){
           <div className="frmGroup">
                <label htmlFor="email">Email Address</label>
                <input type="email" id='email' name="email" placeholder="name@example.com" value={data.email} onChange={handleChange}/>
-               <div className="icon"><FaUser/></div>
           </div>
           <div className="frmGroup">
                <label htmlFor="password">Password</label>
                <button className="inputIcon" type="button" onClick={()=>setTogglePass(!togglePass)}>{!togglePass?<FaEye/>:<FaEyeSlash/>}</button>
                <input type={togglePass?'text':"password"} id="password" name="pass" value={data.pass} onChange={handleChange}/>
-               <div className="icon"><MdLock/></div>
           </div>
           <button type="submit" className="frmBtn signInBtn">{loaded ? "Loading..." : "Sign In"}</button>
           <Link href='/auth/reset-password' className="forgot">Forgot Your Password?</Link>

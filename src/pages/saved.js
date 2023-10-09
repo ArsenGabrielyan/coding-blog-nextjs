@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import BlogPost from "@/components/layout/post/BlogPost";
+import BlogPost from "@/components/postElem/BlogPost";
 import { serializeObject } from "@/constants/functions";
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";

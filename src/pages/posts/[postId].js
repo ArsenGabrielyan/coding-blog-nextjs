@@ -1,8 +1,8 @@
 import Layout from "@/components/Layout"
-import PostComment from "@/components/layout/post/comments/PostComment";
-import PostCommentContainer from "@/components/layout/post/comments/PostCommentContainer";
-import Widget from "@/layout/widgets/Widget";
-import PostWidget from "@/components/layout/widgets/Post-Widget";
+import PostComment from "@/components/comments/PostComment";
+import PostCommentContainer from "@/components/comments/PostCommentContainer";
+import Widget from "@/components/Widget";
+import PostWidget from "@/components/postElem/Post-Widget";
 import Link from "next/link"; import Image from "next/image";
 import connectDB from "@/lib/connectDb";
 import Post from "@/model/Post";

@@ -24,7 +24,7 @@ export default function SignUpForm(){
      const handleSubmit = async e => {
           e.preventDefault();
           try{
-               if(isLast && (validateSignup(signupData,setErr,`pg${currentIndex+1}`))){
+               if(isLast&& validateSignup(signupData,setErr,`pg${currentIndex+1}`)){
                     setLoaded(true);
                     const res = await axios.post('/api/signup',{signupData},REQ_CONFIG);
                     if(res?.status===200){

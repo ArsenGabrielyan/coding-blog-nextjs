@@ -1,4 +1,4 @@
-import PassResetEmail from "@/components/layout/auth/pass-reset/PassResetEmail";
+import PassResetEmail from "@/components/forms/PassResetEmail";
 import Head from "next/head";
 
 export default function ResetPass(){

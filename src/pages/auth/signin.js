@@ -1,4 +1,4 @@
-import SignInForm from "@/layout/auth/SignInForm";
+import SignInForm from "@/components/forms/SignInForm";
 import Head from "next/head";
 
 export default function SignIn(){

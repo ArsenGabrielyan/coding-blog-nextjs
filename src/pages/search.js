@@ -1,9 +1,9 @@
 import Layout from "@/components/Layout";
 import User from "@/model/CredentialsUser";
 import connectDB from "@/lib/connectDb";
-import UserSearchElem from "@/components/layout/searchElem/UserSearch";
+import UserSearchElem from "@/components/userElem/UserSearch";
 import { getSession, useSession } from "next-auth/react";
-import PostSearchElem from "@/components/layout/searchElem/PostSearch";
+import PostSearchElem from "@/components/postElem/Post-Search";
 import Post from "@/model/Post";
 import { useState } from "react";
 import { search, serializeObject } from "@/constants/functions";

@@ -1,8 +1,8 @@
 import Layout from "@/components/Layout";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import PostForm from "@/components/layout/post/PostForm";
-import PostPreview from "@/components/layout/post/PostPreview";
+import PostForm from "@/components/forms/PostForm";
+import PostPreview from "@/components/postElem/Post-Preview";
 import Head from "next/head"; import Post from "@/model/Post";
 import { serializeObject } from "@/constants/functions";
 import connectDB from "@/lib/connectDb";

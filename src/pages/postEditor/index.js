@@ -1,9 +1,9 @@
 import Layout from "@/components/Layout"
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import PostForm from "@/components/layout/post/PostForm";
+import PostForm from "@/components/forms/PostForm";
 import { INITIAL_POSTDATA } from "@/constants/forms/formData";
-import PostPreview from "@/components/layout/post/PostPreview";
+import PostPreview from "@/components/postElem/Post-Preview";
 import Head from "next/head";
 
 export default function NewPost(){

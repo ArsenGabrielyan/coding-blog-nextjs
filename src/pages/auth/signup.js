@@ -1,5 +1,5 @@
 import Head from "next/head";
-import SignUpForm from "@/layout/auth/SignUpForm";
+import SignUpForm from "@/components/forms/SignUpForm";
 
 export default function SignUp(){
      return <>

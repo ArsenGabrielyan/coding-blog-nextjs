@@ -40,7 +40,7 @@
                     width: 100%;
                     height: 50px;
                     border-radius: 75px;
-                    padding: 1em 0 1em 2.75em;
+                    padding: 1em;
                     font-size: 16px;
                     border: 2px solid $grey;
                     outline: none;
@@ -83,12 +83,30 @@
                     label{color: $col3;}
                     .icon{color: $col3;}
                }
-               @import "../parts/radios.scss";
-               @import "../parts/automcomplete.scss";
+               @import "./radios.scss";
+               @import "./automcomplete.scss";
           }
           .options{
                justify-content: space-between;
                align-items: center;
+          }
+          .moreSpace{margin-top: 27.5px;}
+     }
+     .frmProgress{
+          width: 100%;
+          background: $lightGrey;
+          height: 12px;
+          margin-top: 10px;
+          border-radius: 10px;
+          .bar{
+               height: inherit;
+               border-radius: 10px;
+               transition: .3s;
+          }
+          .label{
+               text-align: right;
+               font-weight: 500;
+               font-size: 18px;
           }
      }
      a,.gap,.steps,.stepBtns{width: 100%;}

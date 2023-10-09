@@ -5,6 +5,7 @@ import { MdError } from "react-icons/md";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { REQ_CONFIG } from "@/constants/forms/formData";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function PassResetForm({isLinkInvalid, token, email}){
      const router = useRouter()
@@ -12,6 +13,11 @@ export default function PassResetForm({isLinkInvalid, token, email}){
      const [load, setLoad] = useState(false);
      const [err, setErr] = useState('');
      const [success, setSuccess] = useState('');
+     const [toggle, setToggle] = useState({pass:false,cPass:false})
+     const changeIcon = type=>{
+          if(type==='pass') setToggle({...toggle,pass:!toggle.pass});
+          else setToggle({...toggle,cPass:!toggle.cPass});
+     }
      const handleChange = e => setPassReset({...passReset,[e.target.name]:e.target.value})
      const handleResetPass = async e => {
           e.preventDefault();
@@ -43,12 +49,14 @@ export default function PassResetForm({isLinkInvalid, token, email}){
           {err && <p className="error signin"><MdError/>{err}</p>}
           {success && <p className="success signin"><FaCheckCircle/>{success}</p>}
           <div className="frmGroup">
+               <button className="inputIcon" type="button" onClick={()=>changeIcon('pass')}>{!toggle.pass?<FaEye/>:<FaEyeSlash/>}</button>
                <label htmlFor="password">New Password</label>
-               <input type="password" id="password" name="newPass" value={passReset.newPass} onChange={handleChange}/>
+               <input type={toggle.pass?'text':"password"} id="password" name="newPass" value={passReset.newPass} onChange={handleChange}/>
           </div>
           <div className="frmGroup">
+               <button className="inputIcon" type="button" onClick={()=>changeIcon('cPass')}>{!toggle.cPass?<FaEye/>:<FaEyeSlash/>}</button>
                <label htmlFor="cPassword">Confirm New Password</label>
-               <input type="password" id="cPassword" name="cNewPass" value={passReset.cNewPass} onChange={handleChange}/>
+               <input type={toggle.cPass?'text':"password"} id="cPassword" name="cNewPass" value={passReset.cNewPass} onChange={handleChange}/>
           </div>
           <button type="submit" className="frmBtn signInBtn">{load ? 'Processing...' : 'Reset Password'}</button>
           </> : <p>The page you&apos;re trying to get to isn&apos;t available</p>}

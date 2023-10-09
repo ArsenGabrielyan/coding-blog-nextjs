@@ -1,4 +1,4 @@
-import PassResetForm from "@/components/layout/auth/pass-reset/PassResetForm";
+import PassResetForm from "@/components/forms/PassResetForm";
 import connectDB from "@/lib/connectDb";
 import Token from "@/model/Token";
 import Head from "next/head";

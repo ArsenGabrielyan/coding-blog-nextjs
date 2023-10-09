@@ -1,5 +1,5 @@
 import Carousel from "react-multi-carousel";
-import SmallPost from "./post/SmallPost";
+import SmallPost from "../postElem/Small-Post";
 import { SliderBtn } from "@/constants/constantData";
 
 const responsive = {

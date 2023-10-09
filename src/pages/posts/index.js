@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
-import ListNavbar from "@/components/ListNavbar";
-import BlogPost from "@/components/layout/post/BlogPost";
+import ListNavbar from "@/components/header/ListNavbar";
+import BlogPost from "@/components/postElem/BlogPost";
 import connectDB from "@/lib/connectDb";
 import Post from "@/model/Post"; import Head from "next/head";
 import { sortList } from "@/constants/functions";
