@@ -16,7 +16,7 @@ import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-ic
 import { MdMoreHoriz } from "react-icons/md";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import { serializeObject } from "@/constants/functions";
+import { followUnfollow, serializeObject } from "@/constants/functions";
 import { useEffect, useState } from "react";
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
 
@@ -88,7 +88,7 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
                               <button className="btn">Manage Posts</button>
                               <button className="btn">Analytics</button>
                          </> : <>
-                              <button className="btn">{isFollowed?'Unfollow':'Follow'}</button>
+                              <button className="btn" onClick={()=>followUnfollow(status,data?.user.email,author?.user_id,router)}>{isFollowed?'Unfollow':'Follow'}</button>
                               <button className="btn">About</button>
                               <button className="btn-icon" title="More"><MdMoreHoriz/></button>
                          </>}

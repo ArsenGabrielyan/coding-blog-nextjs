@@ -14,10 +14,11 @@ const MarkdownEditor = dynamic(
      () => import("@uiw/react-markdown-editor").then((mod) => mod.default),
      { ssr: false }
 );   
-export default function PostForm({postData,setPostData, type='new'}){
+export default function PostForm({postData,setPostData,currData,type='new'}){
      const bannerRef = useRef(null), thumbRef = useRef(null);
      const [err, setErr] = useState(''), [loaded, setLoaded] = useState(false);
      const tagOptions = useTags(setPostData,postData), compress = new Compress(), router = useRouter();
+     const isCurrPost = JSON.stringify(postData)===JSON.stringify(currData)
      const handleChange = e => setPostData({...postData, [e.target.name]: e.target.value});
      const reset = () => {
           setPostData(INITIAL_POSTDATA);
@@ -104,7 +105,7 @@ export default function PostForm({postData,setPostData, type='new'}){
                <button type="button" className="btn white btnTags" onClick={tagOptions.clearAllTags}>Clear All Keywords</button>
           </>}
           <div className="btns">
-               <button className="btn fill" disabled={loaded} type="submit">{loaded ? 'Loading...' : type!=='new' ? 'Apply Changes' : 'Publish'}</button>
+               <button className="btn fill" disabled={loaded || isCurrPost} type="submit">{loaded ? 'Loading...' : type!=='new' ? 'Apply Changes' : 'Publish'}</button>
                <button className="btn white" disabled={loaded} type="reset">Cancel</button>
                {type==='new' && <button className="btn white" disabled={loaded} type="button">Save as Draft</button>}
           </div>

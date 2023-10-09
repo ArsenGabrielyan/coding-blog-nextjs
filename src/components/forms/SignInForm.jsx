@@ -23,7 +23,7 @@ export default function SignInForm(){
                if(!data.email || !emailReg.test(data.email)) setErr('The Email is Invalid')
                else if(!data.pass || !passReg.test(data.pass)) setErr('Password is Too Weak')
                else {
-                    setLoaded(true);
+                    setLoaded(true);setErr('')
                     const res = await signIn('credentials',{
                          redirect: false,
                          email: data.email,
@@ -32,7 +32,6 @@ export default function SignInForm(){
                     });
                     setLoaded(false);
                     if(!res?.error) {
-                         setErr('')
                          router.push(callbackUrl);
                          setSuccess('Login Successful')
                          setData(LOGIN_INITIAL)

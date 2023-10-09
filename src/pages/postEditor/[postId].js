@@ -21,7 +21,7 @@ export default function EditPost({currPost}){
                     <button className={mode==='edit' ? 'active' : ''} onClick={()=>setMode('edit')} disabled={!isCurrUser}>Edit</button>
                     <button className={mode==='preview' ? 'active' : ''} onClick={()=>setMode('preview')} disabled={!isCurrUser}>Preview</button>
                </div>
-               {isCurrUser ? <>{mode==='edit' ? <PostForm postData={postData} setPostData={setPostData} type="edit"/> : <PostPreview postData={postData}/>}</> : <h2 className="signIn">This Post Is Not From Your Account</h2>}
+               {isCurrUser ? <>{mode==='edit' ? <PostForm postData={postData} setPostData={setPostData} type="edit" currData={currPost}/> : <PostPreview postData={postData}/>}</> : <h2 className="signIn">This Post Is Not From Your Account</h2>}
           </section>
      </Layout>
      </>
