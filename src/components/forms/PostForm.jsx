@@ -1,5 +1,5 @@
 import { MdClose, MdError, MdImage } from "react-icons/md";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useTags from "@/lib/hooks/use-tags";
 import Compress from "compress.js";
 import { validatePost } from "@/constants/forms/validators";
@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import { customMode, customToolbar, rehypePlugins, remarkPlugins } from "@/constants/markdown-options";
 import axios from "axios";
 import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
-import { generate } from "@/constants/functions";
+import { generate, isCurrPostForm } from "@/constants/functions";
 import { useRouter } from "next/navigation";
 import { getCategories } from "@/constants/constantData";
 
@@ -19,7 +19,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
      const bannerRef = useRef(null), thumbRef = useRef(null);
      const [err, setErr] = useState(''), [loaded, setLoaded] = useState(false);
      const tagOptions = useTags(setPostData,postData), compress = new Compress(), router = useRouter();
-     const isCurrPost = JSON.stringify(postData)===JSON.stringify(currData)
+     const curr = isCurrPostForm(postData,currData)
      const handleChange = e => setPostData({...postData, [e.target.name]: e.target.value});
      const reset = () => {
           setPostData(INITIAL_POSTDATA);
@@ -27,11 +27,11 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
           setLoaded(false);
      }
      const handleChangeFile = async e => {
-          if(!e.target.files[0]){
+          if(e.target.files[0]){
                const optimized = await compress.compress([...e.target.files],{
                     maxWidth: 1000,
                     maxHeight: 560,
-                    size: 4,quality: 0.75
+                    size: 4,   quality: 0.75
                });
                setPostData({...postData, [e.target.id==='banner' ? 'banner' : 'thumbnail']: {
                     preview: optimized[0].alt,
@@ -40,6 +40,14 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                }})
           }
      }
+     useEffect(()=>{
+          const alertBeforeUnload = e => {
+               e.preventDefault();
+               if(curr.isCurrPost || curr.isInitial) e.returnValue = 'postEditor';
+          }
+          window.addEventListener('beforeunload',alertBeforeUnload);
+          return ()=>window.removeEventListener('beforeunload',alertBeforeUnload)
+     },[curr])
      const onSubmit = async e => {
           e.preventDefault();
           if(validatePost(postData,setErr)) try{
@@ -107,7 +115,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                <button type="button" className="btn white btnTags" onClick={tagOptions.clearAllTags}>Clear All Keywords</button>
           </>}
           <div className="btns">
-               <button className="btn fill" disabled={loaded || isCurrPost} type="submit">{loaded ? 'Loading...' : type!=='new' ? 'Apply Changes' : 'Publish'}</button>
+               <button className="btn fill" disabled={loaded || curr.isCurrPost} type="submit">{loaded ? 'Loading...' : type!=='new' ? 'Apply Changes' : 'Publish'}</button>
                <button className="btn white" disabled={loaded} type="reset">Cancel</button>
                {type==='new' && <button className="btn white" disabled={loaded} type="button">Save as Draft</button>}
           </div>

@@ -1,4 +1,4 @@
-import axios from "axios"; import { REQ_CONFIG } from "./forms/formData";
+import axios from "axios"; import { INITIAL_POSTDATA, REQ_CONFIG } from "./forms/formData";
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
      let newChar = '';
@@ -57,4 +57,8 @@ export const isCurrent = (currUser,post,author) => ({
      isLiked:currUser?.details.likedPosts.includes(post.post_id),
      isSaved:currUser?.details.savedPosts.includes(post.post_id),
      isFollowed:currUser?.details.followingUsers.includes(author?.user_id),
+})
+export const isCurrPostForm = (postData,currData) => ({
+     isCurrPost: JSON.stringify(postData)===JSON.stringify(currData),
+     isInitial: JSON.stringify(postData)===JSON.stringify(INITIAL_POSTDATA),
 })
