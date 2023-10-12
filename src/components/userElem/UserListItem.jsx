@@ -1,16 +1,13 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"; import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { followUnfollow } from "@/constants/functions";
 
-export default function UserListItem({user, type="other", isFollowed}){
-     const {data,status} = useSession();
-     const router = useRouter();
+export default function UserListItem({user, type="other", currUser}){
+     const {data,status} = useSession(), router = useRouter();
+     const isFollowed = currUser?.details?.followingUsers.includes(user.user_id);
      return <article className="user">
-     <div className="pfp">
-          <Image src={user?.image} alt="pfp" fill priority sizes="(max-width: 500px) 150px"/>
-     </div>
+     <div className="pfp"><Image src={user?.image} alt="pfp" fill priority sizes="(max-width: 500px) 150px"/></div>
      <div className="details">
           <h2>{user?.name}</h2>
           <span>{user?.username}&nbsp;&middot;&nbsp;

@@ -10,6 +10,7 @@ import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
 import { generate } from "@/constants/functions";
 import { useRouter } from "next/navigation";
 import { getCategories } from "@/constants/constantData";
+
 const MarkdownEditor = dynamic(
      () => import("@uiw/react-markdown-editor").then((mod) => mod.default),
      { ssr: false }
@@ -26,17 +27,18 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
           setLoaded(false);
      }
      const handleChangeFile = async e => {
-          if(!e.target.files[0]) return;
-          const optimized = await compress.compress([...e.target.files],{
-               maxWidth: 1000,
-               maxHeight: 560,
-               size: 4,quality: 0.75
-          });
-          setPostData({...postData, [e.target.id==='banner' ? 'banner' : 'thumbnail']: {
-               preview: optimized[0].alt,
-               file: optimized[0].prefix+optimized[0].data,
-               size: optimized[0].initialSizeInMb
-          }})
+          if(!e.target.files[0]){
+               const optimized = await compress.compress([...e.target.files],{
+                    maxWidth: 1000,
+                    maxHeight: 560,
+                    size: 4,quality: 0.75
+               });
+               setPostData({...postData, [e.target.id==='banner' ? 'banner' : 'thumbnail']: {
+                    preview: optimized[0].alt,
+                    file: optimized[0].prefix+optimized[0].data,
+                    size: optimized[0].initialSizeInMb
+               }})
+          }
      }
      const onSubmit = async e => {
           e.preventDefault();

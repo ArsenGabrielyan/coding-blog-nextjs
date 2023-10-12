@@ -1,6 +1,6 @@
-import { useSession } from "next-auth/react"
 import Image from "next/image"; import Link from "next/link"
 import UserDropdown from "./UserDropdown"
+import { useSession } from "next-auth/react"
 import { MdClose, MdSearch } from "react-icons/md";
 import { useState } from "react"
 import { useRouter } from "next/navigation";

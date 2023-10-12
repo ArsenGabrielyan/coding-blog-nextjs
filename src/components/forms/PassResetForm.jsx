@@ -2,10 +2,9 @@ import { passReg } from "@/constants/forms/regexp";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { REQ_CONFIG } from "@/constants/forms/formData";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import axios from "axios"; import { REQ_CONFIG } from "@/constants/forms/formData";
 
 export default function PassResetForm({isLinkInvalid, token, email}){
      const router = useRouter()
@@ -21,12 +20,9 @@ export default function PassResetForm({isLinkInvalid, token, email}){
      const handleChange = e => setPassReset({...passReset,[e.target.name]:e.target.value})
      const handleResetPass = async e => {
           e.preventDefault();
-          if(!passReset.newPass)
-          setErr('It is Required');
-          else if(!passReg.test(passReset.newPass))
-          setErr('Password is Too Weak')
-          else if(!passReset.cNewPass || passReset.newPass!==passReset.cNewPass)
-          setErr("These Passwords Doesn't Match");
+          if(!passReset.newPass) setErr('It is Required');
+          else if(!passReg.test(passReset.newPass)) setErr('Password is Too Weak')
+          else if(!passReset.cNewPass || passReset.newPass!==passReset.cNewPass) setErr("These Passwords Doesn't Match");
           else try{
                setLoad(true);
                setErr('');

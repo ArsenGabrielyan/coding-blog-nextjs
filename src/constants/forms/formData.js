@@ -40,11 +40,8 @@ export const INITIAL_POSTDATA = {
           size:0
      },
      keywords: [],
-     email: '',
-     category: '',
-     author: '',
-     profileImage: '',
-     date: new Date().toDateString(),
+     email: '', category: '', author: '',
+     profileImage: '', date: new Date().toDateString(),
      post_id: ''
 }
 export const GET_INITIAL_MULTISTEP_DATA = (data, updateFields) =>[

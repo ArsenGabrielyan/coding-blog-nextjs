@@ -16,10 +16,8 @@ export default function SignUpForm(){
      const {steps, isFirst,step, next, back, currentIndex, isLast, goTo} = useMultistep(GET_INITIAL_MULTISTEP_DATA(signupData, updateField));
      const {status} = useSession(), router = useRouter();
      const reset = () => {
-          setErr('');
+          setErr(''); goTo(0); setLoaded(false);
           setSignupData(REGISTER_INITIAL);
-          goTo(0);
-          setLoaded(false);
      }
      const handleSubmit = async e => {
           e.preventDefault();

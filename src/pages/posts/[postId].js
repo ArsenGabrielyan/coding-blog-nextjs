@@ -16,7 +16,7 @@ import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-ic
 import { MdMoreHoriz } from "react-icons/md";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import { followUnfollow, serializeObject } from "@/constants/functions";
+import { followUnfollow, isCurrent, serializeObject } from "@/constants/functions";
 import { useEffect, useState } from "react";
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
 
@@ -26,9 +26,7 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
      const {viewRef, inView} = useInView();
      const currUser = users.find(val=>val.email===data?.user.email)
      const isCurrUser = data?.user.email===post.email;
-     const isLiked=currUser?.details.likedPosts.includes(post.post_id);
-     const isSaved=currUser?.details.savedPosts.includes(post.post_id);
-     const isFollowed=currUser?.details.followingUsers.includes(author?.user_id);
+     const isCurrPost = isCurrent(currUser,post,author);
      useEffect(()=>{
           if(inView && limit!==post.comments.length) setLimit(limit+2);//eslint-disable-next-line
      },[inView])
@@ -68,11 +66,11 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
                          </div>
                          <div className="details-lower">
                               <div>
-                                   <span title={isLiked?'Unlike':"Like"} className={isLiked?'active':""} onClick={()=>clickOn('like')}><FaThumbsUp/> {likeCount}</span>
+                                   <span title={isCurrPost.isLiked?'Unlike':"Like"} className={isCurrPost.isLiked?'active':""} onClick={()=>clickOn('like')}><FaThumbsUp/> {likeCount}</span>
                                    <span title="Comment" onClick={()=>router.push('#comment')}><FaComment/> {post.comments.length}</span>
                               </div>
                               <div>
-                                   <span className={isSaved?'active':""} title={isSaved?'Remove From Reading List':"Save to Reading List"} onClick={()=>clickOn('save')}><FaBookmark/></span>
+                                   <span className={isCurrPost.isSaved?'active':""} title={isCurrPost.isSaved?'Remove From Reading List':"Save to Reading List"} onClick={()=>clickOn('save')}><FaBookmark/></span>
                                    <span title="Share"><FaShare/></span>
                               </div>
                          </div>
@@ -88,7 +86,7 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
                               <button className="btn">Manage Posts</button>
                               <button className="btn">Analytics</button>
                          </> : <>
-                              <button className="btn" onClick={()=>followUnfollow(status,data?.user.email,author?.user_id,router)}>{isFollowed?'Unfollow':'Follow'}</button>
+                              <button className="btn" onClick={()=>followUnfollow(status,data?.user.email,author?.user_id,router)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>
                               <button className="btn">About</button>
                               <button className="btn-icon" title="More"><MdMoreHoriz/></button>
                          </>}

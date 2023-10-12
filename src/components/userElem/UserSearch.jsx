@@ -1,12 +1,11 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"; import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { followUnfollow } from "@/constants/functions";
 
-export default function UserSearchElem({user, type='other', details, isFollowed}){
-     const {data,status} = useSession();
-     const router = useRouter();
+export default function UserSearchElem({user, type='other', details, currUser}){
+     const {data,status} = useSession(), router = useRouter();
+     const isFollowed = currUser?.details?.followingUsers.includes(user.user_id)
      return <article className="user-searchElem">
           <Image src={user.image} alt="pfp" width={100} height={100}/>
           <div className="details">

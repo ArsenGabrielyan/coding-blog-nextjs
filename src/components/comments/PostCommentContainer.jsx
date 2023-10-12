@@ -7,8 +7,7 @@ export default function PostCommentContainer({session, children, postId, router}
      const [loading, setLoading] = useState(false);
      const addComment = async e => {
           e.preventDefault();
-          if(comment.trim()==='') return;
-          else {
+          if(comment.trim()!=='') {
                setLoading(true);
                const commentObj = {
                     comment,

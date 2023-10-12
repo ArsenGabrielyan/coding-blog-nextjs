@@ -5,7 +5,7 @@ import { SliderBtn } from "@/constants/constantData";
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 1050 },
-    items: 7,
+    items: 5,
   },
   desktop: {
     breakpoint: { max: 1050, min: 800 },

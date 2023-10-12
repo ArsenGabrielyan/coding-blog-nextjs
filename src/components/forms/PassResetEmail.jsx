@@ -3,7 +3,7 @@ import { emailReg } from "@/constants/forms/regexp";
 import axios from "axios";
 import { useState } from "react"
 import { FaCheckCircle } from "react-icons/fa";
-import { MdError, MdMail } from "react-icons/md";
+import { MdError } from "react-icons/md";
 
 export default function PassResetEmail(){
      const [email, setEmail] = useState('');

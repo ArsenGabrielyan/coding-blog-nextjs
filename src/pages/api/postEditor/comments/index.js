@@ -23,10 +23,13 @@ export default async function handler(req,res){
           await connectDB();
           const user = await User.findOne({email: commentEmail});
           if(user) {
-               if(user.details.likedComments.includes(commentId)) await user.details.likedComments.pull(commentId);
-               else await user.details.likedComments.push(commentId);
+               user.details.likedComments.includes(commentId) ? await user.details.likedComments.pull(commentId) : await user.details.likedComments.push(commentId);
                await user.save();
           }
           res.status(200).json(user);
-     } 
+     } else if(req.method==='GET'){
+          await connectDB();
+          const currPost = await Post.findOne({post_id: postId});
+          res.status(200).json(currPost.comments)
+     }
 }

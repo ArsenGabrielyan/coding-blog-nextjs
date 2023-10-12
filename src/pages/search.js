@@ -28,7 +28,7 @@ export default function Search({list, details, currUser}){
                {status!=='loading' && list.filter(val=>{
                     if(selected==='all') return true;
                     return val.elemType===selected
-               }).map(elem=>(elem.elemType==='user') ? <UserSearchElem key={elem.user_id} user={elem} type={data?.user.email===elem.email?'session':'other'} details={details.find(val=>val.email===elem.email)} isFollowed={currUser?.details.followingUsers.includes(elem.user_id)}/> : <PostSearchElem key={elem.post_id} post={elem}/>)}
+               }).map(elem=>(elem.elemType==='user') ? <UserSearchElem key={elem.user_id} user={elem} type={data?.user.email===elem.email?'session':'other'} details={details.find(val=>val.email===elem.email)} currUser={currUser}/> : <PostSearchElem key={elem.post_id} post={elem}/>)}
                {!list.length && <h2 className="notFound">Sorry, But No Results Found</h2>}
           </section>}
      </Layout>

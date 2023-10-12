@@ -12,12 +12,10 @@ export default function PasswordStrength({pass}){
                default: return type==='color'?'none':'';
           }
      }
-     const changeColor = (type='')=>{
-          return type==='bar' ? {
-               width: `${score}%`,
-               background: getProps('color')
-          } : {color: getProps('color')}
-     }
+     const changeColor = (type='')=>type==='bar' ? {
+          width: `${score}%`,
+          background: getProps('color')
+     } : {color: getProps('color')}
      return <div className="frmProgress">
           <div className="bar" style={changeColor('bar')}></div>
           <div className="label" style={changeColor()}>{getProps()}</div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaFacebook, FaGoogle, FaGithub, FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
-import {useSearchParams, useRouter} from "next/navigation";
+import {useRouter} from "next/router";
 import { MdError } from "react-icons/md";
 
 export default function SignInForm(){
@@ -13,9 +13,8 @@ export default function SignInForm(){
      const [success, setSuccess] = useState('')
      const [loaded, setLoaded] = useState(false);
      const [togglePass, setTogglePass] = useState(false)
-     const query = useSearchParams(), router = useRouter();
-     const {status} = useSession();
-     const callbackUrl = query.get("callbackUrl") || "/";
+     const router = useRouter(), {status} = useSession();
+     const callbackUrl = router.query || "/";
      const handleChange = e => setData({...data, [e.target.name]:e.target.value})
      const handleSubmit = async e =>{
           e.preventDefault();

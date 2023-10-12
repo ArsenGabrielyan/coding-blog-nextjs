@@ -45,5 +45,9 @@ export default async function handler(req,res){
                     }
                     res.status(200).json(user);
           }
+     } else if(req.method==='GET'){
+          await connectDB();
+          const posts = await Post.find();
+          res.status(200).json(posts)
      }
 }

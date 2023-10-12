@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"; import Link from "next/link";
 import { FaCalendar, FaUser } from "react-icons/fa";
 
 export default function PostSearchElem({post}){

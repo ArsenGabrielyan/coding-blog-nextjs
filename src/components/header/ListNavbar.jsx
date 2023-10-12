@@ -1,6 +1,5 @@
 import { sortPostOptions, sortUserOptions, getCategories } from "@/constants/constantData";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from "next/link"; import { useRouter } from "next/router";
 
 export default function ListNavbar({userMode=false, options, handleChange, changeFilter}){
      const router = useRouter();

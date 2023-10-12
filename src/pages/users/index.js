@@ -23,7 +23,7 @@ export default function UserList({users}){
      <Layout>
           <ListNavbar userMode options={options} handleChange={handleChangeOptions}/>
           {status!=='loading' && <section className="userlist">
-               {!userList.length ? <h2 className="empty">No User Found</h2> : userList.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} isFollowed={currUser?.details?.followingUsers.includes(user.user_id)}/>)}
+               {!userList.length ? <h2 className="empty">No User Found</h2> : userList.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} currUser={currUser}/>)}
           </section>}
      </Layout>
      </>
