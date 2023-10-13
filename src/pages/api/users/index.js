@@ -2,7 +2,7 @@ import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";
 
 export default async function handler(req,res){
-     const {email, userId} = req.body
+     const {email, userId} = req.body;
      if(req.method==='PATCH'){
           await connectDB();
           const currUser = await User.findOne({email});

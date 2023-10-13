@@ -7,10 +7,9 @@ import { useRouter } from "next/navigation";
 import { toQueryURL } from "@/constants/functions";
 
 export default function Header(){
-     const router = useRouter();
+     const router = useRouter(), {status, data} = useSession();
      const [isOpenSearch, setIsOpenSearch] = useState(false);
      const [search, setSearch] = useState('')
-     const {status, data} = useSession();
      const clearSearch = () => {
           setSearch('');
           setIsOpenSearch(false)

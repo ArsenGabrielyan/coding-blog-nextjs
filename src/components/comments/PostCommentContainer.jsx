@@ -1,11 +1,12 @@
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import axios from "axios"; import Image from "next/image";
+import axios from "axios";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function PostCommentContainer({session, children, postId, update}){
      const [comment, setComment] = useState('');
      const [loading, setLoading] = useState(false);
-     const {mutatePost, isValidating} = update;
+     const {updatePost, isValidating} = update;
      const addComment = async e => {
           e.preventDefault();
           if(comment.trim()!=='') {
@@ -18,7 +19,7 @@ export default function PostCommentContainer({session, children, postId, update}
                const res = await axios.patch('/api/posts',{comment:commentObj,currUser:session.currUser,type:'comment',id:postId},REQ_CONFIG);
                if(res.status===200) {
                     setLoading(false);
-                    await mutatePost();
+                    await updatePost();
                     if(!isValidating) setComment('')
                };
           }

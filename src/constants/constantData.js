@@ -6,17 +6,8 @@ export const sortPostOptions = [
      {name: 'Name (A-Z)', value: 'name'},
      {name: 'Name (Z-A)', value: 'dName'},
 ]
-export const sortUserOptions = [
-     {name: 'Sort By'},
-     {name: 'Relevance', value: 'default'},
-     {name: 'Followers (Highest)', value: 'followers'},
-     {name: 'Followers (Lowest)', value: 'dFollowers'},
-     {name: 'Name (A-Z)', value: 'name'},
-     {name: 'Name (Z-A)', value: 'dName'},
-]
 export const getCategories = (type='standard')=>{
-     const filterMode = type==='filter' ? [{name: 'Filter By Category'},
-     {name: 'All', value: 'all'}] : [];
+     const filterMode = type==='filter' ? [{name: 'Filter By Category'},{name: 'All', value: 'all'}] : [];
      return [...filterMode,
           {name: 'Science & Tech', value: 'science-tech'},
           {name: 'Arts & Crafts', value: 'arts-crafts'},

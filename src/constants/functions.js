@@ -1,4 +1,5 @@
-import axios from "axios"; import { INITIAL_POSTDATA, REQ_CONFIG } from "./forms/formData";
+import axios from "axios"; import { REQ_CONFIG } from "./forms/formData";
+
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
      let newChar = '';
@@ -31,18 +32,12 @@ export const followUnfollow = async({status,email,userId},router,payload)=>{
           if(res.status===200) payload();
      } else router.push('/auth/signin')
 }
-export const sortList = (a,b,type,options)=>{
-     if(type==='post') switch(options.sortPost){
+export const sortList = (a,b,options)=>{
+     switch(options.sortPost){
           case 'name': return a.title>b.title ? 1 : a.title<b.title ? -1 : 0
           case 'dName': return a.title>b.title ? -1 : a.title<b.title ? 1 : 0
           case 'latest': return a?-1:b?1:0;
           default: return a?1:b?-1:0;
-     } else switch(options.sortUser){
-          case 'followers': return a.followers>b.followers ? -1 : a.followers<b.followers ? 1 : 0;
-          case 'dFollowers': return a.followers>b.followers ? 1 : a.followers<b.followers ? -1 : 0;
-          case 'name': return a.name>b.name ? 1 : a.name<b.name ? -1 : 0;
-          case 'dName': return a.name>b.name ? -1 : a.name<b.name ? 1 : 0;
-          default: return a.user_id>b.user_id ? 1 : a.user_id<b.user_id ? -1 : 0
      }
 }
 export const toQueryURL = text => text.split(' ').join('+');
@@ -54,11 +49,7 @@ export const search = (val,q) =>
      val.keywords?.includes(q.toLowerCase())) ||
      val.otherData?.tags.includes(q.toLowerCase())
 export const isCurrent = (currUser,post,author) => ({
-     isLiked:currUser?.details.likedPosts.includes(post?.post_id),
-     isSaved:currUser?.details.savedPosts.includes(post?.post_id),
-     isFollowed:currUser?.details.followingUsers.includes(author?.user_id),
-})
-export const isCurrPostForm = (postData,currData) => ({
-     isCurrPost: JSON.stringify(postData)===JSON.stringify(currData),
-     isInitial: JSON.stringify(postData)===JSON.stringify(INITIAL_POSTDATA),
+     isLiked:currUser?.details?.likedPosts.includes(post?.post_id),
+     isSaved:currUser?.details?.savedPosts.includes(post?.post_id),
+     isFollowed:currUser?.details?.followingUsers.includes(author?.user_id),
 })

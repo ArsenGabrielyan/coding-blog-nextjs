@@ -4,51 +4,39 @@ import PostCommentContainer from "@/components/comments/PostCommentContainer";
 import Widget from "@/components/Widget";
 import PostWidget from "@/components/postElem/Post-Widget";
 import Link from "next/link"; import Image from "next/image";
-import connectDB from "@/lib/connectDb";
-import Post from "@/model/Post";
-import Head from "next/head";
-import axios from "axios";
+import connectDB from "@/lib/connectDb"; import Post from "@/model/Post";
+import Head from "next/head"; import axios from "axios";
 import User from "@/model/CredentialsUser";
-import useInView from "@/lib/hooks/use-in-view";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-icons/fa";
-import { MdMoreHoriz } from "react-icons/md";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import { fetcher, followUnfollow, isCurrent, serializeObject } from "@/constants/functions";
-import { useEffect, useState } from "react";
+import { abbrNum, followUnfollow, serializeObject } from "@/constants/functions";
+import { useState } from "react";
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
-import useSWR from "swr";
+import usePost from "@/lib/hooks/use-post";
 
-export default function NewPost({author, users, likeCount, relatedPosts}){
-     const router = useRouter(), {data, status} = useSession();
+export default function NewPost({author, relatedPosts}){
+     const router = useRouter(), {state,update,conditions,session,followOptions} = usePost(router.query,author);
      const [limit, setLimit] = useState(POST_COMMENT_LIMIT)
-     const {viewRef, inView} = useInView();
-     const {data: post, isLoading, mutate: mutatePost, isValidating} = useSWR(router.query ? `/api/posts/${router.query?.postId}` : null, fetcher)
-     const currUser = users.find(val=>val.email===data?.user.email)
-     const isCurrUser = data?.user.email===post?.email;
-     const isCurrPost = isCurrent(currUser,post,author);
-     const followOptions = {status, email: data?.user.email, userId: author?.user_id}
-     useEffect(()=>{
-          if(inView && limit!==post?.comments.length) setLimit(limit+2);//eslint-disable-next-line
-     },[inView])
+     const {post,users,currUser,likeCount} = state, {user, status} = session, {updatePost,updateDetails} = update;
+     const {isLoading,isValidating,isCurrUser,isCurrPost} = conditions;
+     const loadMoreComments = () => { if(limit<=post?.comments.length) setLimit(limit*2); }
      const deletePost = async()=>{
           if(confirm('Are You Sure to Delete That Post?')){
                const res = await axios.delete(`/api/posts/${post?.post_id}`,REQ_CONFIG);
-               if(res.status===200) router.push(`/users/${data?.user.username}`)
+               if(res.status===200) router.push(`/users/${user.username}`)
           }
      }
      const clickOn = async(type)=>{
           if(status==='authenticated') {
-               const res = await axios.patch('/api/posts',{type:type==='like'?'like':'save',email:data?.user.email,id:post?.post_id});
-               if(res.status===200) router.reload();
+               const res = await axios.patch('/api/posts',{type:type==='like'?'like':'save',email:user.email,id:post?.post_id},REQ_CONFIG);
+               if(res.status===200) await updateDetails();
           } else router.replace('/auth/signin')
      }
-     return <>
-     <Head><title>{post?.title}</title></Head>
+     return <><Head><title>{post?.title}</title></Head>
      <Layout>
-     {isLoading ? <h2>Loading...</h2> : <main className={`single-post-main ${relatedPosts.filter(val=>val.post_id!==post?.post_id).length?'':'full'}`}>
+     {isLoading ? <h2 className="loadTxt">Loading...</h2> : <main className={`single-post-main ${relatedPosts.filter(val=>val.post_id!==post?.post_id).length?'':'full'}`}>
           <section className="single-post-container">
                <div className="single-post">
                     <div className="single-post-header">
@@ -69,8 +57,8 @@ export default function NewPost({author, users, likeCount, relatedPosts}){
                          </div>
                          <div className="details-lower">
                               <div>
-                                   <span title={isCurrPost.isLiked?'Unlike':"Like"} className={isCurrPost.isLiked?'active':""} onClick={()=>clickOn('like')}><FaThumbsUp/> {likeCount}</span>
-                                   <span title="Comment" onClick={()=>router.push('#comment')}><FaComment/> {post?.comments.length}</span>
+                                   <span title={isCurrPost.isLiked?'Unlike':"Like"} className={isCurrPost.isLiked?'active':""} onClick={()=>clickOn('like')}><FaThumbsUp/>&nbsp;{abbrNum(likeCount)}</span>
+                                   <span title="Comment" onClick={()=>router.push('#comment')}><FaComment/>&nbsp;{abbrNum(post?.comments.length)}</span>
                               </div>
                               <div>
                                    <span className={isCurrPost.isSaved?'active':""} title={isCurrPost.isSaved?'Remove From Reading List':"Save to Reading List"} onClick={()=>clickOn('save')}><FaBookmark/></span>
@@ -89,15 +77,14 @@ export default function NewPost({author, users, likeCount, relatedPosts}){
                               <button className="btn">Manage Posts</button>
                               <button className="btn">Analytics</button>
                          </> : <>
-                              <button className="btn" onClick={()=>followUnfollow(followOptions,router,()=>router.reload())}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>
-                              <button className="btn">About</button>
-                              <button className="btn-icon" title="More"><MdMoreHoriz/></button>
+                              <button className="btn" onClick={()=>followUnfollow(followOptions,router,async()=>await updateDetails())}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>
+                              <Link href={`/users/${author?.user_id}`} className="btn">Explore</Link>
                          </>}
                     </div>
                </div>
-               <PostCommentContainer session={{currUser: data?.user,status}} postId={post?.post_id} router={router} update={{mutatePost,isValidating}}>
-                    {post?.comments && post?.comments.sort((a,b)=>a.commentId>b.commentId ? 1 : a.commentId<b.commentId ? -1: 0).slice(0,limit).map(comment=><PostComment key={comment.commentId} data={comment} session={data?.user} users={users} postId={post?.post_id} currUser={currUser} mutatePost={mutatePost}/>)}
-                    <span ref={viewRef}/>
+               <PostCommentContainer session={{currUser: user,status}} postId={post?.post_id} update={{updatePost,isValidating}}>
+                    {post?.comments && post?.comments.sort((a,b)=>a.commentId>b.commentId ? 1 : a.commentId<b.commentId ? -1: 0).slice(0,limit).map(comment=><PostComment key={comment.commentId} data={comment} session={user} users={users} postId={post?.post_id} currUser={currUser} update={{updateDetails,updatePost}}/>)}
+                    {limit<post?.comments.length && <button className="btn" onClick={loadMoreComments}>Load More Comments</button>}
                </PostCommentContainer>
           </section>
           {!!relatedPosts.filter(val=>val.post_id!==post?.post_id).length && <aside className="widgets">
@@ -108,30 +95,26 @@ export default function NewPost({author, users, likeCount, relatedPosts}){
                </Widget>
           </aside>}
      </main>}
-     </Layout>
-     </>
+     </Layout></>
 }
 export async function getStaticPaths(){
      await connectDB();
      const posts = await Post.find();
      return {
-          paths: posts.map(val=>({params: {postId: val.post_id}})),
+          paths: [posts.map(val=>({params: {postId: val.post_id}}))[0]],
           fallback: 'blocking'
      }
 }
 export async function getStaticProps({params}){
      const {postId} = params;
      await connectDB();
-     const post = await Post.findOne({post_id: postId}),
-     user = await User.find();
+     const post = await Post.findOne({post_id: postId});
      if(!post) return {notFound: true}
      else {
           const author = await User.findOne({email: post?.email});
           const relatedPosts = await Post.find({category: post?.category});
           return {props: {
                author: serializeObject(author),
-               users: serializeObject(user),
-               likeCount: user.filter(val=>val.details.likedPosts.includes(post?.post_id)).length,
                relatedPosts: serializeObject(relatedPosts.slice(0,6))
           }} 
      }

@@ -4,15 +4,10 @@ import FinalForm from "@/components/forms/signup-forms/FinalForm";
 
 export const INITIAL_SETTINGS = {
      displayName:'',
-     website: '',
-     bio: '',
-     tags: [],
-     otherLinks:{},     
+     website: '', bio: '',
+     tags: [], otherLinks:{},     
 }
-export const LOGIN_INITIAL = {
-     email: '',
-     pass: ''
-}
+export const LOGIN_INITIAL = { email: '' , pass: '' }
 export const REGISTER_INITIAL = {
      name: '',
      email: '', 
@@ -24,9 +19,7 @@ export const REGISTER_INITIAL = {
      password: '', 
      confirmPass: '',
 }
-export const REQ_CONFIG = {
-     headers: {"Content-Type": "application/json"}
-}
+export const REQ_CONFIG = { headers: {"Content-Type": "application/json"} }
 export const INITIAL_POSTDATA = {
      title: '',content: '',
      thumbnail: {
@@ -38,8 +31,7 @@ export const INITIAL_POSTDATA = {
           file: '',
           preview: '',
           size:0
-     },
-     keywords: [],
+     }, keywords: [],
      email: '', category: '', author: '',
      profileImage: '', date: new Date().toDateString(),
      post_id: ''

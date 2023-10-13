@@ -5,8 +5,7 @@ import connectDB from "@/lib/connectDb";
 import Post from "@/model/Post"; import Head from "next/head";
 import { sortList } from "@/constants/functions";
 import { serializeObject } from "@/constants/functions";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { useState } from "react"; import { useRouter } from "next/router";
 
 export default function PostList({posts}){
      const router = useRouter();
@@ -19,18 +18,16 @@ export default function PostList({posts}){
      const postList = posts.filter(val=>{
           if(options.filterCategory==='all') return true;
           return options.filterCategory===val.category
-     }).sort((a,b)=>sortList(a,b,'post',options))
-     return <>
-     <Head>
+     }).sort((a,b)=>sortList(a,b,options))
+     return <><Head>
           <title>Explore Posts | Edu-Articles</title>
      </Head>
      <Layout>
-          <ListNavbar options={options} handleChange={handleChange} changeFilter={handleChangeFilter}/>
+          <ListNavbar options={options} change={{handleChange,changeFilter: handleChangeFilter}}/>
           <section className="posts small">
                {!postList.length ? <h2 className="empty">No Posts Found</h2> : postList.map(post=><BlogPost key={post.post_id} data={post}/>)}
           </section>
-     </Layout>
-     </>
+     </Layout></>
 }
 export async function getStaticProps(){
      await connectDB();

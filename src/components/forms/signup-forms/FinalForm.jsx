@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState } from "react"; import FormWrapper from "../FormWrapper";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import FormWrapper from "../FormWrapper";
 import PasswordStrength from "@/components/PasswordStrengthMeter";
 
 export default function FinalForm({username='',password='',confirmPass='', updateFields}){
@@ -24,6 +23,5 @@ export default function FinalForm({username='',password='',confirmPass='', updat
           <button className="inputIcon" type="button" onClick={()=>changeIcon('cPass')}>{!toggle.cPass?<FaEye/>:<FaEyeSlash/>}</button>
           <label htmlFor="cPass">Confirm Password</label>
           <input type={toggle.cPass?'text':"password"} id='cPass' name="cPass" value={confirmPass} onChange={e=>updateFields({confirmPass: e.target.value})}/>
-     </div>
-     </FormWrapper>
+     </div></FormWrapper>
 }

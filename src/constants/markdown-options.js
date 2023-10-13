@@ -6,8 +6,9 @@ import remarkEmoji from "remark-emoji";
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import DOMPurify from 'isomorphic-dompurify';
+
 export const remarkPlugins = [remarkEmoji,remarkGfm], rehypePlugins = [rehypeRaw]
-export const CodeBlock = ({node, inline, className, children, ...props}) => {
+const CodeBlock = ({node, inline, className, children, ...props}) => {
      const match = /language-(\w+)/.exec(className || '');
      return !inline && match ? <Prism
      {...props} style={oneDark} language={match[1]} PreTag='div'>
@@ -17,12 +18,8 @@ export const CodeBlock = ({node, inline, className, children, ...props}) => {
      </code>
 }
 const Heading1 = ({children}) => <h2 className="md-h1">{children}</h2>
-export const customComponents = {
-     h1: Heading1,
-     code: CodeBlock,
-     u: 'ins'
-}
-export const separator = {
+const customComponents = {h1: Heading1,code: CodeBlock,u: 'ins'}
+const separator = {
      name: 'separator',
      keyCommand: 'separator',
      button: {className: 'divider', 'aria-label': 'separator'},

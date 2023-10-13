@@ -24,6 +24,15 @@ html,body{position: relative;scroll-behavior: smooth;}
      text-align: center;
      width: 100%;
 }
+.loadTxt{
+     text-align: center;
+     margin-bottom: 7.5px;
+     font-size: 32px;
+     font-weight: 500;
+     padding: 10px;
+     background: $white;
+     color: $col1;
+}
 @media (prefers-reduced-motion:reduce){
      *{transition: none!important;scroll-behavior: auto!important;}
 }

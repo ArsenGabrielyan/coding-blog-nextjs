@@ -25,10 +25,10 @@
           align-items: flex-start;height: 85px;
           textarea,button{border-radius: 15px;}
           textarea{
-               resize: none;
+               resize: vertical;
+               padding: 0.5em;
                min-height: 42px;
                overflow: hidden;
-               padding: 0.5em;
                margin-bottom: 3px;
                border: 2px solid $grey;
                font-size: 16px;outline:none;

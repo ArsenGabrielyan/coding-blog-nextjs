@@ -1,6 +1,7 @@
 import { MdClose } from "react-icons/md";
 
-export default function Modal({title='',isOpen, setIsOpen, customCloseText="Close" ,children}){
+export default function Modal({title='',open, customCloseText="Close" ,children}){
+     const {isOpen,setIsOpen} = open;
      return isOpen ? <div className="modal-container">
           <div className="modal">
                {title!=='' && <div className="modal-header">

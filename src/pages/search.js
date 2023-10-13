@@ -1,17 +1,15 @@
 import Layout from "@/components/Layout";
 import User from "@/model/CredentialsUser";
-import connectDB from "@/lib/connectDb";
-import UserSearchElem from "@/components/userElem/UserSearch";import Head from "next/head";
-import { getSession, useSession } from "next-auth/react";
+import connectDB from "@/lib/connectDb"; import Post from "@/model/Post";
+import UserSearchElem from "@/components/userElem/UserSearch";
+import { useSession } from "next-auth/react";
 import PostSearchElem from "@/components/postElem/Post-Search";
-import Post from "@/model/Post";
-import { useState } from "react";
+import { useState } from "react"; import Head from "next/head";
 import { search, serializeObject } from "@/constants/functions";
 import { useRouter } from "next/router";
    
-export default function Search({list, details, currUser}){
-     const {data,status} = useSession();
-     const {query} = useRouter()
+export default function Search({list}){
+     const {data,status} = useSession(), {query} = useRouter()
      const [selected, setSelected] = useState('all');
      return <>
      <Head>
@@ -28,28 +26,15 @@ export default function Search({list, details, currUser}){
                {status!=='loading' && list.filter(val=>{
                     if(selected==='all') return true;
                     return val.elemType===selected
-               }).map(elem=>(elem.elemType==='user') ? <UserSearchElem key={elem.user_id} user={elem} type={data?.user.email===elem.email?'session':'other'} details={details.find(val=>val.email===elem.email)} currUser={currUser}/> : <PostSearchElem key={elem.post_id} post={elem}/>)}
+               }).map(elem=>(elem.elemType==='user') ? <UserSearchElem key={elem.userId} type={data?.user.email===elem.email?'session':'other'} userId={elem.userId} currUserId={data?.user.id}/> : <PostSearchElem key={elem.post_id} post={elem}/>)}
                {!list.length && <h2 className="notFound">Sorry, But No Results Found</h2>}
           </section>}
      </Layout>
      </>
 }
 export async function getServerSideProps(ctx){
-     await connectDB();
-     const {q} = ctx.query, session = await getSession(ctx)
-     const userList = await User.find(), postList = await Post.find();
-     const details = await Promise.all(userList?.map(async val=>{
-          const posts = await Post.find({email: val.email});
-          return {
-               postCount: posts.length,
-               email: val.email,
-               followers: userList.filter(v=>v.details.followingUsers.includes(val.user_id)).length,
-               following: val.details.followingUsers.length
-          }
-     }));
-     const currUser = await User.findOne({email: session?.user.email})
-     return {props: {
-          list: serializeObject([...userList,...postList].filter(val=>search(val,q))),
-          details, currUser: serializeObject(currUser)
-     }}
+     await connectDB(); const {q} = ctx.query;
+     const userList = await User.find(), posts = await Post.find();
+     const users = userList?.map(val=>({userId: val.user_id, email: val.email, name: val.name, username: val.username,elemType: val.elemType, otherData: val.otherData}));
+     return {props: {list: serializeObject([...users,...posts].filter(val=>search(val,q)))}}
 }

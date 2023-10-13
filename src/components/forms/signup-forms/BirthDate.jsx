@@ -1,11 +1,9 @@
 import { FaMale, FaFemale } from "react-icons/fa";
 import FormWrapper from "../FormWrapper";
-import { useState } from "react";
-import axios from "axios";
+import { useState } from "react"; import axios from "axios";
 import { REQ_CONFIG } from "@/constants/forms/formData";
 
-export default function BDateForm({bdate='',gender='',
-address='', updateFields}){
+export default function BDateForm({bdate='',gender='',address='', updateFields}){
      const [arr, setArr] = useState([])
      const handleChangeAddress = e => {
           updateFields({address: e.target.value})

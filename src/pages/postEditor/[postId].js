@@ -30,7 +30,7 @@ export async function getStaticPaths(){
      await connectDB()
      const posts = await Post.find();
      return {
-          paths: posts.map(val=>({params: {postId: val.post_id}})),
+          paths: [posts.map(val=>({params: {postId: val.post_id}}))[0]],
           fallback: 'blocking'
      }
 }
