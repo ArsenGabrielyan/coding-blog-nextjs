@@ -30,6 +30,7 @@ export default async function handler(req,res){
      } else if(req.method==='GET'){
           await connectDB();
           const currPost = await Post.findOne({post_id: postId});
-          res.status(200).json(currPost.comments)
+          if(currPost) res.status(200).json(currPost.comments)
+          else res.status(400).json({msg: 'Required Parameters: postId'})
      }
 }

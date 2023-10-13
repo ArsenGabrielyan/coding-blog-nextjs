@@ -11,5 +11,9 @@ export default async function handler(req,res){
                await currUser.save();
           }
           res.status(200).json(currUser)
+     } else if(req.method==='GET'){
+          await connectDB();
+          const users = await User.find();
+          res.status(200).json(users)
      }
 }

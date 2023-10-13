@@ -1,5 +1,5 @@
 import { MdClose, MdError, MdImage } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useTags from "@/lib/hooks/use-tags";
 import Compress from "compress.js";
 import { validatePost } from "@/constants/forms/validators";
@@ -40,21 +40,13 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                }})
           }
      }
-     useEffect(()=>{
-          const alertBeforeUnload = e => {
-               e.preventDefault();
-               if(curr.isCurrPost || curr.isInitial) e.returnValue = 'postEditor';
-          }
-          window.addEventListener('beforeunload',alertBeforeUnload);
-          return ()=>window.removeEventListener('beforeunload',alertBeforeUnload)
-     },[curr])
      const onSubmit = async e => {
           e.preventDefault();
           if(validatePost(postData,setErr)) try{
                if(type==='new') {
                     setLoaded(true);
                     const postId = generate('id',12);
-                    const res = await axios.post('/api/postEditor',{postData: {...postData, post_id: postId}},REQ_CONFIG);
+                    const res = await axios.post('/api/posts',{postData: {...postData, post_id: postId}},REQ_CONFIG);
                     if(res?.status===200){
                          setLoaded(false);
                          router.push(`/posts/${postId}`);
@@ -62,7 +54,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                     }
                } else{
                     setLoaded(true);
-                    const res = await axios.put('/api/postEditor',{postData},REQ_CONFIG);
+                    const res = await axios.put('/api/posts',{postData},REQ_CONFIG);
                     if(res?.status===200){
                          setLoaded(false);
                          router.push(`/posts/${postData.post_id}`);
@@ -115,7 +107,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                <button type="button" className="btn white btnTags" onClick={tagOptions.clearAllTags}>Clear All Keywords</button>
           </>}
           <div className="btns">
-               <button className="btn fill" disabled={loaded || curr.isCurrPost} type="submit">{loaded ? 'Loading...' : type!=='new' ? 'Apply Changes' : 'Publish'}</button>
+               <button className="btn fill" disabled={loaded || curr.isCurrPost || curr.isInitial} type="submit">{loaded ? 'Loading...' : type!=='new' ? 'Apply Changes' : 'Publish'}</button>
                <button className="btn white" disabled={loaded} type="reset">Cancel</button>
                {type==='new' && <button className="btn white" disabled={loaded} type="button">Save as Draft</button>}
           </div>

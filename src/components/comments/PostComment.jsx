@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link"; import axios from "axios";
 import { REQ_CONFIG } from "@/constants/forms/formData";
 
-export default function PostComment({data, session, postId, users, currUser}){
+export default function PostComment({data, session, postId, users, currUser, mutatePost}){
      const [commentOpen, setCommentOpen] = useState(false);
      const [editMode, setEditMode] = useState(false);
      const [newComment, setNewComment] = useState(data.comment);
@@ -20,8 +20,8 @@ export default function PostComment({data, session, postId, users, currUser}){
      },[]);
      const deleteComment = async id => {
           if(confirm('Are You Sure to Delete this Comment?')){
-               const res = await axios.delete(`/api/postEditor/comments/${id}?postId=${postId}`,REQ_CONFIG);
-               if(res.status===200) location.reload();
+               const res = await axios.delete(`/api/posts/comments/${id}?postId=${postId}`,REQ_CONFIG);
+               if(res.status===200) await mutatePost();
           }
      }
      const cancelEdit = () => {
@@ -31,15 +31,16 @@ export default function PostComment({data, session, postId, users, currUser}){
      const applyEdit = async e => {
           e.preventDefault();
           setLoad(true);
-          const res = await axios.put(`/api/postEditor/comments?postId=${postId}`,{newComment, commentId: data.commentId},REQ_CONFIG);
+          const res = await axios.put(`/api/posts/comments?postId=${postId}`,{newComment, commentId: data.commentId},REQ_CONFIG);
           if(res.status===200) {
                setLoad(false)
-               location.reload();
+               await mutatePost();
+               setEditMode(false);
           }
      }
      const likeComment = async()=>{
-          const res = await axios.patch(`/api/postEditor/comments?postId=${postId}`,{commentId: data.commentId,commentEmail: session.email},REQ_CONFIG);
-          if(res.status===200) location.reload();
+          const res = await axios.patch(`/api/posts/comments?postId=${postId}`,{commentId: data.commentId,commentEmail: session.email},REQ_CONFIG);
+          if(res.status===200) await mutatePost();
      }
      return <div className="comment">
           <Link href={`/users/${data.name}`}><Image src={data.image} alt="account profile" className="comment-pfp" width={64} height={64}/></Link>

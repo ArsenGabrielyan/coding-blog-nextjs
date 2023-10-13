@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 export default function PostList({posts}){
      const router = useRouter();
-     const [options, setOptions] = useState({sortPost: 'latest',filterCategory: router.query?.category || 'all'})
+     const [options, setOptions] = useState({sortPost: 'latest',filterCategory: router.query ? router.query.category : 'all'})
      const handleChange= e => setOptions({...options, [e.target.name]: e.target.value});
      const handleChangeFilter = e => {
           setOptions({...options, filterCategory: e.target.value});

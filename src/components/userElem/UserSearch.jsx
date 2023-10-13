@@ -5,7 +5,8 @@ import { followUnfollow } from "@/constants/functions";
 
 export default function UserSearchElem({user, type='other', details, currUser}){
      const {data,status} = useSession(), router = useRouter();
-     const isFollowed = currUser?.details?.followingUsers.includes(user.user_id)
+     const isFollowed = currUser?.details?.followingUsers.includes(user.user_id);
+     const followOptions = {status, email: data?.user.email, userId: user.user_id}
      return <article className="user-searchElem">
           <Image src={user.image} alt="pfp" width={100} height={100}/>
           <div className="details">
@@ -17,7 +18,7 @@ export default function UserSearchElem({user, type='other', details, currUser}){
                </p>
                <div className="options">
                     {type==='other' ? <>
-                         <button className="btn" onClick={()=>followUnfollow(status,data?.user.email,user.user_id,router)}>{isFollowed?'Unfollow':'Follow'}</button>
+                         <button className="btn" onClick={()=>followUnfollow(followOptions,router,()=>router.refresh())}>{isFollowed?'Unfollow':'Follow'}</button>
                          <Link href={`/users/${user.username}`} className="btn">Explore</Link>
                     </> : <>
                          <button className="btn follow">Edit Profile</button>

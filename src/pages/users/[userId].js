@@ -15,24 +15,25 @@ import { useRouter } from "next/navigation";
 export default function UserProfile({user, posts, postCount, followers, users}){
      const {data, status} = useSession(), router = useRouter();
      const [userModal, setUserModal] = useState(false);
-     const isCurrUser = data?.user.email===user.email;
+     const isCurrUser = data?.user.email===user?.email;
      const currUser = users.find(val=>val.email===data?.user.email);
-     const isFollowed = currUser?.details?.followingUsers.includes(user.user_id);
+     const isFollowed = currUser?.details?.followingUsers.includes(user?.user_id);
+     const followOptions = {status, email: data?.user.email, userId: user?.user_id}
      return <>
-     <Head><title>{`${user.username} at Edu-Articles`}</title></Head>
+     <Head><title>{`${user?.name.split(' ')[0]} at Edu-Articles`}</title></Head>
      <Layout>
      <div className="userProfile">
           <div className="header">
-               <Image src={isCurrUser ? data.user?.image : user.image || '/images/defaultPfp.webp'} alt='pfp' width={200} height={200} priority/>
+               <Image src={user?.image || '/images/defaultPfp.webp'} alt='pfp' width={200} height={200} priority/>
                <div className="details">
-                    <h1>{isCurrUser ? data?.user.name : user.name}</h1>
-                    <span className="userName">{isCurrUser ? data?.user.username : user.username}</span>
+                    <h1>{user?.name}</h1>
+                    <span className="userName">{user?.username}</span>
                     <div className="stats">
                          <span id="posts">{postCount} posts</span>
                          <span>&middot;</span>
                          <span id="followers">{followers} followers</span>
                          <span>&middot;</span>
-                         <span id="following">{user.details.followingUsers.length} following</span>
+                         <span id="following">{user?.details.followingUsers.length} following</span>
                     </div>
                     <p className="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
                     <div className="options">
@@ -41,7 +42,7 @@ export default function UserProfile({user, posts, postCount, followers, users}){
                               <button className="btn">Manage Posts</button>
                               <button className="btn">Analytics</button>
                          </> : <> 
-                         <button className="btn" onClick={()=>followUnfollow(status,data?.user.email,user.user_id,router)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>
+                         <button className="btn" onClick={()=>followUnfollow(followOptions,router,()=>router.refresh())}>{isFollowed ? 'Unfollow' : 'Follow'}</button>
                          <button className="btn">About</button>
                          </>}
                          <button className="btn-icon" title="Options" onClick={()=>setUserModal(true)}><MdMoreHoriz/></button>
@@ -51,7 +52,7 @@ export default function UserProfile({user, posts, postCount, followers, users}){
           <div className="posts small userPosts">
                {!posts.length ? <h2 className="empty">This user Doesn&apos;t have any posts</h2> : posts.map(post=><BlogPost key={post.post_id} data={post}/>)}
           </div>
-     </div> 
+     </div>
      </Layout>
      <Modal isOpen={userModal} setIsOpen={setUserModal} customCloseText="Cancel">
           <ul>
@@ -88,8 +89,8 @@ export async function getStaticProps({params}){
           const userInfo = {...user}._doc;
           delete userInfo.__v;
           delete userInfo._id;
-          const postList = await Post.find({email: userInfo.email})
-          const posts = await Post.find({email: userInfo.email});
+          const postList = await Post.find({email: user.email})
+          const posts = await Post.find({email: user.email});
           return {props: {
                user: userInfo,
                posts: !posts ? [] : serializeObject(posts.sort((a,b)=>a?-1:b?1:0)),

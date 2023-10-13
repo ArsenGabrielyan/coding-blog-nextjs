@@ -10,7 +10,7 @@ export default async function connectDB(){
      if(!connection.isConnected){
           db = await mongoose.connect(url)
           connection.isConnected = db.connections[0].readyState;
-          console.info('Database is Connected')
+          if(process.env.NODE_ENV==='development') console.info('Database is Connected')
      }
      return db;
 }

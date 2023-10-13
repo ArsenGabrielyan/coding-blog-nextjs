@@ -14,7 +14,7 @@ export default function SignInForm(){
      const [loaded, setLoaded] = useState(false);
      const [togglePass, setTogglePass] = useState(false)
      const router = useRouter(), {status} = useSession();
-     const callbackUrl = router.query || "/";
+     const callbackUrl = router.query.callbackUrl || "/";
      const handleChange = e => setData({...data, [e.target.name]:e.target.value})
      const handleSubmit = async e =>{
           e.preventDefault();

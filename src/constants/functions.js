@@ -25,11 +25,11 @@ export const fetcher = async url => {
      const res = await axios.get(url,REQ_CONFIG);
      return res.data
 }
-export const followUnfollow = async(status,email,userId,router)=>{
+export const followUnfollow = async({status,email,userId},router,payload)=>{
      if(status==='authenticated'){
-          const res = await axios.patch('/api/userApi',{email, userId},REQ_CONFIG);
-          if(res.status===200) location.reload();
-     } else router.replace('/auth/signin')
+          const res = await axios.patch('/api/users',{email, userId},REQ_CONFIG);
+          if(res.status===200) payload();
+     } else router.push('/auth/signin')
 }
 export const sortList = (a,b,type,options)=>{
      if(type==='post') switch(options.sortPost){
@@ -54,8 +54,8 @@ export const search = (val,q) =>
      val.keywords?.includes(q.toLowerCase())) ||
      val.otherData?.tags.includes(q.toLowerCase())
 export const isCurrent = (currUser,post,author) => ({
-     isLiked:currUser?.details.likedPosts.includes(post.post_id),
-     isSaved:currUser?.details.savedPosts.includes(post.post_id),
+     isLiked:currUser?.details.likedPosts.includes(post?.post_id),
+     isSaved:currUser?.details.savedPosts.includes(post?.post_id),
      isFollowed:currUser?.details.followingUsers.includes(author?.user_id),
 })
 export const isCurrPostForm = (postData,currData) => ({

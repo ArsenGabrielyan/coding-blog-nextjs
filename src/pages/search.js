@@ -50,6 +50,6 @@ export async function getServerSideProps(ctx){
      const currUser = await User.findOne({email: session?.user.email})
      return {props: {
           list: serializeObject([...userList,...postList].filter(val=>search(val,q))),
-          details, currUser
+          details, currUser: serializeObject(currUser)
      }}
 }

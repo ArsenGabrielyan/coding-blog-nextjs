@@ -16,58 +16,61 @@ import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-ic
 import { MdMoreHoriz } from "react-icons/md";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import { followUnfollow, isCurrent, serializeObject } from "@/constants/functions";
+import { fetcher, followUnfollow, isCurrent, serializeObject } from "@/constants/functions";
 import { useEffect, useState } from "react";
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
+import useSWR from "swr";
 
-export default function NewPost({post, author, users, likeCount, relatedPosts}){
+export default function NewPost({author, users, likeCount, relatedPosts}){
      const router = useRouter(), {data, status} = useSession();
      const [limit, setLimit] = useState(POST_COMMENT_LIMIT)
      const {viewRef, inView} = useInView();
+     const {data: post, isLoading, mutate: mutatePost, isValidating} = useSWR(router.query ? `/api/posts/${router.query?.postId}` : null, fetcher)
      const currUser = users.find(val=>val.email===data?.user.email)
-     const isCurrUser = data?.user.email===post.email;
+     const isCurrUser = data?.user.email===post?.email;
      const isCurrPost = isCurrent(currUser,post,author);
+     const followOptions = {status, email: data?.user.email, userId: author?.user_id}
      useEffect(()=>{
-          if(inView && limit!==post.comments.length) setLimit(limit+2);//eslint-disable-next-line
+          if(inView && limit!==post?.comments.length) setLimit(limit+2);//eslint-disable-next-line
      },[inView])
      const deletePost = async()=>{
           if(confirm('Are You Sure to Delete That Post?')){
-               const res = await axios.delete(`/api/postEditor/${post.post_id}`,REQ_CONFIG);
+               const res = await axios.delete(`/api/posts/${post?.post_id}`,REQ_CONFIG);
                if(res.status===200) router.push(`/users/${data?.user.username}`)
           }
      }
      const clickOn = async(type)=>{
           if(status==='authenticated') {
-               const res = await axios.patch('/api/postEditor',{type:type==='like'?'like':'save',email:data?.user.email,id:post.post_id});
+               const res = await axios.patch('/api/posts',{type:type==='like'?'like':'save',email:data?.user.email,id:post?.post_id});
                if(res.status===200) router.reload();
           } else router.replace('/auth/signin')
      }
      return <>
-     <Head><title>{post.title}</title></Head>
+     <Head><title>{post?.title}</title></Head>
      <Layout>
-     <main className={`single-post-main ${relatedPosts.filter(val=>val.post_id!==post.post_id).length?'':'full'}`}>
+     {isLoading ? <h2>Loading...</h2> : <main className={`single-post-main ${relatedPosts.filter(val=>val.post_id!==post?.post_id).length?'':'full'}`}>
           <section className="single-post-container">
                <div className="single-post">
                     <div className="single-post-header">
-                         <Image src={post.banner.file || "/images/post-header.webp"} alt="banner" fill priority/> 
+                         <Image src={post?.banner.file || "/images/post-header.webp"} alt="banner" fill priority/> 
                     </div>
                     <div className="single-post-body">
-                         <h1>{post.title}</h1>
+                         <h1>{post?.title}</h1>
                          {isCurrUser && <>
-                              <button className="btn customM" onClick={()=>router.push(`/postEditor/${post.post_id}`)}>Edit Post</button>
+                              <button className="btn customM" onClick={()=>router.push(`/postEditor/${post?.post_id}`)}>Edit Post</button>
                               <button className="btn customM" onClick={deletePost}>Delete Post</button>
                          </>}
                          <div className="details-upper">
-                              <span className="user"><Image src={post.profileImage || "/images/defaultPfp.webp"} alt="account profile" width={45} height={45}/><Link href={`/users/${author?.user_id}`}>{post.author}</Link></span>
-                              <span className="date"><FaCalendar/>{post.date}</span>
+                              <span className="user"><Image src={post?.profileImage || "/images/defaultPfp.webp"} alt="account profile" width={45} height={45}/><Link href={`/users/${author?.user_id}`}>{post?.author}</Link></span>
+                              <span className="date"><FaCalendar/>{post?.date}</span>
                          </div>
                          <div className="content">
-                              <MarkdownContent>{post.content}</MarkdownContent>
+                              <MarkdownContent>{post?.content}</MarkdownContent>
                          </div>
                          <div className="details-lower">
                               <div>
                                    <span title={isCurrPost.isLiked?'Unlike':"Like"} className={isCurrPost.isLiked?'active':""} onClick={()=>clickOn('like')}><FaThumbsUp/> {likeCount}</span>
-                                   <span title="Comment" onClick={()=>router.push('#comment')}><FaComment/> {post.comments.length}</span>
+                                   <span title="Comment" onClick={()=>router.push('#comment')}><FaComment/> {post?.comments.length}</span>
                               </div>
                               <div>
                                    <span className={isCurrPost.isSaved?'active':""} title={isCurrPost.isSaved?'Remove From Reading List':"Save to Reading List"} onClick={()=>clickOn('save')}><FaBookmark/></span>
@@ -77,8 +80,8 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
                     </div>
                </div>
                <div className="single-post-user">
-                    <Image src={post.profileImage || "/images/defaultPfp.webp"} alt="account profile" className="pfp" width={128} height={128} onClick={()=>router.push('/users/arsen2005')}/>
-                    <h2>{post.author}</h2>
+                    <Image src={post?.profileImage || "/images/defaultPfp.webp"} alt="account profile" className="pfp" width={128} height={128} onClick={()=>router.push('/users/arsen2005')}/>
+                    <h2>{post?.author}</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
                     <div className="options">
                          {isCurrUser ? <>
@@ -86,25 +89,25 @@ export default function NewPost({post, author, users, likeCount, relatedPosts}){
                               <button className="btn">Manage Posts</button>
                               <button className="btn">Analytics</button>
                          </> : <>
-                              <button className="btn" onClick={()=>followUnfollow(status,data?.user.email,author?.user_id,router)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>
+                              <button className="btn" onClick={()=>followUnfollow(followOptions,router,()=>router.reload())}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>
                               <button className="btn">About</button>
                               <button className="btn-icon" title="More"><MdMoreHoriz/></button>
                          </>}
                     </div>
                </div>
-               <PostCommentContainer session={{currUser: data?.user,status}} postId={post.post_id} router={router}>
-                    {post.comments && post.comments.slice(0,limit).map(comment=><PostComment key={comment.commentId} data={comment} session={data?.user} users={users} postId={post.post_id} currUser={currUser}/>)}
+               <PostCommentContainer session={{currUser: data?.user,status}} postId={post?.post_id} router={router} update={{mutatePost,isValidating}}>
+                    {post?.comments && post?.comments.sort((a,b)=>a.commentId>b.commentId ? 1 : a.commentId<b.commentId ? -1: 0).slice(0,limit).map(comment=><PostComment key={comment.commentId} data={comment} session={data?.user} users={users} postId={post?.post_id} currUser={currUser} mutatePost={mutatePost}/>)}
                     <span ref={viewRef}/>
                </PostCommentContainer>
           </section>
-          {!!relatedPosts.filter(val=>val.post_id!==post.post_id).length && <aside className="widgets">
+          {!!relatedPosts.filter(val=>val.post_id!==post?.post_id).length && <aside className="widgets">
                <Widget title="Related Posts">
                     <ul className="w-posts">
-                         {relatedPosts.map(rPost=>rPost.post_id!==post.post_id && <PostWidget key={rPost.post_id} data={rPost}/>)}
+                         {relatedPosts.map(rPost=>rPost.post_id!==post?.post_id && <PostWidget key={rPost.post_id} data={rPost}/>)}
                     </ul>
                </Widget>
           </aside>}
-     </main>
+     </main>}
      </Layout>
      </>
 }
@@ -123,15 +126,12 @@ export async function getStaticProps({params}){
      user = await User.find();
      if(!post) return {notFound: true}
      else {
-          const postInfo = {...post}._doc;
-          delete postInfo._id;
-          const author = await User.findOne({email: post.email});
-          const relatedPosts = await Post.find({category: post.category});
+          const author = await User.findOne({email: post?.email});
+          const relatedPosts = await Post.find({category: post?.category});
           return {props: {
-               post: serializeObject(postInfo),
                author: serializeObject(author),
                users: serializeObject(user),
-               likeCount: user.filter(val=>val.details.likedPosts.includes(post.post_id)).length,
+               likeCount: user.filter(val=>val.details.likedPosts.includes(post?.post_id)).length,
                relatedPosts: serializeObject(relatedPosts.slice(0,6))
           }} 
      }
