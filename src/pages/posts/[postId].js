@@ -89,7 +89,7 @@ export default function NewPost({author, relatedPosts}){
                          </>}
                     </div>
                </div>
-               <PostCommentContainer session={{currUser: user,status}} postId={post?.post_id} update={{updatePost,isValidating}}>
+               <PostCommentContainer session={{currUser,status}} postId={post?.post_id} update={{updatePost,isValidating}}>
                     {post?.comments && post?.comments.sort((a,b)=>a.commentId>b.commentId ? 1 : a.commentId<b.commentId ? -1: 0).slice(0,limit).map(comment=><PostComment key={comment.commentId} data={comment} session={user} users={users} postId={post?.post_id} currUser={currUser} update={{updateDetails,updatePost}}/>)}
                     {limit<post?.comments.length && <button className="btn" onClick={loadMoreComments}>Load More Comments</button>}
                </PostCommentContainer>

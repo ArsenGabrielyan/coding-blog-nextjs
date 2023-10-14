@@ -5,8 +5,6 @@ import { MarkdownContent } from "@/constants/markdown-options";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link"; import axios from "axios";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import useSWR from "swr";
-import { fetcher } from "@/constants/functions";
 import { toast } from "react-toastify";
 
 export default function PostComment({data, session, postId, users, currUser, update}){
@@ -16,7 +14,6 @@ export default function PostComment({data, session, postId, users, currUser, upd
      const [load, setLoad] = useState(false);
      const commentOptRef = useRef(null), {updateDetails,updatePost} = update;
      const commentLikes = users?.filter(val=>val.details.likedComments.includes(data.commentId)).length;
-     const {data: commenter, isLoading} = useSWR(`/api/users/${data.email}`,fetcher)
      useEffect(()=>{
           document.addEventListener('click',e=>{
                if(!commentOptRef.current?.contains(e.target)) setCommentOpen(false);
@@ -56,8 +53,8 @@ export default function PostComment({data, session, postId, users, currUser, upd
                await updateDetails();
           };
      }
-     return !isLoading ? <div className="comment">
-          <Link href={`/users/${commenter?.username}`}><Image src={commenter?.image} alt="account profile" className="comment-pfp" width={64} height={64}/></Link>
+     return <div className="comment">
+          <Link href={`/users/${data.name}`}><Image src={data.image} alt="account profile" className="comment-pfp" width={64} height={64}/></Link>
           {editMode ? <form className="editForm" onSubmit={applyEdit}>
                <textarea name="comment" placeholder="Add Comment" value={newComment} onChange={e=>setNewComment(e.target.value)}/>
                {newComment!=='' && <div className="options">
@@ -66,7 +63,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
                </div>}
           </form> : <>
                <div className="comment-details">
-               <h3><Link href={`/users/${commenter?.username}`}>{commenter?.name}</Link>&nbsp;&bull;&nbsp;{data.date}{data.edited && <>&nbsp;&bull;&nbsp;Edited</>}</h3>
+               <h3><Link href={`/users/${data.name}`}>{data.name}</Link>&nbsp;&bull;&nbsp;{data.date}{data.edited && <>&nbsp;&bull;&nbsp;Edited</>}</h3>
                <MarkdownContent>{data.comment}</MarkdownContent>
                <div className="comment-btns">
                     <button className={`comBtn ${currUser?.details?.likedComments.includes(data.commentId)?'active':''}`} title={currUser?.details?.likedComments.includes(data.commentId)?"Unlike":"Like"} onClick={likeComment}><FaThumbsUp/>&nbsp;{commentLikes}</button>
@@ -79,5 +76,5 @@ export default function PostComment({data, session, postId, users, currUser, upd
                     <li><button onClick={()=>deleteComment(data.commentId)}><MdDelete/> Delete</button></li>
                </>: <li><button><MdReport/> Report</button></li>}
           </ul>}</>}
-     </div> : null
+     </div>
 }
