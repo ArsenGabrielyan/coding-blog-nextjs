@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-     transpilePackages: ['react-markdown','react-syntax-highlighter'],
+     transpilePackages: ['react-markdown','react-syntax-highlighter','react-toastify'],
      webpack: (config, {isServer})=>{
           if (!isServer) {
                config.resolve.fallback = {

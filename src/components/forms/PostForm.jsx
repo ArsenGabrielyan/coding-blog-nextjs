@@ -31,7 +31,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                const optimized = await compress.compress([...e.target.files],{
                     maxWidth: 1000,
                     maxHeight: 560,
-                    size: 4,   quality: 0.75
+                    size: 4, quality: 0.75
                });
                setPostData({...postData, [e.target.id==='banner' ? 'banner' : 'thumbnail']: {
                     preview: optimized[0].alt,

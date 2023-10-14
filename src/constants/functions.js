@@ -37,7 +37,7 @@ export const sortList = (a,b,options)=>{
           case 'name': return a.title>b.title ? 1 : a.title<b.title ? -1 : 0
           case 'dName': return a.title>b.title ? -1 : a.title<b.title ? 1 : 0
           case 'latest': return a?-1:b?1:0;
-          default: return a?1:b?-1:0;
+          case 'oldest': return a?1:b?-1:0;
      }
 }
 export const toQueryURL = text => text.split(' ').join('+');

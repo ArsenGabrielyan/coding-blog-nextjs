@@ -7,6 +7,7 @@ export const INITIAL_SETTINGS = {
      website: '', bio: '',
      tags: [], otherLinks:{},     
 }
+export const FORGOT_PASS_INITIAL = { newPass: '', cNewPass: '' }
 export const LOGIN_INITIAL = { email: '' , pass: '' }
 export const REGISTER_INITIAL = {
      name: '',

@@ -14,7 +14,7 @@ import { REQ_CONFIG } from "@/constants/forms/formData";
 import { abbrNum, followUnfollow, serializeObject } from "@/constants/functions";
 import { useState } from "react";
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
-import usePost from "@/lib/hooks/use-post";
+import usePost from "@/lib/hooks/use-post"; import { toast } from "react-toastify";
 
 export default function NewPost({author, relatedPosts}){
      const router = useRouter(), {state,update,conditions,session,followOptions} = usePost(router.query,author);
@@ -25,7 +25,14 @@ export default function NewPost({author, relatedPosts}){
      const deletePost = async()=>{
           if(confirm('Are You Sure to Delete That Post?')){
                const res = await axios.delete(`/api/posts/${post?.post_id}`,REQ_CONFIG);
-               if(res.status===200) router.push(`/users/${user.username}`)
+               const response = toast.promise(
+                    fetch(`/api/posts/${post?.post_id}`),{
+                         pending: 'Deleting...',
+                         success: 'Post Deleted',
+                         error: 'Failed to Delete the Post'
+                    }
+               )
+               if(res.status===200 && (await response).status===200) router.push(`/users/${currUser.username}`)
           }
      }
      const clickOn = async(type)=>{

@@ -73,8 +73,7 @@ export const nextAuthOptions = {
                          result = true
                     } catch(err){
                          console.error(err);
-                         errTxt = err
-                         result = false;
+                         errTxt = err; result = false;
                     }
                }
                result=!errTxt;
@@ -86,10 +85,7 @@ export const nextAuthOptions = {
                     const profile = await User.findOne({email: user.email});
                     token.user = {
                          id: user.user_id || profile.user_id,
-                         name: user.name,
                          email: user.email,
-                         username: user.username || profile.username,
-                         image: user.image,
                     } 
                } 
                return token

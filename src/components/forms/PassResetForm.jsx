@@ -4,11 +4,11 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import axios from "axios"; import { REQ_CONFIG } from "@/constants/forms/formData";
+import axios from "axios"; import { FORGOT_PASS_INITIAL, REQ_CONFIG } from "@/constants/forms/formData";
 
 export default function PassResetForm({isLinkInvalid, token, email}){
      const router = useRouter()
-     const [passReset, setPassReset] = useState({newPass:'',cNewPass:''});
+     const [passReset, setPassReset] = useState(FORGOT_PASS_INITIAL);
      const [load, setLoad] = useState(false);
      const [err, setErr] = useState('');
      const [success, setSuccess] = useState('');
@@ -28,9 +28,9 @@ export default function PassResetForm({isLinkInvalid, token, email}){
                setErr('');
                const res = await axios.post('/api/reset-pass',{token,email,newPass: passReset.newPass},REQ_CONFIG);
                if(res.status===200){
-                    setLoad(false);
-                    setSuccess(res.data.msg)
-                    setTimeout(()=>router.push('/'),2500)
+                    setLoad(false); setSuccess(res.data.msg);
+                    setPassReset(FORGOT_PASS_INITIAL)
+                    setTimeout(()=>router.push('/auth/signin'),2500)
                }
           } catch(err){
                setLoad(false);

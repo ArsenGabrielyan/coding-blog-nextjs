@@ -1,6 +1,7 @@
 import Head from "next/head";
 import {SessionProvider} from "next-auth/react";
-import "@/styles/globals.scss"
+import "@/styles/globals.scss";
+import 'react-toastify/dist/ReactToastify.css';
 import "react-multi-carousel/lib/styles.css";
 import "@uiw/react-markdown-editor/markdown-editor.css";
 

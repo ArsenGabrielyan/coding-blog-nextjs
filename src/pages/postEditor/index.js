@@ -3,15 +3,16 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import PostForm from "@/components/forms/PostForm";
 import { INITIAL_POSTDATA } from "@/constants/forms/formData";
-import PostPreview from "@/components/postElem/Post-Preview";
-import Head from "next/head";
+import PostPreview from "@/components/postElem/Post-Preview"; import Head from "next/head";
+import useSWR from "swr"; import { fetcher } from "@/constants/functions";
 
 export default function NewPost(){
      const [mode, setMode] = useState('edit');
      const {data,status} = useSession();
      const [postData, setPostData] = useState(INITIAL_POSTDATA)
+     const {data: currSession} = useSWR(`/api/users/${data?.user.id}`,fetcher);
      useEffect(()=>{
-          if(status==='authenticated') setPostData({...postData,author: data ? data.user.name : '', profileImage: data ? data.user.image : '/images/defaultPfp.webp', email: data?.user.email});// eslint-disable-next-line
+          if(status==='authenticated') setPostData({...postData,author: data ? currSession?.name : '', profileImage: currSession?.image || '/images/defaultPfp.webp', email: data?.user.email});// eslint-disable-next-line
      },[status])
      return <>
           <Head><title>Create a New Post | Edu-Articles</title></Head>

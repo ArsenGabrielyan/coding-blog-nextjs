@@ -4,10 +4,12 @@ import { useSession } from "next-auth/react"
 import { MdClose, MdSearch } from "react-icons/md";
 import { useState } from "react"
 import { useRouter } from "next/navigation";
-import { toQueryURL } from "@/constants/functions";
+import { fetcher, toQueryURL } from "@/constants/functions";
+import useSWR from "swr";
 
 export default function Header(){
      const router = useRouter(), {status, data} = useSession();
+     const {data: user} = useSWR(`/api/users/${data?.user.id}`,fetcher)
      const [isOpenSearch, setIsOpenSearch] = useState(false);
      const [search, setSearch] = useState('')
      const clearSearch = () => {
@@ -31,6 +33,6 @@ export default function Header(){
                     {(search!=='' || isOpenSearch) && <button type='button' onClick={clearSearch}><MdClose/></button>}
                </form>
           </div>
-          {status==="unauthenticated" ? <Link href='/auth/signin' className="link">Sign In</Link> : <UserDropdown user={data?.user}/>}
+          {status==="unauthenticated" ? <Link href='/auth/signin' className="link">Sign In</Link> : <UserDropdown user={user}/>}
      </header>
 }

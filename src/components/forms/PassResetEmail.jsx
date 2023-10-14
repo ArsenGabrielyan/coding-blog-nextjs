@@ -17,8 +17,8 @@ export default function PassResetEmail(){
                setLoad(true);setErr('');
                const res = await axios.post('/api/reset-pass/recover',{email},REQ_CONFIG);
                if(res.status===200){
-                    setLoad(false);setSuccess(res.data.msg);
-                    setTimeout(()=>{setSuccess(''),setEmail('') },2500)
+                    setLoad(false);setSuccess(res.data.msg);setEmail('')
+                    setTimeout(()=>setSuccess(''),2500)
                }
           } catch(err){
                setLoad(false);
