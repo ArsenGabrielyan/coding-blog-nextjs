@@ -1,21 +1,25 @@
-import Layout from "@/components/Layout"
-import { useSession } from "next-auth/react";
+import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
+import { getSession, useSession } from "next-auth/react";
 import PostForm from "@/components/forms/PostForm";
 import { INITIAL_POSTDATA } from "@/constants/forms/formData";
 import PostPreview from "@/components/postElem/Post-Preview"; import Head from "next/head";
-import useSWR from "swr"; import { fetcher } from "@/constants/functions";
+import User from "@/model/CredentialsUser"; import connectDB from "@/lib/connectDb";
+import { serializeObject } from "@/constants/functions";
 
-export default function NewPost(){
+export default function NewPost({session,currUser}){
      const [mode, setMode] = useState('edit');
-     const {data,status} = useSession();
+     const {status} = useSession();
      const [postData, setPostData] = useState(INITIAL_POSTDATA)
-     const {data: currSession} = useSWR(`/api/users/${data?.user.id}`,fetcher);
      useEffect(()=>{
-          if(status==='authenticated') setPostData({...postData,author: data ? currSession?.name : '', profileImage: currSession?.image || '/images/defaultPfp.webp', email: data?.user.email});// eslint-disable-next-line
+          if(status==='authenticated') setPostData({
+               ...postData, author: currUser?.name || '',
+               profileImage: currUser?.image || '/images/defaultPfp.webp',
+               email: session?.user.email
+          }); // eslint-disable-next-line
      },[status])
      return <>
-          <Head><title>Create a New Post | Edu-Articles</title></Head>
+     <Head><title>Create a New Post | Edu-Articles</title></Head>
           <Layout>
           <section className="new-post-container">
                <h1 className="title">Create a new Post</h1>
@@ -27,4 +31,15 @@ export default function NewPost(){
           </section>
      </Layout>
      </>
+}
+export async function getServerSideProps(ctx){
+     const session = await getSession(ctx);
+     if(session){
+          await connectDB();
+          const currUser = await User.findOne({user_id: session?.user.id});
+          return {props: {session,currUser: serializeObject(currUser)}}
+     } else return {redirect:{
+          pernament:false,
+          destination: '/auth/signin'
+     }}
 }

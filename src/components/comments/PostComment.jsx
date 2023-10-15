@@ -21,7 +21,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
      },[]);
      const deleteComment = async id => {
           if(confirm('Are You Sure to Delete this Comment?')){
-               const response = toast.promise(
+               const response = await toast.promise(
                     fetch(`/api/posts/comments/${id}?postId=${postId}`),{
                          pending: 'Deleting...',
                          success: 'Comment Deleted',
@@ -29,7 +29,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
                     }
                );
                const res = await axios.delete(`/api/posts/comments/${id}?postId=${postId}`,REQ_CONFIG);
-               if(res.status===200 && (await response).status===200) await updatePost();
+               if(res.status===200 && response.status===200) await updatePost();
           }
      }
      const cancelEdit = () => {

@@ -1,15 +1,14 @@
 import Image from "next/image"; import Link from "next/link"
-import UserDropdown from "./UserDropdown"
+import UserDropdown from "./UserDropdown";
 import { useSession } from "next-auth/react"
 import { MdClose, MdSearch } from "react-icons/md";
-import { useState } from "react"
-import { useRouter } from "next/navigation";
+import { useState } from "react"; import useSWR from "swr";
+import { useRouter } from "next/navigation"; 
 import { fetcher, toQueryURL } from "@/constants/functions";
-import useSWR from "swr";
 
 export default function Header(){
      const router = useRouter(), {status, data} = useSession();
-     const {data: user} = useSWR(`/api/users/${data?.user.id}`,fetcher)
+     const {data: user, isLoading} = useSWR(`/api/users/${data?.user.id}`,fetcher)
      const [isOpenSearch, setIsOpenSearch] = useState(false);
      const [search, setSearch] = useState('')
      const clearSearch = () => {
@@ -23,7 +22,7 @@ export default function Header(){
                clearSearch();
           }
      }
-     return <header className={`siteHeader ${status==='loading' ? 'loading' : ''}`}>
+     return <header className='siteHeader'>
           <Link href='/' id="logo"><Image src="/images/logo.webp" priority alt="" className="logo" width={125} height={80}/></Link>
           <div className={`inner-content ${isOpenSearch ? 'active' : ''}`}>
                <button className="searchBtn" onClick={()=>setIsOpenSearch(true)} title="Search..."><MdSearch/></button>
@@ -33,6 +32,6 @@ export default function Header(){
                     {(search!=='' || isOpenSearch) && <button type='button' onClick={clearSearch}><MdClose/></button>}
                </form>
           </div>
-          {status==="unauthenticated" ? <Link href='/auth/signin' className="link">Sign In</Link> : <UserDropdown user={user}/>}
+          {status==="unauthenticated" ? <Link href='/auth/signin' className="link">Sign In</Link> : isLoading ? <h2>Loading...</h2> : <UserDropdown user={user}/>}
      </header>
 }

@@ -7,6 +7,14 @@ export default function useTags(setPostData,postData){
           arr.splice(i,1);
           setPostData({...postData, keywords: arr});
      }
+     const editTag = i => {
+          const newVal = prompt('New Value For a Selected Tag');
+          if(newVal && newVal.trim()!==''){
+               const arr = [...postData.keywords];
+               arr[i] = newVal;
+               setPostData({...postData, keywords: arr});
+          }
+     }
      const clearAllTags = () => {
           const arr = [...postData.keywords];
           arr.splice(0,arr.length);
@@ -23,5 +31,12 @@ export default function useTags(setPostData,postData){
           }
      }
      const changeTags = e=>setTagInput(e.target.value)
-     return {removeTag,clearAllTags,handleKeydown,changeTags,tagInput}
+     return {
+          removeTag,
+          clearAllTags,
+          handleKeydown,
+          changeTags,
+          tagInput,
+          editTag
+     }
 }

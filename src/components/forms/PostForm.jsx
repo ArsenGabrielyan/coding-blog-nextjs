@@ -5,7 +5,7 @@ import Compress from "compress.js";
 import { validatePost } from "@/constants/forms/validators";
 import dynamic from "next/dynamic";
 import { customMode, customToolbar, rehypePlugins, remarkPlugins } from "@/constants/markdown-options";
-import axios from "axios";
+import axios from "axios"; import Link from "next/link";
 import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
 import { generate } from "@/constants/functions";
 import { useRouter } from "next/navigation";
@@ -21,8 +21,12 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
      const tagOptions = useTags(setPostData,postData), compress = new Compress(), router = useRouter();
      const isCurrPost = JSON.stringify(postData)===JSON.stringify(currData);
      const handleChange = e => setPostData({...postData, [e.target.name]: e.target.value});
-     const reset = () => {
-          setPostData(INITIAL_POSTDATA);
+     const reset = type => {
+          if(type==='some'){
+               const {author,profileImage,email} = postData;
+               setPostData({...INITIAL_POSTDATA,author,profileImage,email});
+          }
+          else setPostData(INITIAL_POSTDATA);
           setErr('');
           setLoaded(false);
      }
@@ -40,7 +44,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                }})
           }
      }
-     const onSubmit = async e => {
+     const handleSubmit = async e => {
           e.preventDefault();
           if(validatePost(postData,setErr)) try{
                if(type==='new') {
@@ -50,7 +54,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                     if(res?.status===200){
                          setLoaded(false);
                          router.push(`/posts/${postId}`);
-                         reset();
+                         reset('all');
                     }
                } else{
                     setLoaded(true);
@@ -58,7 +62,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                     if(res?.status===200){
                          setLoaded(false);
                          router.push(`/posts/${postData.post_id}`);
-                         reset();
+                         reset('all');
                     }
                }  
           } catch(err){
@@ -66,7 +70,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                setErr(err.response ? err.response.data.message : err.message)
           } 
      }
-     return <form className="frmNewPost" onSubmit={onSubmit}>
+     return <form className="frmNewPost" onSubmit={handleSubmit}>
           {err && <p className="frmErr"><MdError/> {err}</p>}
           <div className="imageUploads">
                <button className="imgUpload" type="button" onClick={()=>bannerRef.current.click()}><MdImage/> Upload Banner</button>
@@ -102,13 +106,13 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
           </div>
           {!!postData.keywords.length && <>
                <ul className="tagList">
-                    {postData.keywords.map((tag,i)=><li key={i}>{tag} <button type="button" onClick={()=>tagOptions.removeTag(i)}><MdClose/></button></li>)}
+                    {postData.keywords.map((tag,i)=><li key={i} onClick={()=>tagOptions.editTag(i)}>{tag} <button type="button" onClick={()=>tagOptions.removeTag(i)}><MdClose/></button></li>)}
                </ul>
-               <button type="button" className="btn white btnTags" onClick={tagOptions.clearAllTags}>Clear All Keywords</button>
+               <button type="button" className="btn white btnTags" onClick={()=>tagOptions.clearAllTags()}>Clear All Keywords</button>
           </>}
           <div className="btns">
                <button className="btn fill" disabled={loaded || isCurrPost} type="submit">{loaded ? 'Loading...' : type!=='new' ? 'Apply Changes' : 'Publish'}</button>
-               <button className="btn white" disabled={loaded} type="reset">Cancel</button>
+               {type==='new' ? <button className="btn white" disabled={loaded} type="button" onClick={()=>reset('some')}>Reset Details</button> : <Link className="btn white" href={`/posts/${currData.post_id}`} onClick={()=>reset('all')}>Cancel</Link>}
                {type==='new' && <button className="btn white" disabled={loaded} type="button">Save as Draft</button>}
           </div>
      </form>

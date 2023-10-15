@@ -191,15 +191,11 @@
                width: 100%;margin-bottom: 5px;
                li{
                     &,button{justify-content: center;}
-                    background: $col2;
-                    color: $col4;
-                    font-size: 18px;
-                    margin: 4px 0;
-                    margin-right: 4px;
-                    padding: 0.25em;
-                    border-radius: 8px;
-                    word-wrap: break-word;
-                    word-break: break-all;
+                    background: $col2;color: $col4;
+                    font-size: 18px;margin: 4px 0;
+                    margin-right: 4px;padding: 0.25em;
+                    border-radius: 8px;word-wrap: break-word;
+                    word-break: break-all;cursor: pointer;
                     &:last-child{margin-right: 0;}
                     button{
                          font-size: 20px;

@@ -1,5 +1,6 @@
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";
+import Post from "@/model/Post";
 
 export default async function handler(req,res){
      const {email, userId} = req.body;
@@ -13,7 +14,12 @@ export default async function handler(req,res){
           res.status(200).json(currUser)
      } else if(req.method==='GET'){
           await connectDB();
-          const users = await User.find();
+          const userList = await User.find()
+          const users = await Promise.all(userList?.map(async val=>{
+               const posts = await Post.find({email: val?.email})
+               const userDetails = {followers: userList?.filter(v=>v.details.followingUsers.includes(val?.user_id)).length, postCount: posts?.length}
+               return {...val?._doc,...userDetails}
+          }))
           res.status(200).json(users)
      }
 }

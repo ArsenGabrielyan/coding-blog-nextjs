@@ -11,7 +11,7 @@ export default function useUser(query){
      const {data: currUser, mutate: updateSession} = useSWR(`/api/users/${currUserId}`,fetcher);
      const isFollowed = currUser?.details?.followingUsers.includes(user?.user_id);
      const followers = users?.filter(val=>val.details.followingUsers.includes(user?.user_id)).length
-     const followOptions = {status, email: data?.user.email, userId: user?.user_id};
+     const followOptions = {status, email: data?.user.email, userId: user?.user_id, name: user?.name};
      const updateDetails = async()=>{
           await updateSession();
           await updateUser();

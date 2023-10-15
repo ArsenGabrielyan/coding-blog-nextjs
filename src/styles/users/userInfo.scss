@@ -20,7 +20,10 @@
           .details{
                flex-direction: column;
                h1{font-weight: 550;}
-               .userName{font-size: 21.5px;color: $midDarkGrey;}
+               .userName{
+                    font-size: 21.5px;
+                    color: $midDarkGrey;
+               }
                &, .stats, .options{
                     display: flex;
                     justify-content: center;
@@ -28,8 +31,7 @@
                }
                .stats{
                     &,.options{width: 100%;}
-                    margin: 8px 0;
-                    display: flex;
+                    margin: 8px 0;display: flex;
                     justify-content: space-evenly;
                     align-items: center;
                     span{font-size: 20px;}
@@ -41,16 +43,26 @@
      .userPosts h2{font-size: 27px;}
 }
 @media screen and (max-width: 900px){
-     .userProfile .header img{
-          width: 150px;
-          height: 150px;
-          margin-right: 12px;
+     .userProfile{
+          .header img{
+               width: 150px;height: 150px;
+               margin-right: 12px;
+          }
+          .options.session-mode{
+               flex-direction: column;
+               width: 100%;
+               button{
+                    margin: 4px 0!important;
+                    width: 100%;
+               }
+          }
      }
 }
 @media screen and (max-width: 500px){
      .userProfile .header{
           flex-direction: column;
-          padding: 12px;text-align: center;
+          padding: 12px;
+          text-align: center;
           img{margin-right: 0;}
           .details{
                h1{font-size: 27px}
@@ -60,7 +72,14 @@
      }
 }
 @media screen and (max-width: 400px){
-     .userProfile .header .details .stats span{font-size: 16px;}
+     .userProfile .header .details .stats{
+          flex-direction: column;
+          span{
+               padding: 5px;
+               border-bottom: 1px solid $midLightGrey;
+               &:last-child{border-bottom: 0;}
+          }
+     }
 }
 @media screen and (max-width: 300px){
      .userProfile .header .details .options{

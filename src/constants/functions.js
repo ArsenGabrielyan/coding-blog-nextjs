@@ -1,5 +1,5 @@
 import axios from "axios"; import { REQ_CONFIG } from "./forms/formData";
-
+import { toast } from "react-toastify";
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
      let newChar = '';
@@ -26,18 +26,23 @@ export const fetcher = async url => {
      const res = await axios.get(url,REQ_CONFIG);
      return res.data
 }
-export const followUnfollow = async({status,email,userId},router,payload)=>{
+export const followUnfollow = async({status,email,userId,name},router,isFollowed,payload)=>{
      if(status==='authenticated'){
           const res = await axios.patch('/api/users',{email, userId},REQ_CONFIG);
-          if(res.status===200) payload();
+          if(res.status===200) toast.promise(payload(),{
+               pending: 'Processing...',
+               success: `Successfully ${isFollowed ? 'Unfollowed' : 'Followed'} ${name}`,
+               error: `Failed to ${isFollowed ? 'Unfollow' : 'Follow'} ${name}`
+          });
      } else router.push('/auth/signin')
 }
 export const sortList = (a,b,options)=>{
+     const d1 = new Date(a.date).getTime(), d2 = new Date(b.date).getTime();
      switch(options.sortPost){
           case 'name': return a.title>b.title ? 1 : a.title<b.title ? -1 : 0
           case 'dName': return a.title>b.title ? -1 : a.title<b.title ? 1 : 0
-          case 'latest': return a?-1:b?1:0;
-          case 'oldest': return a?1:b?-1:0;
+          case 'latest': return d1>d2?-1:d1<d2?1:0;
+          default: return d1>d2?1:d1<d2?-1:0;
      }
 }
 export const toQueryURL = text => text.split(' ').join('+');

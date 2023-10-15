@@ -2,10 +2,8 @@ import Layout from "@/components/Layout"
 import BlogPost from "@/components/postElem/BlogPost";
 import Modal from "@/components/features/Modal";
 import connectDB from "@/lib/connectDb";
-import User from "@/model/CredentialsUser";
-import Post from "@/model/Post";
-import Head from "next/head";
-import Image from "next/image"
+import User from "@/model/CredentialsUser"; import Post from "@/model/Post";
+import Head from "next/head"; import Image from "next/image"
 import { useState } from "react"; import { MdMoreHoriz } from "react-icons/md";
 import { abbrNum, followUnfollow, serializeObject } from "@/constants/functions";
 import { useRouter } from "next/router"; import useUser from "@/lib/hooks/use-user";
@@ -26,22 +24,20 @@ export default function UserProfile({posts, postCount}){
                     <span className="userName">{user?.username}</span>
                     <div className="stats">
                          <span id="posts">{abbrNum(postCount)} posts</span>
-                         <span>&middot;</span>
                          <span id="followers">{abbrNum(followers)} followers</span>
-                         <span>&middot;</span>
                          <span id="following">{abbrNum(user?.details?.followingUsers.length)} following</span>
                     </div>
                     <p className="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
-                    <div className="options">
+                    <div className={`options ${isCurrUser ? 'session-mode' : ''}`}>
                          {isCurrUser ? <>
                               <button className="btn">Edit Profile</button>
                               <button className="btn">Manage Posts</button>
                               <button className="btn">Analytics</button>
                          </> : <> 
-                         <button className="btn" onClick={()=>followUnfollow(followOptions,router,async()=>await updateDetails())}>{isFollowed ? 'Unfollow' : 'Follow'}</button>
+                         <button className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>
                          <button className="btn">About</button>
                          </>}
-                         <button className="btn-icon" title="Options" onClick={()=>setUserModal(true)}><MdMoreHoriz/></button>
+                         <button className="btn-icon" title="Options" onClick={()=>setIsOpen(true)}><MdMoreHoriz/></button>
                     </div>
                </div>
           </div>

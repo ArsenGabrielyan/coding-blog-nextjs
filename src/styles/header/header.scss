@@ -1,8 +1,7 @@
 .siteHeader{
      position: relative;width: 100%;
-     z-index: 9999;
+     z-index: 9999;padding: 10px 20px;
      justify-content: space-between;
-     padding: 10px 20px;
      transition: .3s ease-in-out all;background: $col3;
      .logo{border-radius: 10px;box-shadow: 0 0 5px 5px rgba(255,255,255,.6);}
      &,.inner-content{display: flex;align-items: center;}
@@ -12,13 +11,10 @@
           margin-left: 10px;
           .searchBtn{
                background: none;
-               outline: none;
-               border: none;
-               cursor: pointer;
-               font-size: 25px;
-               color: $white;
+               outline: none;border: none;
+               cursor: pointer;font-size: 25px;
+               color: $white;display: none;
                &:hover,&:focus{color: $col2;}
-               display: none;
           }
           .search{
                &,button{display: flex;align-items: center;}
@@ -101,7 +97,6 @@
           }
           .notifMenu{right: 60.5px;top: 50px;}
      }
-     &.loading .inner-content{visibility: hidden;opacity: 0;}
 }
 @media screen and (max-width: 900px){
      .siteHeader .userData{

@@ -9,7 +9,7 @@ export default function usePost(query,author){
      const {data: currUser, mutate: updateSession} = useSWR(`/api/users/${currUserId}`,fetcher);
      const isCurrUser = data?.user.email===post?.email, isCurrPost = isCurrent(currUser,post,author);
      const likeCount = users?.filter(val=>val.details.likedPosts.includes(post?.post_id)).length;
-     const followOptions = {status, email: data?.user.email, userId: author?.user_id}
+     const followOptions = {status, email: data?.user.email, userId: author?.user_id, name: author?.name}
      const updateDetails = async()=>{
           await updateSession();
           await updateEveryUser();
