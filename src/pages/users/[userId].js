@@ -7,6 +7,7 @@ import Head from "next/head"; import Image from "next/image"
 import { useState } from "react"; import { MdMoreHoriz } from "react-icons/md";
 import { abbrNum, followUnfollow, serializeObject } from "@/constants/functions";
 import { useRouter } from "next/router"; import useUser from "@/lib/hooks/use-user";
+import Link from "next/link";
 
 export default function UserProfile({posts, postCount}){
      const router = useRouter();
@@ -29,14 +30,8 @@ export default function UserProfile({posts, postCount}){
                     </div>
                     <p className="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
                     <div className={`options ${isCurrUser ? 'session-mode' : ''}`}>
-                         {isCurrUser ? <>
-                              <button className="btn">Edit Profile</button>
-                              <button className="btn">Manage Posts</button>
-                              <button className="btn">Analytics</button>
-                         </> : <> 
-                         <button className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>
+                         {isCurrUser ? <Link className="btn" href="/settings">Settings</Link> : <button className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>}
                          <button className="btn">About</button>
-                         </>}
                          <button className="btn-icon" title="Options" onClick={()=>setIsOpen(true)}><MdMoreHoriz/></button>
                     </div>
                </div>

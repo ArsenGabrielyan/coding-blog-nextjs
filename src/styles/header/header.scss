@@ -1,8 +1,9 @@
 .siteHeader{
-     position: relative;width: 100%;
-     z-index: 9999;padding: 10px 20px;
+     position: relative;
+     width: 100%;z-index: 9999;
+     padding: 10px 20px;background: $col3;
      justify-content: space-between;
-     transition: .3s ease-in-out all;background: $col3;
+     transition: .3s ease-in-out all;
      .logo{border-radius: 10px;box-shadow: 0 0 5px 5px rgba(255,255,255,.6);}
      &,.inner-content{display: flex;align-items: center;}
      .inner-content{
@@ -54,7 +55,7 @@
                cursor: pointer;
                margin-left: 5px;
           }
-          .menu,.notifMenu{
+          .menu{
                position: absolute;
                background: $col6;
                top: 100%;right: 0;
@@ -95,14 +96,12 @@
                }
                &.hide{display: none;}
           }
-          .notifMenu{right: 60.5px;top: 50px;}
      }
 }
 @media screen and (max-width: 900px){
      .siteHeader .userData{
           img{width: 48px;height: 48px;}
           .menu::before{right: 14px;}
-          .notifMenu{right: 45px;}
      }
 }
 @media screen and (max-width: 500px){
@@ -131,10 +130,6 @@
 @media screen and (max-width: 400px){
      .siteHeader .userData{
           width: 100%;
-          .menu,.notifMenu{width: 260px;}
-          .notifMenu{
-               right: 0;
-               &::before{right: 66px;}
-          }
+          .menu{width: 260px;}
      }
 }

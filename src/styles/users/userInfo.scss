@@ -37,7 +37,7 @@
                     span{font-size: 20px;}
                }
                .bio{margin-bottom: 10px;max-width: 550px;}
-               .options button{margin: 0 5px;}
+               .options .btn, .options .btn-icon{margin: 0 5px;text-align: center;}
           }
      }
      .userPosts h2{font-size: 27px;}
@@ -51,7 +51,7 @@
           .options.session-mode{
                flex-direction: column;
                width: 100%;
-               button{
+               .btn, .btn-icon{
                     margin: 4px 0!important;
                     width: 100%;
                }
@@ -84,7 +84,7 @@
 @media screen and (max-width: 300px){
      .userProfile .header .details .options{
           flex-direction: column;
-          &,button{width: 100%;}
-          button{margin: 5px 0;}
+          &,.btn,.btn-icon{width: 100%;}
+          .btn,.btn-icon{margin: 5px 0;}
      }
 }

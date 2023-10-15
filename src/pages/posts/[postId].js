@@ -86,14 +86,8 @@ export default function NewPost({author, relatedPosts}){
                     <h2>{post?.author}</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
                     <div className="options">
-                         {isCurrUser ? <>
-                              <button className="btn">Edit Profile</button>
-                              <button className="btn">Manage Posts</button>
-                              <button className="btn">Analytics</button>
-                         </> : <>
-                              <button className="btn" onClick={()=>followUnfollow(followOptions,router,isCurrPost.isFollowed,updateDetails)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>
-                              <Link href={`/users/${author?.user_id}`} className="btn">Explore</Link>
-                         </>}
+                         {isCurrUser ? <Link href="/settings" className="btn">Settings</Link> : <button className="btn" onClick={()=>followUnfollow(followOptions,router,isCurrPost.isFollowed,updateDetails)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>}
+                         <Link href={`/users/${author?.user_id}`} className="btn">Explore</Link>
                     </div>
                </div>
                <PostCommentContainer session={{currUser,status}} postId={post?.post_id} update={{updatePost,isValidating}}>

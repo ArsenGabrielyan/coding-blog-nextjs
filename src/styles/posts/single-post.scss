@@ -114,7 +114,7 @@
           .options{
                display: flex;align-items: center;
                justify-content: center;
-               button{margin: 3px;}
+               .btn{margin: 3px;}
           }
      }
 }
@@ -131,6 +131,6 @@
 @media screen and (max-width: 400px){
      .single-post-user .options{
           flex-direction: column;
-          &,button{width: 100%;}
+          &,.btn{width: 100%;}
      }
 }
