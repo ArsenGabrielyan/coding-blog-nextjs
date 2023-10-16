@@ -106,14 +106,13 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
           </div>
           {!!postData.keywords.length && <>
                <ul className="tagList">
-                    {postData.keywords.map((tag,i)=><li key={i} onClick={()=>tagOptions.editTag(i)}>{tag} <button type="button" onClick={()=>tagOptions.removeTag(i)}><MdClose/></button></li>)}
+                    {postData.keywords.map((tag,i)=><li key={i}><span onClick={()=>tagOptions.editTag(i)}>{tag}</span><button type="button" onClick={()=>tagOptions.removeTag(i)}><MdClose/></button></li>)}
                </ul>
                <button type="button" className="btn white btnTags" onClick={()=>tagOptions.clearAllTags()}>Clear All Keywords</button>
           </>}
           <div className="btns">
                <button className="btn fill" disabled={loaded || isCurrPost} type="submit">{loaded ? 'Loading...' : type!=='new' ? 'Apply Changes' : 'Publish'}</button>
                {type==='new' ? <button className="btn white" disabled={loaded} type="button" onClick={()=>reset('some')}>Reset Details</button> : <Link className="btn white" href={`/posts/${currData.post_id}`} onClick={()=>reset('all')}>Cancel</Link>}
-               {type==='new' && <button className="btn white" disabled={loaded} type="button">Save as Draft</button>}
           </div>
      </form>
 }

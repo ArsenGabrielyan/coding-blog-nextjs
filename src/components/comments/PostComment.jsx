@@ -14,6 +14,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
      const [load, setLoad] = useState(false);
      const commentOptRef = useRef(null), {updateDetails,updatePost} = update;
      const commentLikes = users?.filter(val=>val.details.likedComments.includes(data.commentId)).length;
+     const isLikedComment = currUser?.details?.likedComments.includes(data.commentId)
      useEffect(()=>{
           document.addEventListener('click',e=>{
                if(!commentOptRef.current?.contains(e.target)) setCommentOpen(false);
@@ -21,15 +22,13 @@ export default function PostComment({data, session, postId, users, currUser, upd
      },[]);
      const deleteComment = async id => {
           if(confirm('Are You Sure to Delete this Comment?')){
-               const response = await toast.promise(
-                    fetch(`/api/posts/comments/${id}?postId=${postId}`),{
-                         pending: 'Deleting...',
-                         success: 'Comment Deleted',
-                         error: "Failed to Delete The Comment"
-                    }
-               );
-               const res = await axios.delete(`/api/posts/comments/${id}?postId=${postId}`,REQ_CONFIG);
-               if(res.status===200 && response.status===200) await updatePost();
+               const res = await toast.promise(
+                    axios.delete(`/api/posts/comments/${id}?postId=${postId}`,REQ_CONFIG),{
+                    pending: 'Deleting...',
+                    success: 'Comment Deleted',
+                    error: "Failed to Delete The Comment"
+               });
+               if(res.status===200) await updatePost();
           }
      }
      const cancelEdit = () => {
@@ -47,7 +46,12 @@ export default function PostComment({data, session, postId, users, currUser, upd
           }
      }
      const likeComment = async()=>{
-          const res = await axios.patch(`/api/posts/comments?postId=${postId}`,{commentId: data.commentId,commentEmail: session.email},REQ_CONFIG);
+          const res = await toast.promise(
+               axios.patch(`/api/posts/comments?postId=${postId}`,{commentId: data.commentId,commentEmail: session.email},REQ_CONFIG),{
+               pending: "Processing...",
+               success: `Successfully ${!isLikedComment ? 'Liked' : 'Unliked'} the Comment`,
+               error: `Failed to ${!isLikedComment ? 'Like' : 'Unlike'} The Comment`
+          })
           if(res.status===200) {
                await updatePost();
                await updateDetails();
@@ -66,7 +70,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
                <h3><Link href={`/users/${data.name}`}>{data.name}</Link>&nbsp;&bull;&nbsp;{data.date}{data.edited && <>&nbsp;&bull;&nbsp;Edited</>}</h3>
                <MarkdownContent>{data.comment}</MarkdownContent>
                <div className="comment-btns">
-                    <button className={`comBtn ${currUser?.details?.likedComments.includes(data.commentId)?'active':''}`} title={currUser?.details?.likedComments.includes(data.commentId)?"Unlike":"Like"} onClick={likeComment}><FaThumbsUp/>&nbsp;{commentLikes}</button>
+                    <button className={`comBtn ${isLikedComment?'active':''}`} title={isLikedComment?"Unlike":"Like"} onClick={likeComment}><FaThumbsUp/>&nbsp;{commentLikes}</button>
                     <button title="Options" className="btn-icon com-opt" onClick={()=>setCommentOpen(!commentOpen)} ref={commentOptRef}><MdMoreHoriz/></button>
                </div>
           </div>

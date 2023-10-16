@@ -7,14 +7,15 @@ import Link from "next/link"; import Image from "next/image";
 import connectDB from "@/lib/connectDb"; import Post from "@/model/Post";
 import Head from "next/head"; import axios from "axios";
 import User from "@/model/CredentialsUser";
+import usePost from "@/lib/hooks/use-post";
 import { useRouter } from "next/router";
 import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-icons/fa";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
 import { abbrNum, followUnfollow, serializeObject } from "@/constants/functions";
-import { useState } from "react"; 
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
-import usePost from "@/lib/hooks/use-post"; import { toast } from "react-toastify";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function NewPost({author, relatedPosts}){
      const router = useRouter(), {state,update,conditions,session,followOptions} = usePost(router.query,author);
@@ -25,27 +26,19 @@ export default function NewPost({author, relatedPosts}){
      const deletePost = async()=>{
           if(confirm('Are You Sure to Delete That Post?')){
                const res = await axios.delete(`/api/posts/${post?.post_id}`,REQ_CONFIG);
-               const response = await toast.promise(
-                    fetch(`/api/posts/${post?.post_id}`),{
-                         pending: 'Deleting...',
-                         success: 'Post Deleted',
-                         error: 'Failed to Delete the Post'
-                    }
-               )
-               if(res.status===200 && response.status===200) router.push(`/users/${currUser.username}`)
+               if(res.status===200) router.push(`/users/${currUser.username}`)
           }
      }
      const clickOn = async(type)=>{ 
           if(status==='authenticated') {
                const likeTxt = !isCurrPost.isLiked ? 'Liked The Post' : 'Unliked The Post';
                const saveTxt = !isCurrPost.isSaved ? 'Saved The Post' : 'Removed the Post From Saved'
-               const response = await toast.promise(fetch('/api/posts'),{
+               const res = await toast.promise(
+                    axios.patch('/api/posts',{type:type==='like'?'like':'save',email:user.email,id:post?.post_id},REQ_CONFIG),{
                     pending: "Processing...",
                     success: `Successfully ${type==='like'?likeTxt:saveTxt}`,
-                    error: `Failed to ${type==='like'?'Like':'Save'} The Post`
-               })
-               const res = await axios.patch('/api/posts',{type:type==='like'?'like':'save',email:user.email,id:post?.post_id},REQ_CONFIG);
-               if(res.status===200 && response.status===200) await updateDetails();
+                    error: `Failed to ${type==='like'?'Like':'Save'} The Post`})
+               if(res.status===200) await updateDetails();
           } else router.replace('/auth/signin')
      }
      return <><Head><title>{post?.title}</title></Head>
@@ -105,16 +98,8 @@ export default function NewPost({author, relatedPosts}){
      </main>}
      </Layout></>
 }
-export async function getStaticPaths(){
-     await connectDB();
-     const posts = await Post.find();
-     return {
-          paths: [posts.map(val=>({params: {postId: val.post_id}}))[0]],
-          fallback: 'blocking'
-     }
-}
-export async function getStaticProps({params}){
-     const {postId} = params;
+export async function getServerSideProps({query}){
+     const {postId} = query;
      await connectDB();
      const post = await Post.findOne({post_id: postId});
      if(!post) return {notFound: true}

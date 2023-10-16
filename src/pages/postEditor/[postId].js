@@ -3,7 +3,8 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import PostForm from "@/components/forms/PostForm";
 import PostPreview from "@/components/postElem/Post-Preview";
-import Head from "next/head"; import Post from "@/model/Post";
+import Head from "next/head";
+import Post from "@/model/Post";
 import { serializeObject } from "@/constants/functions";
 import connectDB from "@/lib/connectDb";
 
@@ -26,16 +27,8 @@ export default function EditPost({currPost}){
      </Layout>
      </>
 }
-export async function getStaticPaths(){
-     await connectDB()
-     const posts = await Post.find();
-     return {
-          paths: [posts.map(val=>({params: {postId: val.post_id}}))[0]],
-          fallback: 'blocking'
-     }
-}
-export async function getStaticProps({params}){
-     const {postId} = params;
+export async function getServerSideProps({query}){
+     const {postId} = query;
      await connectDB()
      const post = await Post.findOne({post_id: postId});
      return !post ? {notFound: true} : {props: {currPost: serializeObject(post)}}

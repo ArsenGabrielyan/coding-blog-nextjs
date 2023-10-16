@@ -2,19 +2,21 @@ import Layout from "@/components/Layout"
 import BlogPost from "@/components/postElem/BlogPost";
 import Modal from "@/components/features/Modal";
 import connectDB from "@/lib/connectDb";
-import User from "@/model/CredentialsUser"; import Post from "@/model/Post";
-import Head from "next/head"; import Image from "next/image"
-import { useState } from "react"; import { MdMoreHoriz } from "react-icons/md";
-import { abbrNum, followUnfollow, serializeObject } from "@/constants/functions";
-import { useRouter } from "next/router"; import useUser from "@/lib/hooks/use-user";
-import Link from "next/link";
+import User from "@/model/CredentialsUser";
+import Head from "next/head";
+import Image from "next/image"; import Link from "next/link";
+import { useState } from "react";import useSWR from "swr";
+import { MdMoreHoriz } from "react-icons/md";
+import { abbrNum, fetcher, followUnfollow } from "@/constants/functions";
+import { useRouter } from "next/router";import useUser from "@/lib/hooks/use-user";
 
-export default function UserProfile({posts, postCount}){
+export default function UserProfile(){
      const router = useRouter();
      const [isOpen, setIsOpen] = useState(false);
      const {conditions,state,updateDetails,followOptions} = useUser(router.query);
      const {user,followers} = state;
      const {isCurrUser,isFollowed,isLoading} = conditions;
+     const {data: posts, mutate: updatePosts, isLoading: arePostsLoading} = useSWR(`/api/posts?email=${user?.email}`,fetcher);
      return <><Head><title>{!user ? "Edu-Articles | Educational Blog" : `${user?.name?.split(' ')[0]} at Edu-Articles`}</title></Head>
      <Layout>
      {isLoading ? <h2 className="loadTxt">Loading...</h2> : <div className="userProfile">
@@ -24,7 +26,7 @@ export default function UserProfile({posts, postCount}){
                     <h1>{user?.name}</h1>
                     <span className="userName">{user?.username}</span>
                     <div className="stats">
-                         <span id="posts">{abbrNum(postCount)} posts</span>
+                         <span id="posts">{abbrNum(posts?.length || 0)} posts</span>
                          <span id="followers">{abbrNum(followers)} followers</span>
                          <span id="following">{abbrNum(user?.details?.followingUsers.length)} following</span>
                     </div>
@@ -37,15 +39,15 @@ export default function UserProfile({posts, postCount}){
                </div>
           </div>
           <div className="posts small userPosts">
-               {!posts.length ? <h2 className="empty">This user Doesn&apos;t have any posts</h2> : posts.map(post=><BlogPost key={post.post_id} data={post}/>)}
+               {arePostsLoading ? <h2 className="empty">Loading...</h2> : !posts.length ? <h2 className="empty">This user Doesn&apos;t have any posts</h2> : posts?.map(post=><BlogPost key={post.post_id} data={post} adminMode={isCurrUser} update={updatePosts}/>)}
           </div>
      </div>}
      </Layout>
      <Modal open={{isOpen,setIsOpen}} customCloseText="Cancel">
           <ul>
                {isCurrUser ? <>
-                    <li>Settings</li>
-                    <li>Notifications</li>
+                    <li><Link href='/settings'>Settings</Link></li>
+                    <li>Dashboard</li>
                     <li>Change Password</li>
                     <li>About</li>
                </> : <>
@@ -57,25 +59,9 @@ export default function UserProfile({posts, postCount}){
           </ul>
      </Modal></>
 }
-export async function getStaticPaths(){
-     await connectDB()
-     const users = await User.find();
-     return {
-          paths: [users?.map(val=>({params: {userId: val.user_id}}))[0]],
-          fallback: 'blocking'
-     }
-}
-export async function getStaticProps({params}){
-     const {userId} = params;
-     await connectDB()
+export async function getServerSideProps({query}){
+     const {userId} = query;
+     await connectDB();
      const user = await User.findOne({user_id: userId}) || await User.findOne({username: userId});
-     if(!user) return {notFound: true}
-     else {
-          const postList = await Post.find({email: user.email})
-          const posts = await Post.find({email: user.email});
-          return {props: {
-               posts: !posts ? [] : serializeObject(posts.sort((a,b)=>a?-1:b?1:0)),
-               postCount: postList.length,
-          }}
-     }
+     return !user ? {notFound: true} : {props: {}}
 }
