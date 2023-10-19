@@ -6,11 +6,11 @@ export default function Modal({title='',open, customCloseText="Close" ,children}
           <div className="modal">
                {title!=='' && <div className="modal-header">
                     <h2>{title}</h2>
-                    <button className="btn-icon" onClick={()=>setIsOpen(false)} title="Close"><MdClose/></button>
+                    <button type="button" className="btn-icon" onClick={()=>setIsOpen(false)} title="Close"><MdClose/></button>
                </div>}
                <div className="modal-content">
                     {children}
-                    {title==='' && <button className="modal-close" title={customCloseText || "Close"} onClick={()=>setIsOpen(false)}>{customCloseText || 'Close'}</button>}
+                    {title==='' && <button type="button" className="modal-close" title={customCloseText || "Close"} onClick={()=>setIsOpen(false)}>{customCloseText || 'Close'}</button>}
                </div>
           </div>
      </div> : null;

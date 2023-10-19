@@ -2,7 +2,7 @@ import { generate } from "@/constants/functions";
 import connectDB from "@/lib/connectDb";
 import bcrypt from "bcrypt";
 import User from "@/model/CredentialsUser";
-import { INITIAL_SETTINGS } from "@/constants/forms/formData";
+import { INITIAL_MISC_DATA } from "@/constants/forms/formData";
 
 export default async function handler(req,res){
      if(req.method==='POST') try{
@@ -21,7 +21,7 @@ export default async function handler(req,res){
                     password: hashed,
                     user_id: generate('id',8),
                     image: '/images/defaultPfp.webp',
-                    otherData: INITIAL_SETTINGS,
+                    otherData: INITIAL_MISC_DATA,
                }
                delete userObj.confirmPass;
                const newUser = new User(userObj);

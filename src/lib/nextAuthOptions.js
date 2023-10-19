@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 import connectDB from "./connectDb";
 import User from "@/model/CredentialsUser";
 import OAuthUser from "@/model/OAuthUser";
-import { INITIAL_SETTINGS } from "@/constants/forms/formData";
+import { INITIAL_MISC_DATA } from "@/constants/forms/formData";
 import { generate } from "@/constants/functions";
 
 export const nextAuthOptions = {
@@ -62,7 +62,7 @@ export const nextAuthOptions = {
                                    image: user.image,
                                    username: isTakenUsername ? `${user.name.split(' ')[0].toLowerCase()}-${generate('username',8)}` : user.name.split(' ')[0].toLowerCase(),
                                    user_id: userId,
-                                   otherData: INITIAL_SETTINGS,
+                                   otherData: INITIAL_MISC_DATA,
                               }
                               const profile = await OAuthUser.findOne({user_id: userId});
                               if(!profile){

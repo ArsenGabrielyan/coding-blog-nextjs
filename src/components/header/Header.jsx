@@ -25,7 +25,7 @@ export default function Header(){
      return <header className='siteHeader'>
           <Link href='/' id="logo"><Image src="/images/logo.webp" priority alt="" className="logo" width={125} height={80}/></Link>
           <div className={`inner-content ${isOpenSearch ? 'active' : ''}`}>
-               <button className="searchBtn" onClick={()=>setIsOpenSearch(true)} title="Search..."><MdSearch/></button>
+               <button type="button" className="searchBtn" onClick={()=>setIsOpenSearch(true)} title="Search..."><MdSearch/></button>
                <form className="search" onSubmit={acceptSearch}>
                     <input type="text" name="search" placeholder="Search..." value={search} onChange={e=>setSearch(e.target.value)} title="Search"/>
                     <span className="icon"><MdSearch/></span>

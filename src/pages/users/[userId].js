@@ -32,9 +32,9 @@ export default function UserProfile(){
                     </div>
                     <p className="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
                     <div className={`options ${isCurrUser ? 'session-mode' : ''}`}>
-                         {isCurrUser ? <Link className="btn" href="/settings">Settings</Link> : <button className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>}
-                         <button className="btn">About</button>
-                         <button className="btn-icon" title="Options" onClick={()=>setIsOpen(true)}><MdMoreHoriz/></button>
+                         {isCurrUser ? <Link className="btn" href="/settings">Settings</Link> : <button type='button' className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>}
+                         <button type='button' className="btn">About</button>
+                         <button type='button' className="btn-icon" title="Options" onClick={()=>setIsOpen(true)}><MdMoreHoriz/></button>
                     </div>
                </div>
           </div>

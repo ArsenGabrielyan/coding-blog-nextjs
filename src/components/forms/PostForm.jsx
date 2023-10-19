@@ -91,7 +91,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
           <div className="row">
                <div className="frmGroup">
                     <label>Email</label>
-                    <input type="text" name="keywords" value={postData.email} readOnly/>
+                    <input type="text" name="email" value={postData.email} readOnly/>
                </div>
                <div className="frmGroup">
                     <label>Post Category</label>

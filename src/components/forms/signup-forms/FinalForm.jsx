@@ -11,7 +11,7 @@ export default function FinalForm({username='',password='',confirmPass='', updat
      return <FormWrapper title="Account Creation Info">
      <div className="frmGroup">
           <label htmlFor="username">Username</label>
-          <input type="text" id='username' name="username" placeholder="Don't Type Your Full Name as a Username" value={username} onChange={e=>updateFields({username: e.target.value})}/>
+          <input type="text" id='username' name="username" placeholder="If You Leave this Blank, It will Generate Automatically" value={username} onChange={e=>updateFields({username: e.target.value})}/>
      </div>
      <div className="frmGroup">
           <label htmlFor="password">Password</label>

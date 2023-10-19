@@ -49,7 +49,7 @@ export default function SignInForm(){
           {success && <p className="success signin"><FaCheckCircle/>{success}</p>}
           <div className="frmGroup">
                <label htmlFor="email">Email Address</label>
-               <input type="email" id='email' name="email" placeholder="name@example.com" value={data.email} onChange={handleChange}/>
+               <input type="email" id='email' name="email" placeholder="e.g. name@example.com" value={data.email} onChange={handleChange}/>
           </div>
           <div className="frmGroup">
                <label htmlFor="password">Password</label>

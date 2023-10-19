@@ -24,9 +24,9 @@ export default function Search(){
      <Layout>
           <h1 className="pageTitle">Search</h1>
           <div className="search-filter">
-               <button className={selected==='all'?"active":''} onClick={()=>setSelected('all')}>All</button>
-               <button className={selected==='blogPost'?"active":''} onClick={()=>setSelected('blogPost')}>Posts</button>
-               <button className={selected==='user'?"active":''} onClick={()=>setSelected('user')}>Users</button>
+               <button type="button" className={selected==='all'?"active":''} onClick={()=>setSelected('all')}>All</button>
+               <button type="button" className={selected==='blogPost'?"active":''} onClick={()=>setSelected('blogPost')}>Posts</button>
+               <button type="button" className={selected==='user'?"active":''} onClick={()=>setSelected('user')}>Users</button>
           </div>
           {!isLoading ? <section className="search-container">
                {status!=='loading' && list?.filter(val=>{

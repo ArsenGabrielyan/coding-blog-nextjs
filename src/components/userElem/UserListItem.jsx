@@ -16,7 +16,7 @@ export default function UserListItem({type="other", user, currUser, status, upda
           {abbrNum(user?.postCount)} Posts</span>
           <p className="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus.</p>
           <div className="options">
-               {type==='other' ? <button className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,update)}>{isFollowed?'Unfollow':'Follow'}</button> : <Link className="btn" href="/settings">Settings</Link>}
+               {type==='other' ? <button type="button" className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,update)}>{isFollowed?'Unfollow':'Follow'}</button> : <Link className="btn" href="/settings">Settings</Link>}
                <Link className="btn" href={`/users/${user?.user_id || user?.username}`}>Explore</Link>
           </div>
      </div> 

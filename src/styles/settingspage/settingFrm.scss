@@ -4,6 +4,7 @@
      &,.frmGroup{justify-content: center;}
      .frmRow{
           justify-content: space-between;
+          margin-bottom: 8px;
           .frmGroup{width: 49.5%;}
      }
      .frmGroup, .frmPfp{position: relative;}
@@ -27,19 +28,17 @@
           }
           label{
                position: absolute;
-               top: 3px;
+               top: 3px;z-index: 15;
                left: 12.5px;
                padding: 0 5px;
                background: $white;
                font-weight: 500;
-               z-index: 15;
           }
           &.checkbox{
-               flex-direction: row;
+               flex-direction: row;width: 50%;
                justify-content: space-between;
                align-items: center;
                margin-top: 8px;
-               width: 50%;
                label{
                     position: relative;
                     top: initial;
@@ -49,8 +48,7 @@
                .switch{
                     position: relative;
                     display: inline-block;
-                    width: 60px;
-                    height: 30px;
+                    width: 60px;height: 30px;
                     background-color: $midLightGrey;
                     border-radius: 20px;
                     transition: .3s all;
@@ -76,57 +74,49 @@
           }
      }
      .frmPfp{
-          margin-top: 10px;
+          margin: 10px 0 8px;
           &,button{
                display: flex;
                align-items: center;
                justify-content: center;
           }
           button{
-               flex-direction: column;
-               cursor: pointer;
-               font-size: 20px;
-               padding: 0.5em;
-               height: 128px;
-               color: $col1;
+               flex-direction: column;cursor: pointer;
+               font-size: 20px;padding: 0.5em;
+               height: 128px;color: $col1;
                border: 2px dashed $col1;
-               background: none;
-               outline: none;
+               background: none;outline: none;
                margin-right: 10px;
                transition: .3s;
                svg{font-size: 64px;}
-               &:nth-child(2){margin-right: 0;}
                border-radius: 10px;
                &:hover,&:focus{background: $col1;color: $white;}
           }
           img{border-radius: 50%;}
      }
      .frmBtns{
-          display: flex;
+          display: flex;width: 100%;
           justify-content: flex-start;
           align-items: center;
-          width: 100%;
           button{
-               margin: 8px 2px;
+               margin: 3px;
                &.submit{
                     color: $white;
                     background: $col4;
-                    &:hover,&:focus{
-                         background: $col3;
-                         border-color: $col3;
+                    &:hover,&:focus{background: $col3;border-color: $col3;}
+                    &:disabled{
+                         user-select: none;
+                         pointer-events: none;
+                         background: none;
                     }
                }
           }
      }
      .tags{
-          &,li,li button{
-               display: flex;
-               align-items: center;
-          }
+          &,li,li button{display: flex;align-items: center;}
           justify-content: flex-start;
-          flex-wrap: wrap;
-          list-style: none;
-          width: 100%;margin-bottom: 5px;
+          flex-wrap: wrap;list-style: none;
+          width: 100%;margin: 3.5px;
           li{
                &,button{justify-content: center;}
                background: none;color: $col1;
@@ -135,17 +125,12 @@
                border-radius: 8px;word-wrap: break-word;
                word-break: break-all;cursor: pointer;
                &:last-child{margin-right: 0;}
-               border: 2px solid $col1;
-               transition: .3s;
+               border: 2px solid $col1;transition: .3s;
                button{
-                    font-size: 20px;
-                    background: none;
-                    border: none;
-                    outline: none;
-                    margin-left: 5px;
-                    color: $col1;
-                    cursor: pointer;
-                    transition: .3s;
+                    font-size: 20px;background: none;
+                    border: none;outline: none;
+                    margin-left: 5px;color: $col1;
+                    cursor: pointer;transition: .3s;
                     &:hover,&:focus{opacity: .75;}
                }
                &:hover{
@@ -159,7 +144,13 @@
      .settings-content form{
           .frmRow{flex-direction: column;}
           .frmGroup{&,&.checkbox{width: 100% !important;}}
-          .frmBtns button{width: inherit;}
+          .frmBtns{
+               flex-direction: column;
+               button{
+                    width: inherit;
+                    margin: 3px 0;
+               }
+          }
           .frmPfp{
                flex-direction: column;
                button,img{margin: 5px 0;}

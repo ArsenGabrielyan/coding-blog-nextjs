@@ -31,5 +31,5 @@ export const settingPages = [
      {name: 'postmgr', title: 'Post Manager'},
      {name: 'advanced', title: 'Advanced'}
 ];
-export const SliderBtn = ({onClick, type}) => <button onClick={()=>onClick()} className={`sliderBtn ${type==='left' ? "left" : "right"}`}>{type==='left' ?<FaChevronLeft/> : <FaChevronRight/>}</button>
+export const SliderBtn = ({onClick, type}) => <button type="button" onClick={()=>onClick()} className={`sliderBtn ${type==='left' ? "left" : "right"}`}>{type==='left' ?<FaChevronLeft/> : <FaChevronRight/>}</button>
 export const POST_COMMENT_LIMIT = 4;

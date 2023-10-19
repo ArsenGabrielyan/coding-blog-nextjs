@@ -17,7 +17,7 @@ export default function UserSearchElem({type='other', user, currUser, status, up
                     <span>{abbrNum(user?.details?.followingUsers.length)} Following</span>
                </p>
                <div className="options">
-                    {type==='other' ? <button className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,update)}>{isFollowed?'Unfollow':'Follow'}</button> : <Link className="btn" href="/settings">Settings</Link>}
+                    {type==='other' ? <button type="button" className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,update)}>{isFollowed?'Unfollow':'Follow'}</button> : <Link className="btn" href="/settings">Settings</Link>}
                     <Link href={`/users/${user?.username}`} className="btn">Explore</Link>
                </div>
           </div>

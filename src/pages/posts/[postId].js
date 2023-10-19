@@ -52,8 +52,8 @@ export default function NewPost({author, relatedPosts}){
                     <div className="single-post-body">
                          <h1>{post?.title}</h1>
                          {isCurrUser && <>
-                              <button className="btn customM" onClick={()=>router.push(`/postEditor/${post?.post_id}`)}>Edit Post</button>
-                              <button className="btn customM" onClick={deletePost}>Delete Post</button>
+                              <button type='button' className="btn customM" onClick={()=>router.push(`/postEditor/${post?.post_id}`)}>Edit Post</button>
+                              <button type='button' className="btn customM" onClick={deletePost}>Delete Post</button>
                          </>}
                          <div className="details-upper">
                               <span className="user"><Image src={post?.profileImage || "/images/defaultPfp.webp"} alt="account profile" width={45} height={45}/><Link href={`/users/${author?.user_id}`}>{post?.author}</Link></span>
@@ -79,13 +79,13 @@ export default function NewPost({author, relatedPosts}){
                     <h2>{post?.author}</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
                     <div className="options">
-                         {isCurrUser ? <Link href="/settings" className="btn">Settings</Link> : <button className="btn" onClick={()=>followUnfollow(followOptions,router,isCurrPost.isFollowed,updateDetails)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>}
+                         {isCurrUser ? <Link href="/settings" className="btn">Settings</Link> : <button type='button' className="btn" onClick={()=>followUnfollow(followOptions,router,isCurrPost.isFollowed,updateDetails)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>}
                          <Link href={`/users/${author?.user_id}`} className="btn">Explore</Link>
                     </div>
                </div>
                <PostCommentContainer session={{currUser,status}} postId={post?.post_id} update={{updatePost,isValidating}}>
                     {post?.comments && post?.comments.sort((a,b)=>a.commentId>b.commentId ? 1 : a.commentId<b.commentId ? -1: 0).slice(0,limit).map(comment=><PostComment key={comment.commentId} data={comment} session={user} users={users} postId={post?.post_id} currUser={currUser} update={{updateDetails,updatePost}}/>)}
-                    {limit<post?.comments.length && <button className="btn" onClick={loadMoreComments}>Load More Comments</button>}
+                    {limit<post?.comments.length && <button type='button' className="btn" onClick={loadMoreComments}>Load More Comments</button>}
                </PostCommentContainer>
           </section>
           {!!relatedPosts.filter(val=>val.post_id!==post?.post_id).length && <aside className="widgets">

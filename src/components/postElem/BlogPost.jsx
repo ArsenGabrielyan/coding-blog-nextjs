@@ -32,12 +32,12 @@ export default function BlogPost({data, noLink=false, adminMode=false, update}){
                     <div className="date"><FaCalendar/>{data?.date}</div>
                </div>
                <div className="btns">
-                    {!noLink ? <Link href={`/posts/${data?.post_id}`} className="btn read">Start Reading</Link> : <button className="btn read">Start Reading</button>}
+                    {!noLink ? <Link href={`/posts/${data?.post_id}`} className="btn read">Start Reading</Link> : <button type="button" className="btn read">Start Reading</button>}
                     {adminMode && <>
-                         <button className="btn-icon" title="options" onClick={()=>setOpen(!open)} ref={optRef}><MdMoreHoriz/></button>
+                         <button type="button" className="btn-icon" title="options" onClick={()=>setOpen(!open)} ref={optRef}><MdMoreHoriz/></button>
                          {open && <ul className="post-options">
                               <li><Link href={`/postEditor/${data?.post_id}`}><MdEdit/>&nbsp;Edit</Link></li>
-                              <li><button onClick={deletePost}><MdDelete/>&nbsp;Delete</button></li>
+                              <li><button type="button" onClick={deletePost}><MdDelete/>&nbsp;Delete</button></li>
                          </ul>}
                     </>}
                </div>

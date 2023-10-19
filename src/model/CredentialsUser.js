@@ -32,7 +32,7 @@ const userSchema = new Schema({
      otherData: {
           website: {type:String,default:''},
           bio: {type:String,default:''},
-          tags: [String],
+          keywords: [String],
      },
      user_id: {
           type: String,

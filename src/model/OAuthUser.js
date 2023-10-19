@@ -25,7 +25,7 @@ const oAuthSchema = new Schema({
           bdate: {type:String,default:''},
           gender: {type:String,default:''},
           address: {type:String,default:''},
-          tags: [String], 
+          keywords: [String], 
      },
      elemType: {
           type: String,

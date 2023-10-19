@@ -34,7 +34,7 @@ export default function PassResetEmail(){
           {success && <p className="success signin"><FaCheckCircle/>{success}</p>}
           <div className="frmGroup">
                <label htmlFor="email">Email Address</label>
-               <input type="email" id='email' name="email" placeholder="name@example.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
+               <input type="email" id='email' name="email" placeholder="e.g. name@example.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
           </div>
           <button type="submit" className="frmBtn signInBtn">{load ? 'Sending...' : 'Get Secure Link'}</button>
      </form>

@@ -1,11 +1,8 @@
 import Layout from "@/components/Layout";
-import Accounts1 from "@/components/forms/settings-form/Account";
-import AdvancedSettings from "@/components/forms/settings-form/Advanced";
-import Accounts2 from "@/components/forms/settings-form/OtherOptionsAcc";
-import PasswordSettings from "@/components/forms/settings-form/PassSettings";
 import { settingPages } from "@/constants/constantData";
 import { serializeObject } from "@/constants/functions";
 import connectDB from "@/lib/connectDb";
+import useSettings from "@/lib/hooks/use-settings";
 import User from "@/model/CredentialsUser";
 import { getSession } from "next-auth/react";
 import Head from "next/head"; import Image from "next/image";
@@ -13,17 +10,8 @@ import { useState } from "react";
 
 export default function SettingsPage({user}){
      const [mode, setMode] = useState('account');
-     const [accPage, setAccPage] = useState(1)
-     const getSettings = () => {
-          switch(mode){
-               case 'account': return <>
-               {accPage===1 ? <Accounts1 user={user}/> : <Accounts2 user={user}/>}
-               </>
-               case 'password': return <PasswordSettings/>
-               case 'advanced': return <AdvancedSettings/>
-               default: return <h2>Other Settings Page Comming Soon</h2>
-          }
-     }
+     const [accPage, setAccPage] = useState('basic');
+     const settings = useSettings(user,mode,accPage);
      return <>
      <Head>
           <title>Settings | EduArticles</title>
@@ -33,7 +21,7 @@ export default function SettingsPage({user}){
           <div className="settings-container">
                <div className="settings-menu">
                     {user && <>
-                         <Image src={user.image} alt="pfp" width={175} height={175}/>
+                         <Image src={user.image} alt="pfp" width={175} height={175} priority/>
                          <h2>{user?.name}</h2>
                     </>}
                     <ul>
@@ -41,16 +29,16 @@ export default function SettingsPage({user}){
                     </ul>
                </div>
                <div className="settings-content">
-                    <h2>Account Settings</h2>
-                    <form className="preview">
-                         {getSettings()}
+                    <h2>{settingPages.find(val=>val.name===mode).title} Settings</h2>
+                    <form onSubmit={settings.updateSettings} onReset={settings.resetSettings}>
+                         {settings.getSettings()}
                          <div className="frmBtns">
-                              <button className="btn submit">Update</button>
+                              <button type="submit" className="btn submit" disabled={settings.isCurrSetting}>Update</button>
                               {mode==='account' && <>
-                                   <button type="button" className="btn">Clear All Tags</button>
-                                   {accPage===1 ? <button type="button" className="btn" onClick={()=>setAccPage(2)}>Other Settings</button> : <button type="button" className="btn" onClick={()=>setAccPage(1)}>Back</button>}
+                                   {settings.accSettings.keywords.length ? <button type="button" className="btn" onClick={settings.tagOptions.clearAllTags}>Clear All Tags</button> : null}
+                                   {accPage==='basic' ? <button type="button" className="btn" onClick={()=>setAccPage('advanced')}>Other Settings</button> : <button type="button" className="btn" onClick={()=>setAccPage('basic')}>Back</button>}
                               </>}
-                              <button className="btn">Cancel</button>
+                              <button type="reset" className="btn">Cancel</button>
                          </div>
                     </form>
                </div>

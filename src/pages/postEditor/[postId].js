@@ -18,9 +18,9 @@ export default function EditPost({currPost}){
           <Layout>
           <section className="new-post-container">
                <h1 className="title">Edit Current Post</h1>
-                <div className="options">
-                    <button className={mode==='edit' ? 'active' : ''} onClick={()=>setMode('edit')} disabled={!isCurrUser}>Edit</button>
-                    <button className={mode==='preview' ? 'active' : ''} onClick={()=>setMode('preview')} disabled={!isCurrUser}>Preview</button>
+               <div className="options">
+                    <button type='button' className={mode==='edit' ? 'active' : ''} onClick={()=>setMode('edit')} disabled={!isCurrUser}>Edit</button>
+                    <button type='button' className={mode==='preview' ? 'active' : ''} onClick={()=>setMode('preview')} disabled={!isCurrUser}>Preview</button>
                </div>
                {isCurrUser ? <>{mode==='edit' ? <PostForm postData={postData} setPostData={setPostData} type="edit" currData={currPost}/> : <PostPreview postData={postData}/>}</> : <h2 className="signIn">This Post Is Not From Your Account</h2>}
           </section>

@@ -70,15 +70,15 @@ export default function PostComment({data, session, postId, users, currUser, upd
                <h3><Link href={`/users/${data.name}`}>{data.name}</Link>&nbsp;&bull;&nbsp;{data.date}{data.edited && <>&nbsp;&bull;&nbsp;Edited</>}</h3>
                <MarkdownContent>{data.comment}</MarkdownContent>
                <div className="comment-btns">
-                    <button className={`comBtn ${isLikedComment?'active':''}`} title={isLikedComment?"Unlike":"Like"} onClick={likeComment}><FaThumbsUp/>&nbsp;{commentLikes}</button>
-                    <button title="Options" className="btn-icon com-opt" onClick={()=>setCommentOpen(!commentOpen)} ref={commentOptRef}><MdMoreHoriz/></button>
+                    <button type="button" className={`comBtn ${isLikedComment?'active':''}`} title={isLikedComment?"Unlike":"Like"} onClick={likeComment}><FaThumbsUp/>&nbsp;{commentLikes}</button>
+                    <button type="button" title="Options" className="btn-icon com-opt" onClick={()=>setCommentOpen(!commentOpen)} ref={commentOptRef}><MdMoreHoriz/></button>
                </div>
           </div>
           {commentOpen && <ul className="comment-options">
                {session?.email===data.email ? <>
-                    <li><button onClick={()=>setEditMode(true)}><MdEdit/> Edit</button></li>
-                    <li><button onClick={()=>deleteComment(data.commentId)}><MdDelete/> Delete</button></li>
-               </>: <li><button><MdReport/> Report</button></li>}
+                    <li><button type='button' onClick={()=>setEditMode(true)}><MdEdit/> Edit</button></li>
+                    <li><button type='button' onClick={()=>deleteComment(data.commentId)}><MdDelete/> Delete</button></li>
+               </>: <li><button type='button'><MdReport/> Report</button></li>}
           </ul>}</>}
      </div>
 }
