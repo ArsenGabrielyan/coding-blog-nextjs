@@ -3,7 +3,7 @@ import FormWrapper from "../FormWrapper";
 export default function PersonalDataForm({name='',email='', phone='', updateFields}){
      return <FormWrapper title='User Details'>
      <div className="frmGroup">
-          <label htmlFor="name">Full Name</label>
+          <label htmlFor="name">Account Name</label>
           <input type="text" id='name' name="name" placeholder="Martiros Poghosyan" value={name} onChange={e=>updateFields({name: e.target.value})}/>
      </div>
      <div className="frmGroup">

@@ -30,11 +30,9 @@ const userSchema = new Schema({
           followingUsers: [String]
      },
      otherData: {
-          displayName: {type:String,default:''},
           website: {type:String,default:''},
           bio: {type:String,default:''},
           tags: [String],
-          otherLinks: Schema.Types.Mixed,    
      },
      user_id: {
           type: String,

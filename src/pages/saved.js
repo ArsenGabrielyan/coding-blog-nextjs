@@ -23,7 +23,7 @@ export async function getServerSideProps(ctx){
      if(user){
           const postList = await Post.find({post_id: {$in: user?.details.savedPosts}})
           return {props: {posts: serializeObject(postList)}}
-     } return {redirect:{
+     } else return {redirect:{
           pernament:false,
           destination: '/auth/signin'
      }}

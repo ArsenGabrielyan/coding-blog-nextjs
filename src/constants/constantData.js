@@ -1,4 +1,5 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
 export const sortPostOptions = [
      {name: 'Sort By'},
      {name: 'Latest', value: 'latest'},
@@ -23,5 +24,12 @@ export const getCategories = (type='standard')=>{
           {name: 'Miscellaneous', value: 'misc'},
      ]
 }
+export const settingPages = [
+     {name: 'account', title: 'Account'},
+     {name: 'password', title: 'Password'},
+     {name: 'dashboard', title: 'Dashboard'},
+     {name: 'postmgr', title: 'Post Manager'},
+     {name: 'advanced', title: 'Advanced'}
+];
 export const SliderBtn = ({onClick, type}) => <button onClick={()=>onClick()} className={`sliderBtn ${type==='left' ? "left" : "right"}`}>{type==='left' ?<FaChevronLeft/> : <FaChevronRight/>}</button>
 export const POST_COMMENT_LIMIT = 4;

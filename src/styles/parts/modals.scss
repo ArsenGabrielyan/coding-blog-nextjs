@@ -32,22 +32,23 @@
                     li{
                          margin: 10px 0;
                          font-size: 16px;
-                         cursor: pointer;
-                         &:hover,&:focus{text-decoration: underline;}
                          padding-bottom: 10px;
                          border-bottom: 1px solid $mlg2;
                          &:last-child{border: 0;padding: 0;}
-                         &.redTxt{color: $error;font-weight: 600;}
+                         &.redTxt{color: $error;font-weight: 600;cursor: pointer;&:hover,&:focus{text-decoration: underline;}}
+                         a{
+                              color: $col3;
+                              font-weight: 500;
+                              text-decoration: none;
+                              &:hover{text-decoration: underline;}
+                         }
                     }
                }
                .modal-close{
-                    width: 100%;
-                    font-size: 16px;
-                    background: none;
+                    width: 100%;font-size: 16px;
+                    background: none;cursor: pointer;
                     border: none;outline: none;
-                    cursor: pointer;
-                    font-weight: 550;
-                    padding-top: 10px;
+                    font-weight: 550;padding-top: 10px;
                     border-top: 1px solid $mlg2;
                     &:hover, &:focus{
                          color: $col1;

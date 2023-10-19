@@ -19,15 +19,13 @@ const oAuthSchema = new Schema({
           followingUsers: [String]
      },
      otherData: {
-          displayName: {type:String,default:''},
           website: {type:String,default:''},
           bio: {type:String,default:''},
           phone: {type:String,default:''},
           bdate: {type:String,default:''},
           gender: {type:String,default:''},
           address: {type:String,default:''},
-          tags: [String],
-          otherLinks: Schema.Types.Mixed,    
+          tags: [String], 
      },
      elemType: {
           type: String,
