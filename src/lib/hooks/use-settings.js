@@ -37,6 +37,8 @@ export default function useSettings(user,mode,accPage){
      const updateSettings = e => {
           e.preventDefault();
           console.log(accSettings)
+          console.log(passSettings)
+          console.log(settings)
      }
      return {
           accSettings,

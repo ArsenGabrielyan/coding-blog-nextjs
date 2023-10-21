@@ -1,5 +1,5 @@
 export default function AdvancedSettings({settings, changeSetting}){
-     const {darkmode,clock,categories,recent,followers,following,followerW,featured,language,clockFormat} = settings;
+     const {darkmode,clock,categories,recent,followers,following,featured,language,clockFormat} = settings;
      return <>
      <div className="frmGroup checkbox">
           <p className="checkLabel">Dark Mode</p>
@@ -30,11 +30,6 @@ export default function AdvancedSettings({settings, changeSetting}){
           <p className="checkLabel">Show Following Users</p>
           <input type="checkbox" name="following" id="following" checked={following} onChange={e=>changeSetting(e,'checkbox')}/>
           <label className="switch" htmlFor="following"></label>
-     </div>
-     <div className="frmGroup checkbox">
-          <p className="checkLabel">Show Followers Widget</p>
-          <input type="checkbox" name="followerW" id="followerW" checked={followerW} onChange={e=>changeSetting(e,'checkbox')}/>
-          <label className="switch" htmlFor="followerW"></label>
      </div>
      <div className="frmGroup checkbox">
           <p className="checkLabel">Show Featured Posts</p>

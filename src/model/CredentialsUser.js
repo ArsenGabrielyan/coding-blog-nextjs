@@ -1,4 +1,5 @@
-import {Schema,model,models} from "mongoose"
+import {Schema,model,models} from "mongoose";
+import { INITIAL_SETTINGS } from "@/constants/forms/settingsData";
 const userSchema = new Schema({
      name: String,
      email: {
@@ -6,13 +7,6 @@ const userSchema = new Schema({
           required: [true, "It is Required"],
           unique: [true, "Email Already Exists"]
      },
-     phone: {
-          type: String,
-          index: {unique: true, sparse: true}
-     },
-     bdate: String,
-     gender: String,
-     address: String,
      username: {
           type: String,
           required: [true, "It is Required"],
@@ -27,12 +21,20 @@ const userSchema = new Schema({
           likedPosts: [String],
           likedComments: [String],
           savedPosts: [String],
-          followingUsers: [String]
+          followingUsers: [String],
+          settings: {
+               type: Schema.Types.Mixed,
+               default: INITIAL_SETTINGS
+          }
      },
      otherData: {
           website: {type:String,default:''},
           bio: {type:String,default:''},
-          keywords: [String],
+          keywords: [String], 
+          phone: {type:String,index: {unique: true, sparse: true}},
+          bdate: {type:String,default:''},
+          gender: {type:String,default:''},
+          address: {type:String,default:''},
      },
      user_id: {
           type: String,

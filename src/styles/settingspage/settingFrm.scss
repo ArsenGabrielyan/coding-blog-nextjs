@@ -73,6 +73,22 @@
                }
           }
      }
+     .frmProgress{
+          width: 100%;height: 12px;
+          background: $lightGrey;
+          margin: 5px 0 10px;
+          border-radius: 10px;
+          .bar{
+               height: inherit;
+               border-radius: 10px;
+               transition: .3s;
+          }
+          .label{
+               text-align: right;
+               font-weight: 500;
+               font-size: 18px;
+          }
+     }
      .frmPfp{
           margin: 10px 0 8px;
           &,button{

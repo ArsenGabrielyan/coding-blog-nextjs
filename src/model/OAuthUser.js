@@ -1,4 +1,5 @@
-import {Schema,model,models} from "mongoose"
+import {Schema,model,models} from "mongoose";
+import { INITIAL_SETTINGS } from "@/constants/forms/settingsData";
 const oAuthSchema = new Schema({
      email: {
           type: String,
@@ -16,16 +17,20 @@ const oAuthSchema = new Schema({
           likedPosts: [String],
           likedComments: [String],
           savedPosts: [String],
-          followingUsers: [String]
+          followingUsers: [String],
+          settings: {
+               type: Schema.Types.Mixed,
+               default: INITIAL_SETTINGS
+          }
      },
      otherData: {
           website: {type:String,default:''},
           bio: {type:String,default:''},
-          phone: {type:String,default:''},
+          keywords: [String], 
+          phone: {type:String,index: {unique: true, sparse: true}},
           bdate: {type:String,default:''},
           gender: {type:String,default:''},
           address: {type:String,default:''},
-          keywords: [String], 
      },
      elemType: {
           type: String,

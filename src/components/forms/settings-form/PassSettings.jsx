@@ -1,3 +1,5 @@
+import PasswordStrength from "@/components/PasswordStrengthMeter";
+
 export default function PasswordSettings({settings, changeSetting}){
      return <>
      <div className="frmGroup">
@@ -14,5 +16,6 @@ export default function PasswordSettings({settings, changeSetting}){
                <input type="password" name="confPass" id="cPass" value={settings.confPass} onChange={changeSetting}/>
           </div>
      </div>
+     {settings.newPass!=='' && <PasswordStrength pass={settings.newPass}/>}
      </>
 }

@@ -14,16 +14,15 @@ export default async function handler(req,res){
           const newUsernamefromTaken = `${submitted.username.toLowerCase().replace(/[0-9]/g,'')}-${generate('username',8)}`;
           if(user) res.status(400).json({message: 'This user Already Exists'})
           else {
+               const {name,phone,bdate,gender,address} = submitted
                const userObj = {
-                    ...submitted,
+                    name, email: submitted.email.toLowerCase(),
                     username: !submitted.username ? `user-${generate('username',8)}` : takenUsername ? newUsernamefromTaken : submitted.username,
-                    email: submitted.email.toLowerCase(),
                     password: hashed,
-                    user_id: generate('id',8),
                     image: '/images/defaultPfp.webp',
-                    otherData: INITIAL_MISC_DATA,
+                    otherData: {...INITIAL_MISC_DATA,phone,bdate,gender,address},
+                    user_id: generate('id',8),
                }
-               delete userObj.confirmPass;
                const newUser = new User(userObj);
                await newUser.save();
                res.status(200).json(newUser);

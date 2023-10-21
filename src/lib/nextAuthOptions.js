@@ -56,10 +56,9 @@ export const nextAuthOptions = {
                          const isTakenUsername = await User.findOne({username: user.name.split(' ')[0].toLowerCase()});
                          if(!userExists) {
                               const userId = generate('id',8);
+                              const {email,name,image} = user
                               const userDetails = {
-                                   email: user.email,
-                                   name: user.name,
-                                   image: user.image,
+                                   email,name,image,
                                    username: isTakenUsername ? `${user.name.split(' ')[0].toLowerCase()}-${generate('username',8)}` : user.name.split(' ')[0].toLowerCase(),
                                    user_id: userId,
                                    otherData: INITIAL_MISC_DATA,
@@ -67,13 +66,14 @@ export const nextAuthOptions = {
                               const profile = await OAuthUser.findOne({user_id: userId});
                               if(!profile){
                                    const newUser = new OAuthUser(userDetails);
-                                   await newUser.save()
+                                   await newUser.save();
                               }
                          }
                          result = true
                     } catch(err){
                          console.error(err);
-                         errTxt = err; result = false;
+                         errTxt = err;
+                         result = false;
                     }
                }
                result=!errTxt;
@@ -83,10 +83,7 @@ export const nextAuthOptions = {
           async jwt({token, user}){
                if(user){
                     const profile = await User.findOne({email: user.email});
-                    token.user = {
-                         id: user.user_id || profile.user_id,
-                         email: user.email,
-                    } 
+                    token.user = {id: profile.user_id,email: user.email} 
                } 
                return token
           },

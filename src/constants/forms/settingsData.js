@@ -1,12 +1,9 @@
 export function getInitialSettingData(user){
      const {name,email,username,otherData,image} = user;
-     const {website,tags,bio} = otherData
+     const {website,keywords,bio,phone,bdate,gender,address} = otherData
      return {
-          name,email,username,website,bio,keywords:tags,image,
-          phone: user?.phone || user?.otherData.phone,
-          bdate: user?.bdate || user?.otherData.bdate,
-          gender: user?.gender || user?.otherData.gender,
-          address: user?.address || user?.otherData.address
+          name,email,username,website,bio,keywords,
+          image,phone,bdate,gender,address
      }
 }
 export const PASS_SETTINGS = {
@@ -28,7 +25,6 @@ export const INITIAL_SETTINGS = {
      recent: true,
      followers: false,
      following: false,
-     followerW: false,
      featured: true,
      language:'en',
      clockFormat: 'hr24',

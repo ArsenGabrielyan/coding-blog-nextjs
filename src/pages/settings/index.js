@@ -5,13 +5,21 @@ import connectDB from "@/lib/connectDb";
 import useSettings from "@/lib/hooks/use-settings";
 import User from "@/model/CredentialsUser";
 import { getSession } from "next-auth/react";
-import Head from "next/head"; import Image from "next/image";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function SettingsPage({user}){
-     const [mode, setMode] = useState('account');
+     const router = useRouter()
+     const [mode, setMode] = useState(router.query?.page || 'account');
      const [accPage, setAccPage] = useState('basic');
      const settings = useSettings(user,mode,accPage);
+     const changePage = (page) => {
+          setMode(page.name)
+          router.push(`/settings?page=${page.name}`,undefined,{shallow:true})
+     }
      return <>
      <Head>
           <title>Settings | EduArticles</title>
@@ -25,7 +33,8 @@ export default function SettingsPage({user}){
                          <h2>{user?.name}</h2>
                     </>}
                     <ul>
-                         {settingPages.map((page,i)=><li key={i} onClick={()=>setMode(page.name)} className={mode===page.name ? 'active' : ''}>{page.title}</li>)}
+                         {settingPages.map((page,i)=><li key={i} onClick={()=>changePage(page)} className={mode===page.name ? 'active' : ''}>{page.title}</li>)}
+                         <li><Link href="/settings/dashboard">Dashboard</Link></li>
                     </ul>
                </div>
                <div className="settings-content">
