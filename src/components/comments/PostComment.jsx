@@ -62,7 +62,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
           {editMode ? <form className="editForm" onSubmit={applyEdit}>
                <textarea name="comment" placeholder="Add Comment" value={newComment} onChange={e=>setNewComment(e.target.value)}/>
                {newComment!=='' && <div className="options">
-                    <button type="button" onClick={cancelEdit} className="btn cancel">Cancel</button>
+                    <button type="button" onClick={cancelEdit} className="btn cancel" disabled={load}>Cancel</button>
                     <button type='submit' disabled={load || newComment===data.comment} className="btn">{load?"Processing...":"Apply Changes"}</button>
                </div>}
           </form> : <>

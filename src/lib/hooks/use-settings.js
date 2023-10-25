@@ -13,12 +13,10 @@ export default function useSettings(user,mode,accPage){
      const [passSettings, setPassSettings] = useState(PASS_SETTINGS);
      const tagOptions = useTags(setAccSettings,accSettings);
      const isCurrSetting = JSON.stringify({...accSettings,...passSettings,...settings})===JSON.stringify({...(currSetting||INITIAL_USER_DATA),...PASS_SETTINGS,...INITIAL_SETTINGS});
-
      const changeAccSetting = e => setAccSettings({...accSettings,[e.target.name]:e.target.value})
      const changeSetting = (e,type='input') => setSettings({...settings,[e.target.name]:type==='input' ? e.target.value : e.target.checked});
      const changeBio = val => setAccSettings({...accSettings,bio: val});
      const changePass = e => setPassSettings({...passSettings,[e.target.name]: e.target.value});
-
      const getSettings = () => {
           switch(mode){
                case 'account': return <>

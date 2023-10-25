@@ -53,5 +53,6 @@ export default function AdvancedSettings({settings, changeSetting}){
                </select>
           </div>
      </div>
+     <button type="button" className="btn red">Delete The Account</button>
      </>
 }

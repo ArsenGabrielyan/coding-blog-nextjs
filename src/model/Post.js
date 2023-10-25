@@ -30,6 +30,7 @@ const postSchema = new Schema({
      },
      comments: [{
           comment: String,
+          postId: String,
           date: String,
           email: String,
           name: String,

@@ -1,0 +1,84 @@
+.settings-comment{
+     border-bottom: 1px solid $lightGrey;
+     padding: 8px 0;
+     &:last-child{border: 0;}
+     &,.comment-details{display: flex;}
+     align-items: center;
+     img{margin: 10px;border-radius: 50%;}
+     .commentData{width: 100%;display: flex;}
+     .comment-details{
+          flex-direction: column;
+          .comment-title{
+               font-size: 16px;
+               font-weight: 600;
+               color: $col1;
+               a{color: $col1;text-decoration: none;&:hover{text-decoration: underline;}}
+               margin-bottom: 5px;
+          }
+          p{font-size: 16px;word-wrap: break-word;}
+          .comment-btns{
+               display: flex;
+               align-items: center;
+               margin-top: 5px;
+               .comBtn{
+                    margin-right: 5px;font-size: 16px;
+                    color: $col1;transition:.3s;cursor: pointer;
+                    &:hover,&:focus{opacity: .6;}
+                    background: none;border: none;outline: none;
+                    &.active{color: $col7}
+               }
+               .com-opt{padding: 0.25em;border: none;}
+          }
+     }
+     .post-info{
+          color: $col1;
+          font-size: 18px;
+          font-weight: 500;
+          text-decoration: none;
+          transition: .3s;
+          &:hover{
+               text-decoration: underline;
+               color: $col3;
+          }
+     }
+}
+.editForm{
+     display: flex;align-items: center;
+     &,textarea{width: 100%;}
+     flex-direction: column;
+     align-items: flex-start;height: 85px;
+     textarea,button{border-radius: 15px;}
+     textarea{
+          resize: vertical;
+          padding: 0.5em;
+          min-height: 42px;
+          overflow: hidden;
+          margin-bottom: 3px;
+          border: 2px solid $grey;
+          font-size: 16px;outline:none;
+          &:focus{border-color: $col4;}
+     }
+     .cancel{border-color: transparent;}
+     .options{
+          align-self: flex-end;
+          button{margin: 3px;padding: 0.5em 0.75em;}
+     }
+}
+@media screen and (max-width: 900px){
+     .settings-comment{
+          img{
+               margin: 7.5px;
+          }
+          .post-info{
+               font-size: 16px;
+          }
+     }
+}
+@media screen and (max-width: 500px){
+     .settings-comment{
+          align-items: center;
+          justify-content: center;
+          flex-flow: column wrap;
+          .post-info{margin: 5px 0;}
+     }
+}

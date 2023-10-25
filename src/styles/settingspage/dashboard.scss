@@ -1,0 +1,105 @@
+.stats-container,.dashboard-content{display: grid; width: 100%;}
+.stats{
+     &-container{grid-template-columns: repeat(4,auto);}
+     &-box{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 10px;
+          background: $white;
+          padding: 8px;
+          margin: 5px;
+          box-shadow: 0 0 20px rgba(0,0,0,.3);
+          svg{font-size: 40px;color: $grey;}
+          .details{
+               margin-right: 10px;color: $col1;
+               h2{font-size: 32.5px;margin: 0;}
+               span{
+                    color: $midDarkGrey;
+                    font-weight: 500;
+               }
+          }
+     }
+}
+.dashboard{
+     &-content{grid-template-columns: auto 40%;margin-top: 5px;}
+     &-element{
+          display: flex;
+          flex-direction: column;
+          padding: 12px;
+          background: $white;
+          box-shadow: 0 0 20px rgba(0,0,0,.3);
+          border-radius: 10px;
+          margin: 0 5px;
+          .title{
+               font-size: 21px;
+               font-weight: 550;
+               color: $col4;
+               margin: 3px 0;
+          }
+     }
+     &-btn{align-self: center;}
+}
+.dashboard-list{
+     width: 100%;
+     &,.follower,.comment{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+     }
+     flex-direction: column;
+     .follower,.comment{
+          width: 100%;
+          border-bottom: 1px solid $lightGrey;
+          &:last-child{border: 0;}
+     }
+     .follower{
+          padding: 10px;
+          img{
+               margin-right: 10px;
+               border-radius: 50%;
+          }
+          .follower-details{
+               width: 100%;
+               h3,p{word-wrap: break-word;}
+               h3{font-weight: 600;font-size: 18px;}
+               p{
+                    font-weight: 500;
+                    color: $midDarkGrey;
+                    font-style: italic;
+               }
+          }
+     }
+     .comment{
+          padding: 5px;
+          .pfp{margin-right: 10px;border-radius: 50%;}
+          .thumb{
+               object-fit: cover;
+               object-position: left;
+               margin-left: 10px;
+               border-radius: 10px;
+          }
+          .comment-details{
+               width: 100%;
+               p{font-size: 18px;}
+               span{
+                    font-weight: 500;
+                    color: $midDarkGrey;
+                    font-style: italic;
+               }
+          }
+     }
+}
+@media screen and (max-width: 900px){
+     .stats-container{grid-template-columns: repeat(2,auto);}
+     .dashboard{
+          &-content{grid-template-columns: auto;}
+          &-element{margin: 5px;}
+     }
+}
+@media screen and (max-width: 400px){
+     .stats{
+          &-container{grid-template-columns: auto;}
+          &-box{margin: 5px 0;}
+     }
+}

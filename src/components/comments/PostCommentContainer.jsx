@@ -12,7 +12,7 @@ export default function PostCommentContainer({session, children, postId, update}
           if(comment.trim()!=='') {
                setLoading(true);
                const commentObj = {
-                    comment,
+                    comment,postId,
                     date: new Date().toLocaleString(),
                     email: session.currUser?.email,
                };
@@ -33,7 +33,7 @@ export default function PostCommentContainer({session, children, postId, update}
                     <div className="fields">
                          <textarea name="comment" placeholder="Add Comment" value={comment} onChange={e=>setComment(e.target.value)}/>
                          {comment!=='' && <div className="options">
-                         <button type="button" onClick={()=>setComment('')} className="btn cancel">Cancel</button>
+                         <button type="button" onClick={()=>setComment('')} className="btn cancel" disabled={loading}>Cancel</button>
                          <button type='submit' disabled={loading} className="btn">{loading?"Loading...":"Add Comment"}</button>
                          </div>}
                     </div>
