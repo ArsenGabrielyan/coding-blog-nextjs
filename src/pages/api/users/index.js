@@ -42,7 +42,7 @@ export default async function handler(req,res){
                          'comments.$[i].name': updatedUser?.username,
                          'comments.$[i].image': updatedUser?.image
                     }
-               },{arrayFilters: [{'i.email': {$eq: updatedUser?.email || accSettings?.email}}]})
+               },{arrayFilters: [{'i.email': {$eq: accSettings?.email}}]})
                res.status(200).json(updatedUser);
           }
           else res.status(400).json({msg: 'Failed To Update'})
