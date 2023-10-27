@@ -32,7 +32,7 @@ export default function Search(){
                {status!=='loading' && list?.filter(val=>{
                     if(selected==='all') return true;
                     return val.elemType===selected
-               }).map(elem=>(elem.elemType==='user') ? <UserSearchElem key={elem.userId} type={data?.user.email===elem.email?'session':'other'} user={elem} currUser={currUser} update={updateDetails} status={status}/> : <PostSearchElem key={elem.post_id} post={elem}/>)}
+               }).map(elem=>(elem.elemType==='user') ? <UserSearchElem key={elem.user_id} type={data?.user.email===elem.email?'session':'other'} user={elem} currUser={currUser} update={updateDetails} status={status}/> : <PostSearchElem key={elem.post_id} post={elem}/>)}
                {!list.length && <h2 className="notFound">Sorry, But No Results Found</h2>}
           </section> : <h2 className="loadTxt">Loading...</h2>}
      </Layout>

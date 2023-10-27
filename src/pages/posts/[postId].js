@@ -37,7 +37,8 @@ export default function NewPost({author, relatedPosts}){
                     axios.patch('/api/posts',{type:type==='like'?'like':'save',email:user.email,id:post?.post_id},REQ_CONFIG),{
                     pending: "Processing...",
                     success: `Successfully ${type==='like'?likeTxt:saveTxt}`,
-                    error: `Failed to ${type==='like'?'Like':'Save'} The Post`})
+                    error: `Failed to ${type==='like'?'Like':'Save'} The Post`
+               })
                if(res.status===200) await updateDetails();
           } else router.replace('/auth/signin')
      }

@@ -11,16 +11,17 @@ import { REQ_CONFIG } from "@/constants/forms/formData";
 
 export default function useSettings(user,mode,accPage){
      const currSetting = getInitialSettingData(user)
-     const initialAccSettings = currSetting||INITIAL_USER_DATA;
-     const initialPasswordSetting = user?.details.settings || PASS_SETTINGS;
-     const initialSettings = INITIAL_SETTINGS;
+     const initialAccSettings = currSetting || INITIAL_USER_DATA;
+     const initialPasswordSetting = PASS_SETTINGS;
+     const initialSettings = user?.details.settings || INITIAL_SETTINGS;
 
-     const [accSettings, setAccSettings] = useState(initialAccSettings);const [passSettings, setPassSettings] = useState(initialPasswordSetting);
+     const [accSettings, setAccSettings] = useState(initialAccSettings);
+     const [passSettings, setPassSettings] = useState(initialPasswordSetting);
      const [settings, setSettings] = useState(initialSettings);
 
      const tagOptions = useTags(setAccSettings,accSettings);
      const isCurrSetting = JSON.stringify({...accSettings,...passSettings,...settings})===JSON.stringify({...initialAccSettings,...initialPasswordSetting,...initialSettings});
-     
+
      const changeAccSetting = e => setAccSettings({...accSettings,[e.target.name]:e.target.value})
      const changeSetting = (e,type='input') => setSettings({...settings,[e.target.name]:type==='input' ? e.target.value : e.target.checked});
      const changeBio = val => setAccSettings({...accSettings,bio: val});
@@ -43,16 +44,12 @@ export default function useSettings(user,mode,accPage){
      const updateSettings = async e => {
           e.preventDefault();
           const res = await toast.promise(
-               axios.put('/api/users',{accSettings, settings},REQ_CONFIG),
-               {
-                    pending: 'Updating...',
-                    success: 'Settings updated successfully.',
-                    error: 'Settings update failed. Please try again later.'
-               }
-          );
-          if(res.status===200){
-               console.log(res.data);
-          }
+          axios.put('/api/users',{accSettings, settings},REQ_CONFIG),{
+               pending: 'Updating...',
+               success: 'Settings updated successfully.',
+               error: 'Settings update failed. Please try again later.'
+          });
+          if(res.status===200) console.log('complete');
      }
      return {
           accSettings,

@@ -33,7 +33,7 @@ export default function Accounts1({user, changeAccSetting, changeBio, tagOptions
                <MarkdownEditor value={user?.bio} className="editor" toolbars={customToolbar} toolbarsMode={['preview']} previewProps={{rehypePlugins,remarkPlugins}} id="bio" onChange={changeBio}/>
           </div>
           <div className="frmGroup">
-               <label htmlFor="tags">Tags (Keywords)</label>
+               <label htmlFor="tags">Keywords</label>
                <input type="text" name="tags" id="tags" value={tagOptions.tagInput} onChange={tagOptions.changeTags} onKeyDown={tagOptions.handleKeydown} placeholder="Enter a comma after each keyword and make sure they are unique"/>
           </div>
           <ul className="tags">

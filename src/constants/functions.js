@@ -29,7 +29,7 @@ export const fetcher = async url => {
 export const followUnfollow = async({status,email,userId,name},router,isFollowed,payload)=>{
      if(status==='authenticated'){
           const res = await axios.patch('/api/users',{email, userId},REQ_CONFIG);
-          if(res.status===200) toast.promise(payload(),{
+          if(res.status===200) await toast.promise(payload(),{
                pending: 'Processing...',
                success: `Successfully ${isFollowed ? 'Unfollowed' : 'Followed'} ${name}`,
                error: `Failed to ${isFollowed ? 'Unfollow' : 'Follow'} ${name}`
@@ -52,7 +52,7 @@ export const search = (val,q) =>
      val.title?.toLowerCase().includes(q.toLowerCase()) ||
      val.username?.toLowerCase().includes(q.toLowerCase() ||
      val.keywords?.includes(q.toLowerCase())) ||
-     val.otherData?.tags.includes(q.toLowerCase())
+     val.otherData?.keywords.includes(q.toLowerCase())
 export const isCurrent = (currUser,post,author) => ({
      isLiked:currUser?.details?.likedPosts.includes(post?.post_id),
      isSaved:currUser?.details?.savedPosts.includes(post?.post_id),

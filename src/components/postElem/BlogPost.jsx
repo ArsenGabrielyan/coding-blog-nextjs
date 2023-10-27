@@ -15,7 +15,7 @@ export default function BlogPost({data, noLink=false, adminMode=false, update}){
      const deletePost = async () => {
           if(confirm('Are You Sure to Delete That Post?')){
                const res= await toast.promise(
-                    axios.delete(`/api/posts/${data?.post_id}`,REQ_CONFIG),{
+               axios.delete(`/api/posts/${data?.post_id}`,REQ_CONFIG),{
                     pending: 'Deleting...',
                     success: 'Post Deleted',
                     error: 'Failed to Delete the Post'

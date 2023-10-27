@@ -23,7 +23,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
      const deleteComment = async id => {
           if(confirm('Are You Sure to Delete this Comment?')){
                const res = await toast.promise(
-                    axios.delete(`/api/posts/comments/${id}?postId=${postId}`,REQ_CONFIG),{
+               axios.delete(`/api/posts/comments/${id}?postId=${postId}`,REQ_CONFIG),{
                     pending: 'Deleting...',
                     success: 'Comment Deleted',
                     error: "Failed to Delete The Comment"
@@ -47,7 +47,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
      }
      const likeComment = async()=>{
           const res = await toast.promise(
-               axios.patch(`/api/posts/comments?postId=${postId}`,{commentId: data.commentId,commentEmail: session.email},REQ_CONFIG),{
+          axios.patch(`/api/posts/comments?postId=${postId}`,{commentId: data.commentId,commentEmail: session.email},REQ_CONFIG),{
                pending: "Processing...",
                success: `Successfully ${!isLikedComment ? 'Liked' : 'Unliked'} the Comment`,
                error: `Failed to ${!isLikedComment ? 'Like' : 'Unlike'} The Comment`
