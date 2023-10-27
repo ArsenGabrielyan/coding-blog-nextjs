@@ -5,6 +5,7 @@ import { MdError } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import axios from "axios"; import { FORGOT_PASS_INITIAL, REQ_CONFIG } from "@/constants/forms/formData";
+import PasswordStrength from "../PasswordStrengthMeter";
 
 export default function PassResetForm({isLinkInvalid, token, email}){
      const router = useRouter()
@@ -49,6 +50,7 @@ export default function PassResetForm({isLinkInvalid, token, email}){
                <label htmlFor="password">New Password</label>
                <input type={toggle.pass?'text':"password"} id="password" name="newPass" value={passReset.newPass} onChange={handleChange}/>
           </div>
+          {passReset.newPass && <PasswordStrength moreSpace pass={passReset.newPass}/>}
           <div className="frmGroup">
                <button className="inputIcon" type="button" onClick={()=>changeIcon('cPass')}>{!toggle.cPass?<FaEye/>:<FaEyeSlash/>}</button>
                <label htmlFor="cPassword">Confirm New Password</label>

@@ -1,12 +1,8 @@
 .settings-content form{
      flex-direction: column;
-     &, .frmRow, .frmGroup, .frmPfp{display: flex;width: 100%;align-items: center;}
+     &,.frmRow,.frmGroup,.frmPfp{display: flex;width: 100%;align-items: center;}
      &,.frmGroup{justify-content: center;}
-     .frmRow{
-          justify-content: space-between;
-          margin-bottom: 8px;
-          .frmGroup{width: 49.5%;}
-     }
+     .frmRow{justify-content: space-between;.frmGroup{width: 49.5%;}}
      .frmGroup, .frmPfp{position: relative;}
      .frmGroup{
           flex-direction: column;
@@ -37,13 +33,8 @@
           &.checkbox{
                flex-direction: row;width: 50%;
                justify-content: space-between;
-               align-items: center;
-               margin-top: 8px;
-               label{
-                    position: relative;
-                    top: initial;
-                    left: initial;
-               }
+               align-items: center;margin-top: 8px;
+               label{position: relative;top: initial;left: initial;}
                .checkLabel{font-weight: 500;}
                .switch{
                     position: relative;
@@ -64,13 +55,19 @@
                     }
                }
                input[type=checkbox]{
-                    width: auto;
-                    display: none;
+                    width: auto;display: none;
                     &:checked + .switch{
                          background: $col4;
                          &::after{left: 32.5px;}
                     }
                }
+          }
+          &.btn-only{
+               flex-direction: row;
+               justify-content: space-between;
+               align-items: center;margin-top: 10px;
+               label{position: relative;top: 0;left: 0;text-align: center;}
+               label,button{width: 100%;}
           }
      }
      .frmProgress{
@@ -162,10 +159,7 @@
           .frmGroup{&,&.checkbox{width: 100% !important;}}
           .frmBtns{
                flex-direction: column;
-               button{
-                    width: inherit;
-                    margin: 3px 0;
-               }
+               button{width: inherit;margin: 3px 0;}
           }
           .frmPfp{
                flex-direction: column;

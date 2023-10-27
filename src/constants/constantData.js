@@ -1,4 +1,5 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { MdAccountCircle, MdAppSettingsAlt } from "react-icons/md";
 export const sortPostOptions = [
      {name: 'Sort By'},
      {name: 'Latest', value: 'latest'},
@@ -24,9 +25,8 @@ export const getCategories = (type='standard')=>{
      ]
 }
 export const settingPages = [
-     {name: 'account', title: 'Account'},
-     {name: 'password', title: 'Password'},
-     {name: 'advanced', title: 'Advanced'}
+     {name: 'account', title: 'Account', IconName: MdAccountCircle},
+     {name: 'advanced', title: 'Advanced', IconName: MdAppSettingsAlt}
 ];
 export const SliderBtn = ({onClick, type}) => <button type="button" onClick={()=>onClick()} className={`sliderBtn ${type==='left' ? "left" : "right"}`}>{type==='left' ?<FaChevronLeft/> : <FaChevronRight/>}</button>
 export const POST_COMMENT_LIMIT = 4;

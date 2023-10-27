@@ -1,16 +1,15 @@
 import Layout from "@/components/Layout";
-import DashboardComment from "@/components/dashboard-elements/DashboardComment";
-import DashboardElem from "@/components/dashboard-elements/DashboardElement";
-import Follower from "@/components/dashboard-elements/Follower";
-import StatBox from "@/components/dashboard-elements/StatBox";
-import { settingPages } from "@/constants/constantData";
+import DashboardComment from "@/components/dashboard-settings/DashboardComment";
+import DashboardElem from "@/components/dashboard-settings/DashboardElement";
+import Follower from "@/components/dashboard-settings/Follower";
+import SettingMenu from "@/components/dashboard-settings/SettingMenu";
+import StatBox from "@/components/dashboard-settings/StatBox";
 import { serializeObject } from "@/constants/functions";
 import connectDB from "@/lib/connectDb";
 import useDashboard from "@/lib/hooks/use-dashboard";
 import User from "@/model/CredentialsUser";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaUser, FaBookmark } from "react-icons/fa";
@@ -23,20 +22,9 @@ export default function Dashboard({user}){
      return <>
      <Head><title>Dashboard | EduArticles</title></Head>
      <Layout>
-          {isAllLoading ? <h2 className="loadTxt">Loading...</h2> : <>
           <h1 className="pageTitle">Dashboard</h1>
-          <div className="settings-container">
-               <div className="settings-menu">
-                    {user && <>
-                         <Image src={user.image} alt="pfp" width={175} height={175} priority/>
-                         <h2>{user?.name}</h2>
-                    </>}
-                    <ul>
-                         {settingPages.map((page,i)=><li key={i} onClick={()=>changePage(page)}>{page.title}</li>)}
-                         <li className="active"><Link href="/settings/dashboard">Dashboard</Link></li>
-                         <li><Link href="/settings/dashboard/comments">Comments</Link></li>
-                    </ul>
-               </div>
+          {isAllLoading ? <h2 className="loadTxt">Loading...</h2> :<div className="settings-container">
+               <SettingMenu user={user} activeElem='dashboard' changePage={changePage}/>
                <div className="settings-content">
                     <div className="stats-container">
                          <StatBox Icon={FaUser} data={userData?.followers} title='Followers'/>
@@ -59,7 +47,7 @@ export default function Dashboard({user}){
                          </DashboardElem>
                     </div>
                </div>
-          </div></>}
+          </div>}
      </Layout></>
 }
 export async function getServerSideProps(ctx){

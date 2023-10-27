@@ -3,11 +3,9 @@
 @import "./commentsPage.scss";
 .settings{
      &-container{
-          display: grid;
-          grid-template-columns: 200px auto;
-          width: 100%;
-          background: $white;
-          padding: 20px;
+          display: grid;background: $white;
+          grid-template-columns: 180px auto;
+          width: 100%;padding: 20px;
      }
      &-menu{
           display: flex;
@@ -19,11 +17,17 @@
                font-size: 25px;
                font-weight: 500;
                margin: 10px 0;
+               text-align: center;
           }
           ul{
+               display: flex;
+               flex-direction: column;
                width: 100%;list-style: none;
                li{
-                    padding: 8px 12px;margin: 5px 0;
+                    display: flex;
+                    align-items: center;
+                    svg{margin-right: 12px;}
+                    padding: 8px 12px;margin: 3.5px 0;
                     background: $moreLightGrey;
                     border-radius: 10px;font-size: 18px;
                     &.active{background: $col3;}
@@ -57,7 +61,7 @@
                     max-height: 150px;
                }
                ul{
-                    display: flex;
+                    flex-direction: row;
                     flex-wrap: wrap;align-items: center;
                     justify-content: flex-start;
                     li{margin: 3px; flex:1; text-align: center;}

@@ -1,6 +1,6 @@
 import zxcvbn from "zxcvbn"
 
-export default function PasswordStrength({pass}){
+export default function PasswordStrength({pass, moreSpace=false}){
      const result = zxcvbn(pass), score = result.score*100/4;
      const getProps = (type='')=>{
           switch(result.score){
@@ -16,7 +16,7 @@ export default function PasswordStrength({pass}){
           width: `${score}%`,
           background: getProps('color')
      } : {color: getProps('color')}
-     return <div className="frmProgress">
+     return <div className={`frmProgress${moreSpace ? ' large' : ''}`}>
           <div className="bar" style={changeColor('bar')}></div>
           <div className="label" style={changeColor()}>{getProps()}</div>
      </div>

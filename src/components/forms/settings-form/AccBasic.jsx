@@ -6,7 +6,7 @@ const MarkdownEditor = dynamic(
      () => import("@uiw/react-markdown-editor").then((mod) => mod.default),
      { ssr: false }
 );   
-export default function Accounts1({user, changeAccSetting, changeBio, tagOptions}){
+export default function AccBasic({user, changeAccSetting, changeBio, tagOptions}){
      return <>
           <div className="frmRow">
                <div className="frmGroup">

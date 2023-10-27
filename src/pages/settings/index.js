@@ -6,8 +6,8 @@ import useSettings from "@/lib/hooks/use-settings";
 import User from "@/model/CredentialsUser";
 import { getSession } from "next-auth/react";
 import Head from "next/head"; import { useRouter } from "next/router";
-import Image from "next/image"; import Link from "next/link";
 import { useState } from "react";
+import SettingMenu from "@/components/dashboard-settings/SettingMenu";
 
 export default function SettingsPage({user}){
      const router = useRouter();
@@ -23,17 +23,7 @@ export default function SettingsPage({user}){
      <Layout>
           <h1 className="pageTitle">Settings</h1>
           <div className="settings-container">
-               <div className="settings-menu">
-                    {user && <>
-                         <Image src={user.image} alt="pfp" width={175} height={175} priority/>
-                         <h2>{user?.name}</h2>
-                    </>}
-                    <ul>
-                         {settingPages.map((page,i)=><li key={i} onClick={()=>changePage(page)} className={mode===page.name ? 'active' : ''}>{page.title}</li>)}
-                         <li><Link href="/settings/dashboard">Dashboard</Link></li>
-                         <li><Link href="/settings/dashboard/comments">Comments</Link></li>
-                    </ul>
-               </div>
+               <SettingMenu user={user} activeElem={mode} changePage={changePage}/>
                <div className="settings-content">
                     <h2>{settingPages.find(val=>val.name===mode).title} Settings</h2>
                     <form onSubmit={settings.updateSettings} onReset={settings.resetSettings}>

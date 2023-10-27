@@ -1,10 +1,10 @@
 import Layout from "@/components/Layout";
-import { settingPages } from "@/constants/constantData";
 import { getSession } from "next-auth/react";
 import Head from "next/head"; import { useRouter } from "next/router";
-import Image from "next/image"; import Link from "next/link";
 import Comment from "@/components/comments/Comment";
 import useDashboardComment from "@/lib/hooks/use-dashboard-comment";
+import SettingMenu from "@/components/dashboard-settings/SettingMenu";
+SettingMenu
 
 export default function DashboardCommentList({userEmail}){
      const router = useRouter(), dashboardComment = useDashboardComment(userEmail)
@@ -13,23 +13,11 @@ export default function DashboardCommentList({userEmail}){
      return <>
      <Head><title>All Comments | EduArticles</title></Head>
      <Layout>
-          {isAllLoading ? <h2 className="loadTxt">Loading...</h2> : <>
           <h1 className="pageTitle">All Comments</h1>
-          <div className="settings-container">
-               <div className="settings-menu">
-                    {user && <>
-                         <Image src={user.image} alt="pfp" width={175} height={175} priority/>
-                         <h2>{user?.name}</h2>
-                    </>}
-                    <ul>
-                         {settingPages.map((page,i)=><li key={i} onClick={()=>changePage(page)}>{page.title}</li>)}
-                         <li><Link href="/settings/dashboard">Dashboard</Link></li>
-                         <li className="active"><Link href="/settings/dashboard/comments">Comments</Link></li>
-                    </ul>
-               </div>
+          {isAllLoading ? <h2 className="loadTxt">Loading...</h2> :<div className="settings-container">
+               <SettingMenu user={user} activeElem='comments' changePage={changePage}/>
                <div className="settings-content">{comments?.map(comment=><Comment key={comment.commentId} data={comment} users={users} currUser={user} update={updateDetails}/>)}</div>
-          </div>
-          </>}
+          </div>}
      </Layout>
      </>
 }
