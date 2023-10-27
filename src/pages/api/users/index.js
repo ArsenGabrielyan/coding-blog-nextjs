@@ -3,7 +3,7 @@ import User from "@/model/CredentialsUser";
 import Post from "@/model/Post";
 
 export default async function handler(req,res){
-     const {email, userId} = req.body;
+     const {email, userId, accSettings, settings} = req.body;
      if(req.method==='PATCH'){
           await connectDB();
           const currUser = await User.findOne({email});
@@ -12,6 +12,31 @@ export default async function handler(req,res){
                await currUser.save();
           }
           res.status(200).json(currUser)
+     } else if(req.method==='PUT'){
+          await connectDB(); let format;
+          const user = await User.findOne({email: accSettings?.email})
+          if(user) format = {
+               name: accSettings?.name,
+               email: accSettings?.email,
+               username: accSettings?.username,
+               image: accSettings?.image,
+               details: {...user?._doc.details, settings},
+               otherData: {
+                    website: accSettings?.website,
+                    bio: accSettings?.bio,
+                    keywords: accSettings?.keywords,
+                    phone: accSettings?.phone,
+                    bdate: accSettings?.bdate,
+                    gender: accSettings?.gender,
+                    address: accSettings?.address
+               }
+          }
+          const updatedUser = await User.findOneAndUpdate({email: accSettings?.email},format);
+          if(updatedUser) {
+               await updatedUser.save()
+               res.status(200).json(updatedUser);
+          }
+          else res.status(400).json({msg: 'Failed To Update'})
      } else if(req.method==='GET'){
           await connectDB();
           const userList = await User.find()
@@ -21,5 +46,5 @@ export default async function handler(req,res){
                return {...val?._doc,...userDetails}
           }))
           res.status(200).json(users)
-     }
+     } 
 }

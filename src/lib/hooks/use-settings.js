@@ -5,14 +5,22 @@ import PasswordSettings from "@/components/forms/settings-form/PassSettings";
 import { getInitialSettingData, INITIAL_SETTINGS, INITIAL_USER_DATA, PASS_SETTINGS } from "@/constants/forms/settingsData";
 import { useState } from "react";
 import useTags from "./use-tags";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { REQ_CONFIG } from "@/constants/forms/formData";
 
 export default function useSettings(user,mode,accPage){
      const currSetting = getInitialSettingData(user)
-     const [accSettings, setAccSettings] = useState(currSetting||INITIAL_USER_DATA);
-     const [settings, setSettings] = useState(INITIAL_SETTINGS);
-     const [passSettings, setPassSettings] = useState(PASS_SETTINGS);
+     const initialAccSettings = currSetting||INITIAL_USER_DATA;
+     const initialPasswordSetting = user?.details.settings || PASS_SETTINGS;
+     const initialSettings = INITIAL_SETTINGS;
+
+     const [accSettings, setAccSettings] = useState(initialAccSettings);const [passSettings, setPassSettings] = useState(initialPasswordSetting);
+     const [settings, setSettings] = useState(initialSettings);
+
      const tagOptions = useTags(setAccSettings,accSettings);
-     const isCurrSetting = JSON.stringify({...accSettings,...passSettings,...settings})===JSON.stringify({...(currSetting||INITIAL_USER_DATA),...PASS_SETTINGS,...INITIAL_SETTINGS});
+     const isCurrSetting = JSON.stringify({...accSettings,...passSettings,...settings})===JSON.stringify({...initialAccSettings,...initialPasswordSetting,...initialSettings});
+     
      const changeAccSetting = e => setAccSettings({...accSettings,[e.target.name]:e.target.value})
      const changeSetting = (e,type='input') => setSettings({...settings,[e.target.name]:type==='input' ? e.target.value : e.target.checked});
      const changeBio = val => setAccSettings({...accSettings,bio: val});
@@ -28,15 +36,23 @@ export default function useSettings(user,mode,accPage){
           }
      }
      const resetSettings = () => {
-          setAccSettings(currSetting||INITIAL_USER_DATA);
-          setPassSettings(PASS_SETTINGS);
-          setSettings(INITIAL_SETTINGS)
+          setAccSettings(initialAccSettings);
+          setPassSettings(initialPasswordSetting);
+          setSettings(initialSettings)
      }
-     const updateSettings = e => {
+     const updateSettings = async e => {
           e.preventDefault();
-          console.log(accSettings)
-          console.log(passSettings)
-          console.log(settings)
+          const res = await toast.promise(
+               axios.put('/api/users',{accSettings, settings},REQ_CONFIG),
+               {
+                    pending: 'Updating...',
+                    success: 'Settings updated successfully.',
+                    error: 'Settings update failed. Please try again later.'
+               }
+          );
+          if(res.status===200){
+               console.log(res.data);
+          }
      }
      return {
           accSettings,
