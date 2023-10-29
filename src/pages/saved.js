@@ -3,7 +3,7 @@ import BlogPost from "@/components/postElem/BlogPost";
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";
 import Post from "@/model/Post"; import Head from "next/head";
-import { serializeObject } from "@/constants/functions";
+import { serializeObject } from "@/constants/helpers";
 import { getSession } from "next-auth/react";
 
 export default function SavedPosts({posts}){

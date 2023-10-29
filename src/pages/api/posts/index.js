@@ -1,6 +1,6 @@
 import Post from "@/model/Post";
 import User from "@/model/CredentialsUser";
-import { generate } from "@/constants/functions";
+import { generate } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb";
 
 export default async function handler(req,res){

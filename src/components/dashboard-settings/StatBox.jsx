@@ -1,4 +1,4 @@
-import { abbrNum } from "@/constants/functions";
+import { abbrNum } from "@/constants/helpers";
 
 export default function StatBox({Icon, title, data, enableAttr=false}){
      return <div className="stats-box">

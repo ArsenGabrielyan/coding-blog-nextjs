@@ -3,7 +3,7 @@ import UserSearchElem from "@/components/userElem/UserSearch";
 import { useSession } from "next-auth/react";
 import PostSearchElem from "@/components/postElem/Post-Search";
 import { useState } from "react"; import Head from "next/head";
-import { fetcher, search } from "@/constants/functions";
+import { fetcher, search } from "@/constants/helpers";
 import { useRouter } from "next/router";
 import useSWR from "swr";
    

@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import UserListItem from "@/components/userElem/UserListItem";
 import Head from "next/head"; import { useSession } from "next-auth/react";
-import { fetcher } from "@/constants/functions"; import useSWR from "swr";
+import { fetcher } from "@/constants/helpers"; import useSWR from "swr";
 import ListNavbar from "@/components/header/ListNavbar";
 
 export default function UserList(){

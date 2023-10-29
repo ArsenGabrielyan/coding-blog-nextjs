@@ -7,8 +7,10 @@ import Head from "next/head";
 import Image from "next/image"; import Link from "next/link";
 import { useState } from "react";import useSWR from "swr";
 import { MdMoreHoriz } from "react-icons/md";
-import { abbrNum, fetcher, followUnfollow } from "@/constants/functions";
+import { abbrNum, fetcher, followUnfollow } from "@/constants/helpers";
 import { useRouter } from "next/router";import useUser from "@/lib/hooks/use-user";
+import { MarkdownContent } from "@/constants/markdown-options";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export default function UserProfile(){
      const router = useRouter();
@@ -30,7 +32,9 @@ export default function UserProfile(){
                          <span id="followers">{abbrNum(followers)} followers</span>
                          <span id="following">{abbrNum(user?.details?.followingUsers.length)} following</span>
                     </div>
-                    <p className="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
+                    {user?.otherData.website && <Link href={user?.otherData.website} className="user-detail link">Website ({user?.otherData.website})</Link>}
+                    {(user?.details.settings.address && user?.otherData.address) && <p className="user-detail"><FaMapMarkerAlt/> {user?.otherData.address}</p>}
+                    {user?.otherData.bio && <MarkdownContent contentClass="bio">{user?.otherData.bio}</MarkdownContent>}
                     <div className={`options ${isCurrUser ? 'session-mode' : ''}`}>
                          {isCurrUser ? <Link className="btn" href="/settings">Settings</Link> : <button type='button' className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>}
                          <button type='button' className="btn">About</button>

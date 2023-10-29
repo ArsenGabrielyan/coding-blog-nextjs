@@ -1,4 +1,4 @@
-import { fetcher, isCurrent } from "@/constants/functions";
+import { fetcher, isCurrent } from "@/constants/helpers";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
 

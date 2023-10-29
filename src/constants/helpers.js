@@ -1,4 +1,5 @@
-import axios from "axios"; import { REQ_CONFIG } from "./forms/formData";
+import axios from "axios";
+import { REQ_CONFIG } from "./forms/formData";
 import { toast } from "react-toastify";
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -58,3 +59,14 @@ export const isCurrent = (currUser,post,author) => ({
      isSaved:currUser?.details?.savedPosts.includes(post?.post_id),
      isFollowed:currUser?.details?.followingUsers.includes(author?.user_id),
 })
+export const format12Hr = time => {
+     const [hr,mn,sc] = time.split(':');
+     const timeObj = new Date();
+     timeObj.setHours(hr);
+     timeObj.setMinutes(mn);
+     timeObj.setSeconds(sc);
+     const ampm = timeObj.getHours()>=12?'PM':'AM';
+     let hr12 = timeObj.getHours()%12;
+     hr12 = hr12 ? hr12 : 12;
+     return `${hr12}:${mn}:${sc} ${ampm}`;
+}

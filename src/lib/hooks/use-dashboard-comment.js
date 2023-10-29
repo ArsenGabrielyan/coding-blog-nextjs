@@ -1,4 +1,4 @@
-import { fetcher } from "@/constants/functions";
+import { fetcher } from "@/constants/helpers";
 import useSWR from "swr"; 
 
 export default function useDashboardComment(userEmail){

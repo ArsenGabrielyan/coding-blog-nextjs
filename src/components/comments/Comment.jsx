@@ -4,7 +4,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
 import { toast } from "react-toastify"; import useSWR from "swr";
-import axios from "axios"; import { fetcher } from "@/constants/functions";
+import axios from "axios"; import { fetcher } from "@/constants/helpers";
 import { useState } from "react";
 
 export default function Comment({data, users, currUser, update}){

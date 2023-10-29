@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 import { MdClose, MdSearch } from "react-icons/md";
 import { useState } from "react"; import useSWR from "swr";
 import { useRouter } from "next/navigation"; 
-import { fetcher, toQueryURL } from "@/constants/functions";
+import { fetcher, toQueryURL } from "@/constants/helpers";
 
 export default function Header(){
      const router = useRouter(), {status, data} = useSession();

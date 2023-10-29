@@ -3,26 +3,33 @@ import BlogPost from "@/components/postElem/BlogPost";
 import PostsCarousel from "@/components/features/posts-carousel";
 import connectDB from "@/lib/connectDb";
 import Post from "@/model/Post";
-import { serializeObject } from "@/constants/functions";
+import { serializeObject } from "@/constants/helpers";
 import WidgetsFeature from "@/components/features/WidgetFeature";
+import { getSession } from "next-auth/react";
+import User from "@/model/CredentialsUser";
 
-export default function Homepage({posts, recent}){
+export default function Homepage({posts, recent, appProps}){
      return <Layout>
-          <PostsCarousel posts={posts}/>
+          {appProps.settings.featured && <PostsCarousel posts={posts}/>}
           <main className="siteMain">
           <section className="posts">
                {posts.slice(0,12).map(post=><BlogPost key={post.post_id} data={post}/>)}
           </section>
-          <WidgetsFeature recent={recent}/>
+          <WidgetsFeature recent={recent} settings={appProps.settings}/>
           </main>
      </Layout>
 }
-export async function getStaticProps(){
+export async function getServerSideProps(ctx){
      await connectDB();
-     const postArr = await Post.find(), postList = [];
-     postArr?.forEach(post=>{
-          const {_id,...rest} = post._doc;
-          postList.push(rest)
-     })
-     return {props: {posts: serializeObject(postList), recent: serializeObject(postList.sort((a,b)=>a?-1:b?1:0).slice(0,3))}}
+     const session = await getSession(ctx);
+     const appProps = session ? (await User.aggregate([
+          {$match: {email: session?.user.email}},
+          {$project: {settings: '$details.settings', _id:0}},
+     ]))[0] : {};
+     const posts = await Post.aggregate([{$project: { _id:0, banner:0, content:0, comments:0 }}]);
+     return {props: {
+          posts,
+          appProps,
+          recent: serializeObject(posts.sort((a,b)=>a?-1:b?1:0).slice(0,3)),
+     }}
 }

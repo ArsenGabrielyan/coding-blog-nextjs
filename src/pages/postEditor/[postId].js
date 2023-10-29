@@ -5,7 +5,7 @@ import PostForm from "@/components/forms/PostForm";
 import PostPreview from "@/components/postElem/Post-Preview";
 import Head from "next/head";
 import Post from "@/model/Post";
-import { serializeObject } from "@/constants/functions";
+import { serializeObject } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb";
 
 export default function EditPost({currPost}){

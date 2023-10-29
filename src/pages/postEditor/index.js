@@ -5,7 +5,7 @@ import PostForm from "@/components/forms/PostForm";
 import { INITIAL_POSTDATA } from "@/constants/forms/formData";
 import PostPreview from "@/components/postElem/Post-Preview"; import Head from "next/head";
 import User from "@/model/CredentialsUser"; import connectDB from "@/lib/connectDb";
-import { serializeObject } from "@/constants/functions";
+import { serializeObject } from "@/constants/helpers";
 
 export default function NewPost({session,currUser}){
      const [mode, setMode] = useState('edit');

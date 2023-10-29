@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import useSWR from "swr"; 
-import { fetcher } from "@/constants/functions";
+import { fetcher } from "@/constants/helpers";
 
 export default function useUser(query){
      const {data, status} = useSession();

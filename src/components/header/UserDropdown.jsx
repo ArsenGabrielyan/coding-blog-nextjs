@@ -2,7 +2,7 @@ import { signOut } from "next-auth/react"
 import Image from "next/image"; import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 import {FaPlus, FaUser} from "react-icons/fa"
-import {MdSettings,MdLogout,MdBookmark, MdHelp} from "react-icons/md"
+import {MdSettings, MdLogout, MdBookmark, MdDashboard} from "react-icons/md"
 
 export default function UserDropdown({user}){
      const [isOpen, setIsOpen] = useState(false)
@@ -22,7 +22,7 @@ export default function UserDropdown({user}){
                     <li><FaUser/><Link href={`/users/${user?.id || user?.username}`}>Your Profile</Link></li>
                     <li><MdBookmark/><Link href='/saved'>Saved Posts</Link></li>
                     <li><MdSettings/><Link href='/settings'>Settings</Link></li>
-                    <li><MdHelp/><Link href='#'>Help and Feedback</Link></li>
+                    <li><MdDashboard/><Link href='/dashboard'>Dashboard</Link></li>
                     <li><MdLogout/><Link href='#' onClick={async()=>await signOut()}>Sign Out</Link></li>
                </ul>
           </div>

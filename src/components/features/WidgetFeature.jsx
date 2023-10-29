@@ -4,8 +4,10 @@ import PostWidget from "../postElem/Post-Widget";
 import { getCategories } from "@/constants/constantData";
 import { useEffect, useState } from "react";
 import { FaNewspaper, FaUsers } from "react-icons/fa";
+import { format12Hr } from "@/constants/helpers";
 
-export default function WidgetsFeature({recent}){
+export default function WidgetsFeature({recent, settings}){
+     const {clock, categories, recent: recentFeature, clockFormat} = settings;
      const [date, setDate] = useState({time: '00:00:00',date: 'Thu Jan 01 1970'});
      useEffect(()=>{
           const d = new Date();
@@ -16,7 +18,7 @@ export default function WidgetsFeature({recent}){
                })
           },1000);
           return ()=>{if(interval) clearInterval(interval)}
-     },[date.time])
+     },[date.time]);
      return <aside className="widgets">
      <Widget title="Explore">
           <ul className="blog-links">
@@ -24,17 +26,17 @@ export default function WidgetsFeature({recent}){
                <li><Link href="/users" className="btn-icon" title="Users"><FaUsers/></Link></li>
           </ul>
      </Widget>
-     <Widget title="Categories">
+     {categories && <Widget title="Categories">
           <ul className="categories">{getCategories().map((category,i)=><li key={i}><Link href={`/posts?category=${category.value}`}>{category.name}</Link></li>)}</ul>
-     </Widget>
-     {recent.length ? <Widget title="Recent Posts">
+     </Widget>}
+     {(recentFeature && recent.length) ? <Widget title="Recent Posts">
           <ul className="w-posts">
                {recent.map(post=><PostWidget key={post.post_id} data={post}/>)}
           </ul>
      </Widget> : null}
-     <Widget title="Clock">
-          <p className="time">{date.time}</p>
+     {clock && <Widget title="Clock">
+          <p className="time">{clockFormat==='hr24' ? date.time : format12Hr(date.time)}</p>
           <p className="date">{date.date}</p>
-     </Widget>
+     </Widget>}
 </aside>
 }

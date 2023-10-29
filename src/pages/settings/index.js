@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { settingPages } from "@/constants/constantData";
-import { serializeObject } from "@/constants/functions";
+import { serializeObject } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb";
 import useSettings from "@/lib/hooks/use-settings";
 import User from "@/model/CredentialsUser";

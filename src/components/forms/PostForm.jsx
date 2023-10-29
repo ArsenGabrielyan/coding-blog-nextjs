@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import { customMode, customToolbar, rehypePlugins, remarkPlugins } from "@/constants/markdown-options";
 import axios from "axios"; import Link from "next/link";
 import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
-import { generate } from "@/constants/functions";
+import { generate } from "@/constants/helpers";
 import { useRouter } from "next/navigation";
 import { getCategories } from "@/constants/constantData";
 

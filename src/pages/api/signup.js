@@ -1,4 +1,4 @@
-import { generate } from "@/constants/functions";
+import { generate } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb";
 import bcrypt from "bcrypt";
 import User from "@/model/CredentialsUser";

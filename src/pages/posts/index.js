@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import ListNavbar from "@/components/header/ListNavbar";
 import BlogPost from "@/components/postElem/BlogPost"; import Head from "next/head";
-import { fetcher, sortList } from "@/constants/functions";
+import { fetcher, sortList } from "@/constants/helpers";
 import { useState } from "react"; import { useRouter } from "next/router";
 import useSWR from "swr";
 

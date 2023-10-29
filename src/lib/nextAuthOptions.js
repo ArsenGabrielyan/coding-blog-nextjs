@@ -9,7 +9,7 @@ import connectDB from "./connectDb";
 import User from "@/model/CredentialsUser";
 import OAuthUser from "@/model/OAuthUser";
 import { INITIAL_MISC_DATA } from "@/constants/forms/formData";
-import { generate } from "@/constants/functions";
+import { generate } from "@/constants/helpers";
 
 export const nextAuthOptions = {
      pages: {signIn: '/auth/signin'},

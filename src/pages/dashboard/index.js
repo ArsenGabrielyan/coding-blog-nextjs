@@ -4,7 +4,8 @@ import DashboardElem from "@/components/dashboard-settings/DashboardElement";
 import Follower from "@/components/dashboard-settings/Follower";
 import SettingMenu from "@/components/dashboard-settings/SettingMenu";
 import StatBox from "@/components/dashboard-settings/StatBox";
-import { serializeObject } from "@/constants/functions";
+import Modal from "@/components/features/Modal";
+import { serializeObject } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb";
 import useDashboard from "@/lib/hooks/use-dashboard";
 import User from "@/model/CredentialsUser";
@@ -12,6 +13,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { FaUser, FaBookmark } from "react-icons/fa";
 import { MdComment, MdThumbUpAlt } from "react-icons/md";
 
@@ -19,6 +21,7 @@ export default function Dashboard({user}){
      const router = useRouter(), {userData,stats,isAllLoading} = useDashboard(user);
      const changePage = (page) => router.push(`/settings?page=${page.name}`);
      const {totalComments,totalLikes,totalSaves,followers} = stats;
+     const [openFollowers, setOpenFollowers] = useState(false)
      return <>
      <Head><title>Dashboard | EduArticles</title></Head>
      <Layout>
@@ -34,21 +37,27 @@ export default function Dashboard({user}){
                     </div>
                     <div className="dashboard-content">
                          <DashboardElem title="Latest Comments">
+                              {!totalComments?.length ? <p>There are no New Comments</p> : <>
                               <div className="dashboard-list">
                                    {totalComments?.slice(0,3).map(comment=><DashboardComment key={comment.commentId} data={comment}/>)}
                               </div>
-                              <Link className="btn dashboard-btn" href="/settings/dashboard/comments">See More</Link>
+                              <Link className="btn dashboard-btn" href="/dashboard/comments">See More</Link></>}
                          </DashboardElem>
                          <DashboardElem title="Recent Followers">
-                              <div className="dashboard-list">
-                                   {followers?.slice(0,3).map(follower=><Follower key={follower.user_id} data={follower}/>)}
-                              </div>
-                              <button className="btn dashboard-btn">See More</button>
+                              {!followers?.length ? <p>There are No New Followers</p> : <>
+                                   <div className="dashboard-list">
+                                        {followers?.slice(0,3).map(follower=><Follower key={follower.user_id} data={follower}/>)}
+                                   </div>
+                                   <button className="btn dashboard-btn" onClick={()=>setOpenFollowers(!openFollowers)}>See More</button></>}
                          </DashboardElem>
                     </div>
                </div>
           </div>}
-     </Layout></>
+     </Layout>
+     <Modal open={{isOpen: openFollowers, setIsOpen: setOpenFollowers}} title="Followers">
+          {followers?.slice(0,3).map(follower=><Follower key={follower.user_id} data={follower} onClick={()=>setOpenFollowers(false)}/>)}
+     </Modal>
+     </>
 }
 export async function getServerSideProps(ctx){
      const session = await getSession(ctx);

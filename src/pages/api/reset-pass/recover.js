@@ -1,4 +1,4 @@
-import { generate } from "@/constants/functions";
+import { generate } from "@/constants/helpers";
 import { sendEmail } from "@/lib/nodemailer";
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";

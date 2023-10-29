@@ -15,13 +15,10 @@ export const INITIAL_USER_DATA = {
      address:'',keywords:[],
 }
 export const INITIAL_SETTINGS = {
-     darkmode: false,
      clock: true,
      categories: true,
      recent: true,
-     followers: false,
-     following: false,
      featured: true,
-     language:'en',
+     address: false,
      clockFormat: 'hr24',
 }

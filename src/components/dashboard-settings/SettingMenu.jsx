@@ -1,7 +1,7 @@
 import { settingPages } from "@/constants/constantData"
 import Image from "next/image"
 import Link from "next/link"
-import { FaComments } from "react-icons/fa"
+import { FaComments, FaNewspaper } from "react-icons/fa"
 import { MdDashboard } from "react-icons/md"
 
 export default function SettingMenu({user,activeElem,changePage}){
@@ -12,8 +12,9 @@ export default function SettingMenu({user,activeElem,changePage}){
      </>}
      <ul>
           {settingPages.map((page,i)=><li key={i} onClick={()=>changePage(page)} className={activeElem===page.name ? 'active' : ''}><page.IconName/>{page.title}</li>)}
-          <li className={activeElem==='dashboard' ? 'active' : ''}><MdDashboard/><Link href="/settings/dashboard">Dashboard</Link></li>
-          <li className={activeElem==='comments' ? 'active' : ''}><FaComments/><Link href="/settings/dashboard/comments">Comments</Link></li>
+          <li className={activeElem==='dashboard' ? 'active' : ''}><MdDashboard/><Link href="/dashboard">Dashboard</Link></li>
+          <li className={activeElem==='comments' ? 'active' : ''}><FaComments/><Link href="/dashboard/comments">Comments</Link></li>
+          <li><FaNewspaper/><Link href={`/users/${user.username || user.user_id}`}>Posts</Link></li>
      </ul>
 </div>
 }

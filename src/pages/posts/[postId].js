@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-icons/fa";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import { abbrNum, followUnfollow, serializeObject } from "@/constants/functions";
+import { abbrNum, followUnfollow, serializeObject } from "@/constants/helpers";
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -78,7 +78,7 @@ export default function NewPost({author, relatedPosts}){
                <div className="single-post-user">
                     <Image src={post?.profileImage || "/images/defaultPfp.webp"} alt="account profile" className="pfp" width={128} height={128} onClick={()=>router.push('/users/arsen2005')}/>
                     <h2>{post?.author}</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed pellentesque felis. Vivamus vitae gravida lorem, et sollicitudin ante. Sed pulvinar lorem eu mi ultricies, sit amet lobortis mauris tempus. Nulla facilisi. Nullam ornare turpis dui, eu aliquet ligula interdum a.</p>
+                    <MarkdownContent contentClass="post-bio">{author?.otherData.bio}</MarkdownContent>
                     <div className="options">
                          {isCurrUser ? <Link href="/settings" className="btn">Settings</Link> : <button type='button' className="btn" onClick={()=>followUnfollow(followOptions,router,isCurrPost.isFollowed,updateDetails)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>}
                          <Link href={`/users/${author?.user_id}`} className="btn">Explore</Link>

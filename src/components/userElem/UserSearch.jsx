@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { abbrNum, followUnfollow } from "@/constants/functions";
+import { abbrNum, followUnfollow } from "@/constants/helpers";
 
 export default function UserSearchElem({type='other', user, currUser, status, update}){
      const router = useRouter();
