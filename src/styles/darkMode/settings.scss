@@ -31,7 +31,8 @@
      }
      .frmBtns button.submit{
           color: $white; background: transparent;
-          &:hover,&:focus{background: $col2;color: $black;}
+          border-color: $white;
+          &:hover,&:focus{background: $white;color: $black;}
      }
      .tags li{
           color: $col2;

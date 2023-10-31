@@ -31,7 +31,7 @@
                font-weight: 500;
           }
           &.checkbox, &.multi-choose{
-               flex-direction: row;width: 50%;
+               flex-direction: row;width: 60%;
                justify-content: space-between;
                align-items: center;margin-top: 8px;
                .checkLabel{font-weight: 500;}
@@ -48,8 +48,7 @@
                     &::after{
                          content: '';
                          position: absolute;
-                         width: 25.5px;
-                         height: 25.5px;
+                         width: 25.5px;height: 25.5px;
                          border-radius: 50%;
                          background: $white;
                          top: 2px;left: 2px;
@@ -74,7 +73,7 @@
           &.multi-choose .mc-options{
                position: relative;display: flex;
                background: $lightGrey;
-               border-radius: 10px;width: 50%;
+               border-radius: 10px;width: 60%;
                button{
                     border-radius: 10px;position: relative;
                     z-index: 5; border: 0;cursor: pointer;
@@ -86,6 +85,13 @@
                     &.active{background: $col4;color: $white;}
                }
           }
+          &.disabled{
+               user-select: none;
+               pointer-events: none;
+               opacity: .5;
+          }
+          &.first{margin: 0;}
+          &.last{margin-bottom: 3px;}
      }
      .frmPfp{
           margin: 10px 0 8px;
@@ -157,7 +163,7 @@
 @media screen and (max-width: 500px){
      .settings-content form{
           .frmRow{flex-direction: column;}
-          .frmGroup{&,&.checkbox{width: 100% !important;}}
+          .frmGroup, .frmGroup.checkbox, .frmGroup.multi-choose{width: 100% !important;}
           .frmBtns{
                flex-direction: column;
                button{width: inherit;margin: 3px 0;}

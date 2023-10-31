@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { MdContrast, MdDarkMode, MdLightMode } from "react-icons/md";
 
 export default function AdvancedSettings({settings, changeSetting}){
-     const {clock,categories,recent,featured,clockFormat,address} = settings;
+     const {clock,categories,recent,featured,is24HrFormat} = settings;
      const {setTheme,theme} = useTheme()
      const [mode, setMode] = useState('');
      useEffect(()=>{
@@ -11,7 +11,7 @@ export default function AdvancedSettings({settings, changeSetting}){
           return () => setMode('');
      },[theme])
      return <>
-     <div className="frmGroup checkbox">
+     <div className="frmGroup checkbox first">
           <p className="checkLabel">Clock</p>
           <input type="checkbox" name="clock" id="clock" checked={clock} onChange={e=>changeSetting(e,'checkbox')}/>
           <label className="switch" htmlFor="clock"></label>
@@ -31,12 +31,12 @@ export default function AdvancedSettings({settings, changeSetting}){
           <input type="checkbox" name="featured" id="featured" checked={featured} onChange={e=>changeSetting(e,'checkbox')}/>
           <label className="switch" htmlFor="featured"></label>
      </div>
-     <div className="frmGroup checkbox">
-          <p className="checkLabel">Location</p>
-          <input type="checkbox" name="address" id="address" checked={address} onChange={e=>changeSetting(e,'checkbox')}/>
-          <label className="switch" htmlFor="address"></label>
+     <div className={`frmGroup checkbox ${!clock ? 'disabled':''}`}>
+          <p className="checkLabel">24 Hour Time</p>
+          <input type="checkbox" name="is24HrFormat" id="24hr" checked={is24HrFormat} onChange={e=>changeSetting(e,'checkbox')} disabled={!clock}/>
+          <label className="switch" htmlFor="24hr"></label>
      </div>
-     <div className="frmGroup  multi-choose">
+     <div className="frmGroup multi-choose last">
           <p className="checkLabel">Theme</p>
           <div className="mc-options">
                <button className={mode==='light'?'active':''} type="button" onClick={()=>setTheme('light')}><MdLightMode/></button>
@@ -44,13 +44,5 @@ export default function AdvancedSettings({settings, changeSetting}){
                <button className={mode==='system'?'active':''} type="button" onClick={()=>setTheme('system')}><MdContrast/></button>
           </div>
      </div>
-     <div className="frmGroup">
-          <label htmlFor="clockFormat">Clock Format</label>
-          <select name="clockFormat" id="clockFormat" value={clockFormat} onChange={e=>changeSetting(e,'input')}>
-               <option value='hr12'>12 Hour Format</option>
-               <option value='hr24'>24 Hour Format</option>
-          </select>
-     </div>
-     <button type="button" className="btn red mt">Delete The Account</button>
      </>
 }

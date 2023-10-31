@@ -47,7 +47,7 @@
           color: $error;
           &:hover,&:focus{background: $error;color: $white;}
      }
-     &.mt{margin-top: 10px;}
+     &.mv{margin: 5px 0;}
 }
 .link{
      border: 2px solid $white;

@@ -2,8 +2,7 @@ import Layout from "@/components/Layout"
 import BlogPost from "@/components/postElem/BlogPost";
 import Modal from "@/components/features/Modal";
 import connectDB from "@/lib/connectDb";
-import User from "@/model/CredentialsUser";
-import Head from "next/head";
+import User from "@/model/CredentialsUser"; import Head from "next/head";
 import Image from "next/image"; import Link from "next/link";
 import { useState } from "react";import useSWR from "swr";
 import { MdMoreHoriz } from "react-icons/md";
@@ -32,9 +31,9 @@ export default function UserProfile(){
                          <span id="followers">{abbrNum(followers)} followers</span>
                          <span id="following">{abbrNum(user?.details?.followingUsers.length)} following</span>
                     </div>
-                    {user?.otherData.website && <Link href={user?.otherData.website} className="user-detail link">Website ({user?.otherData.website})</Link>}
-                    {(user?.details.settings.address && user?.otherData.address) && <p className="user-detail"><FaMapMarkerAlt/> {user?.otherData.address}</p>}
-                    {user?.otherData.bio && <MarkdownContent contentClass="bio">{user?.otherData.bio}</MarkdownContent>}
+                    {user?.otherData?.website && <Link href={user?.otherData?.website} className="user-detail link">Website ({user?.otherData?.website})</Link>}
+                    {user?.otherData?.address && <p className="user-detail"><FaMapMarkerAlt/> {user?.otherData?.address}</p>}
+                    {user?.otherData?.bio && <MarkdownContent contentClass="bio">{user?.otherData?.bio}</MarkdownContent>}
                     <div className={`options ${isCurrUser ? 'session-mode' : ''}`}>
                          {isCurrUser ? <Link className="btn" href="/settings">Settings</Link> : <button type='button' className="btn" onClick={()=>followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>}
                          <button type='button' className="btn">About</button>

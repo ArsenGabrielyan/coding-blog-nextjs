@@ -8,7 +8,10 @@
           }
           .details{
                &-upper span :where(svg,a),
-               &-lower span{color: $col2;}
+               &-lower span{
+                    color: $col3;
+                    &.active{color: $col2;}
+               }
           }
      }
      &-user{background: rgba(22,22,22,.7);}

@@ -49,5 +49,6 @@ export default function AccAdvanced({user, changeAccSetting}){
           <button className="pfpBtn" type="button"><MdImage/> Change Profile Picture</button>
           <Image src={user?.image} alt="pfp" width={128} height={128} priority/>
      </div>
+     <button type="button" className="btn red mv">Delete The Account</button>
      </>
 }

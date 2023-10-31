@@ -19,6 +19,5 @@ export const INITIAL_SETTINGS = {
      categories: true,
      recent: true,
      featured: true,
-     address: false,
-     clockFormat: 'hr24',
+     is24HrFormat: true,
 }

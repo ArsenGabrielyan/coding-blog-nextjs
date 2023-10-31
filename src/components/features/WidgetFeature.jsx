@@ -34,7 +34,7 @@ export default function WidgetsFeature({recent, settings}){
           </ul>
      </Widget> : null}
      {settings?.clock && <Widget title="Clock">
-          <p className="time">{settings?.clockFormat==='hr24' ? date.time : format12Hr(date.time)}</p>
+          <p className="time">{settings?.is24HrFormat ? date.time : format12Hr(date.time)}</p>
           <p className="date">{date.date}</p>
      </Widget>}
 </aside>
