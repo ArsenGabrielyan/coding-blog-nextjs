@@ -37,7 +37,7 @@ export default function AccAdvanced({user, changeAccSetting}){
           </div>
      </div>
      <div className="frmGroup">
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">Location</label>
           <input type="text" name="address" id="address" value={user?.address} onChange={changeAccSetting} placeholder="e.g. Yerevan, Armenia"/>
      </div>
      <div className="frmGroup btn-only">

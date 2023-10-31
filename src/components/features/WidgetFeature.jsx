@@ -7,7 +7,6 @@ import { FaNewspaper, FaUsers } from "react-icons/fa";
 import { format12Hr } from "@/constants/helpers";
 
 export default function WidgetsFeature({recent, settings}){
-     const {clock, categories, recent: recentFeature, clockFormat} = settings;
      const [date, setDate] = useState({time: '00:00:00',date: 'Thu Jan 01 1970'});
      useEffect(()=>{
           const d = new Date();
@@ -26,16 +25,16 @@ export default function WidgetsFeature({recent, settings}){
                <li><Link href="/users" className="btn-icon" title="Users"><FaUsers/></Link></li>
           </ul>
      </Widget>
-     {categories && <Widget title="Categories">
+     {settings?.categories && <Widget title="Categories">
           <ul className="categories">{getCategories().map((category,i)=><li key={i}><Link href={`/posts?category=${category.value}`}>{category.name}</Link></li>)}</ul>
      </Widget>}
-     {(recentFeature && recent.length) ? <Widget title="Recent Posts">
+     {(settings?.recent && recent.length) ? <Widget title="Recent Posts">
           <ul className="w-posts">
                {recent.map(post=><PostWidget key={post.post_id} data={post}/>)}
           </ul>
      </Widget> : null}
-     {clock && <Widget title="Clock">
-          <p className="time">{clockFormat==='hr24' ? date.time : format12Hr(date.time)}</p>
+     {settings?.clock && <Widget title="Clock">
+          <p className="time">{settings?.clockFormat==='hr24' ? date.time : format12Hr(date.time)}</p>
           <p className="date">{date.date}</p>
      </Widget>}
 </aside>

@@ -35,7 +35,7 @@ export default function BDateForm({bdate='',gender='',address='', updateFields})
           </div>
      </div>
      <div className="frmGroup">
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">Location</label>
           <input type="text" id='address' name="address" placeholder="e.g. Yerevan, Armenia" value={address} onChange={handleChangeAddress}/>
           <ul className="autoComplete">
                {arr && arr.map((address,i)=><li key={i} onClick={()=>selectAddress(i)}>{address}</li>)}

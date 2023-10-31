@@ -1,0 +1,32 @@
+.posts .post{
+     background: $black;
+     .content{
+          :where(.details .user, .details .date) svg{color: $col2;}
+          .btns .post-options{
+               background: $black;
+               border-color: $col3;
+               li{
+                    border-color: $darkGrey;
+                    button,a{color: $col2;}
+               }
+          }
+     }
+}
+.userProfile .header{
+     background: $black; 
+     .details{
+          .userName{color: $grey;}
+          .user-detail.link{
+               color: $col2;
+               border: 0;
+               &:hover{color: $col3;}     
+          }
+     }
+}
+@media screen and (max-width: 400px){
+     .userProfile .header .details .stats span{border-color: $midLightGrey;}
+}
+.userlist .user{
+     background: $black; 
+     box-shadow: 0 5px 25px rgba(255,255,255,.3);
+}

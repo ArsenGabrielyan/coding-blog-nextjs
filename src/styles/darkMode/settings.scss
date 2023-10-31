@@ -1,0 +1,81 @@
+.settings-content form{
+     .frmGroup{
+          &:focus-within{
+               label{color: $col2;}
+               input,.editor,select{border-color: $col2;}
+          }
+          input,.editor,select{
+               border-color: $midDarkGrey;
+               ::placeholder{color: $grey;}
+          }
+          input,select,label{background: $black;}
+          &.checkbox{
+               .switch{
+                    background-color: $lightGrey;
+                    &::after{background: $black;}
+               }
+               input[type=checkbox]:checked + .switch{background: $col2;}
+          }
+          &.multi-choose .mc-options{
+               background: $darkGrey;
+               button{
+                    color: $grey;
+                    &.active{background: $col2;color: $black;}
+               }
+          }
+     }
+     .frmPfp button{
+          color: $col2;
+          border: 2px dashed $col2;
+          &:hover,&:focus{background: $col2;color: $black;}
+     }
+     .frmBtns button.submit{
+          color: $white; background: transparent;
+          &:hover,&:focus{background: $col2;color: $black;}
+     }
+     .tags li{
+          color: $col2;
+          border-color: $col2;
+          button{color: $col2;}
+          &:hover{
+               background: $col2;
+               &,button{color: $black;}
+          }
+     }
+}
+.settings-comment{
+     border-color: $darkGrey;
+     .comment-details{
+          .comment-title{
+               color: $col2;
+               a{color: $col2;}
+          }
+          .comment-btns .comBtn{
+               color: $col2;
+               &.active{color: $col3}
+          }
+     }
+     .post-info{
+          color: $col2;
+          &:hover{color: $col3;}
+     }
+}
+.editForm{
+     textarea{
+          border-color: $grey;
+          &:focus{border-color: $col2;}
+          background: $black;
+     }
+     .cancel{border-color: transparent;}
+}
+.settings{
+     &-container{background: $black;}
+     &-menu ul li{
+          background: $darkGrey;
+          &.active{background: $col2; color: $black;}
+          &:hover,&:focus{background: $col1;}
+          &,a{color: $white;}
+          &.active,&.active a{color: $black}
+          &:hover, &:focus,&:hover a, &:focus a{color: $white;}
+     }
+}

@@ -1,0 +1,48 @@
+.btn{
+     &,&-icon{
+          border-color: $col2; color: $col2;
+          &:hover,&:focus{background: $col2;color: $black;}
+     }
+     &.white,&-icon.white{
+          border-color: $white;
+          color: $white;
+          &:hover,&:focus{background: $white; color: $col1;}
+     }
+     &.fill,&-icon.fill{
+          border-color: transparent;
+          background: $col4;
+          color: $white;
+          &:hover,&:focus{background: $col2;color: $col1;}
+     }
+     &:disabled:not(.fill:disabled){
+          color: $midLightGrey;
+          border-color: $midLightGrey;
+     }
+     &.red{
+          border-color: $errDark;
+          color: $errDark;
+          &:hover,&:focus{background: $errDark;color: $black;}
+     }
+}
+.link{
+     border-color: $white;
+     color: $white;
+     &:hover,&:focus{background: $black; color: $col2; border-color: $col2;}
+     &-icon{
+          color: $white;
+          &:hover,&:focus{background: $black;color: $col2;}
+     }
+}
+.frmBtn, .frmBtn-icon{
+     border-color: $col2;
+     color: $col2; background: $black; 
+     &:hover, &:focus{color: $black;background: $col2;}
+}
+.sliderBtn{
+     background: $transpCol2;
+     svg{color: $white;}
+     &:hover{
+          background: $col2;
+          svg{color: $black;}
+     }
+}

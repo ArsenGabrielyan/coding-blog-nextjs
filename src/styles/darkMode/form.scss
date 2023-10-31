@@ -1,0 +1,50 @@
+.radio-container .radio :where(.radio1, .radio2){
+     background: rgba($color: $col4, $alpha: 0.3);
+     &:checked{background: $col4;}
+}
+.formContainer{
+     form{
+          background: $black; 
+          box-shadow: 0 5px 25px rgba(0,0,0,.2);
+          .error, .success{color: $white;}
+          .error{background: rgba($color: $error, $alpha: 0.75);}
+          .success{background: rgba($color: $col4, $alpha: 0.75);}
+          .frmGroup{
+               input[type=text], input[type=email],input[type=date], input[type=password]{
+                    border-color: $grey; background: $black;
+                    &:focus{border-color: $col2;}
+               }
+               label{color: $grey;background: $black; }
+               .icon,.inputIcon{color: $grey;}
+               &:focus-within{
+                    label{color: $col2;}
+                    .icon{color: $col2;}
+               }
+          }
+     }
+     .frmProgress{background: $darkGrey;}
+     a{color: $col2;} .gap{background: $grey;}
+     .steps{
+          .circle{
+               color: $midDarkGrey;background: $black; 
+               border-color: $midDarkGrey;
+               &.active{border-color: $col2;color: $col2;}
+          }
+          .progress-bar{
+               background: $midDarkGrey;
+               .indicator{background: $col2;}
+          }
+     }
+}
+.autoComplete{
+     &::-webkit-scrollbar-thumb{
+          background: $midDarkGrey;
+          border-color: $white;
+          border-width: 2.5px;
+     }
+     li{
+          background: $black; 
+          border-color: $lightGrey;
+          color: $lightGrey;
+     }
+}

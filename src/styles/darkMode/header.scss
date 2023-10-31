@@ -1,0 +1,55 @@
+.list-nav{
+     background: $black; 
+     box-shadow: 0 5px 25px rgba(255,255,255,.5);
+     h1{color: $col4;}
+     &-links a{
+          border-color: transparent; color: $grey;
+          &:hover,&:focus{border-color: $grey;}
+          &.active{color: $col4;border-color: $col4;}
+     }
+     &-options{
+          background: $col2;
+          select{
+               border-color: $black;
+               &:hover{color: $medGrey;border-color: $medGrey;}
+               &:active,&:focus{color: $col4;border-color: $col4;}
+          }
+     }
+}
+.siteHeader{
+     background: $col1;
+     .logo{box-shadow: 0 0 5px 5px rgba(255,255,255,.6);}
+     .inner-content{
+          .searchBtn{
+               color: $white;
+               &:hover,&:focus{color: $col2;}
+          }
+          .search{
+               input{
+                    color: $white;
+                    border-color: $white;
+                    &::placeholder{color: $col2;}
+                    &:focus{border-color: $col2;& ~ .icon{color: $col2;}}
+               }
+               .icon{color: $white;}
+               button{
+                    color: $white;
+                    &:hover,&:focus{color: $col2;}
+               }
+          }
+     }
+     .userData .menu{
+          background: $black;
+          box-shadow: 0 0 15px rgba(255,255,255,.3);
+          ul li{
+               svg{color: $col2;}
+               a{
+                    color: $white;
+                    &:hover,&:focus{color: $col2;}
+               }
+          }
+          .username,.notifEmpty{color: $col2;}
+          span{color: $white;}
+          &::before{background: $black;}
+     }
+}

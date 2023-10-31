@@ -30,12 +30,14 @@
                background: $white;
                font-weight: 500;
           }
-          &.checkbox{
+          &.checkbox, &.multi-choose{
                flex-direction: row;width: 50%;
                justify-content: space-between;
                align-items: center;margin-top: 8px;
-               label{position: relative;top: initial;left: initial;}
                .checkLabel{font-weight: 500;}
+          }
+          &.checkbox{
+               label{position: relative;top: initial;left: initial;}
                .switch{
                     position: relative;
                     display: inline-block;
@@ -69,21 +71,20 @@
                label{position: relative;top: 0;left: 0;text-align: center;}
                label,button{width: 100%;}
           }
-     }
-     .frmProgress{
-          width: 100%;height: 12px;
-          background: $lightGrey;
-          margin: 5px 0 10px;
-          border-radius: 10px;
-          .bar{
-               height: inherit;
-               border-radius: 10px;
-               transition: .3s;
-          }
-          .label{
-               text-align: right;
-               font-weight: 500;
-               font-size: 18px;
+          &.multi-choose .mc-options{
+               position: relative;display: flex;
+               background: $lightGrey;
+               border-radius: 10px;width: 50%;
+               button{
+                    border-radius: 10px;position: relative;
+                    z-index: 5; border: 0;cursor: pointer;
+                    background: none;justify-content: center;
+                    color: $darkGrey;width: 100%;
+                    padding: 8px 0;display: flex;
+                    font-weight: 600;font-size: 18px;
+                    opacity: 1;&:hover{opacity: .8;}
+                    &.active{background: $col4;color: $white;}
+               }
           }
      }
      .frmPfp{

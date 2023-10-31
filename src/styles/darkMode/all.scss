@@ -1,0 +1,12 @@
+.dark{
+     color: $white;
+     @import "./buttons.scss";
+     @import "./dashboard.scss";
+     @import "./form.scss";
+     @import "./header.scss";
+     @import "./new-post.scss";
+     @import "./other.scss";
+     @import "./posts-users.scss";
+     @import "./settings.scss";
+     @import "./single-post.scss";
+}

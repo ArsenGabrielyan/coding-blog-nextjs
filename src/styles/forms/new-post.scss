@@ -117,27 +117,6 @@
           }
           padding: 10px;
           .editor{width: 100%;}
-          .descFormat{
-               display: flex;
-               align-items: center;
-               button{
-                    border-radius: 0;color: $white;
-                    border: solid $white;
-                    border-width: 2px 2px 2px 0;
-                    &:first-child{
-                         border-left-width: 2px;
-                         border-radius: 10px 0 0 10px;
-                    }
-                    &:last-child{
-                         border-radius: 0 10px 10px 0;
-                         border-right-width: 2px;
-                    }
-                    &:hover,&:focus,&.active{
-                         border-color: $col2;
-                         color: $col2;
-                    }
-               }
-          }
           .imgPreview{
                margin-top: 8px;width: 100%;
                font-weight: 500;font-size: 16px;
@@ -210,11 +189,7 @@
                     }
                }
           }
-          .btnTags, .hint{align-self: flex-start;}
-          .hint{
-               margin-bottom: 5px;
-               color: $col2;
-          }
+          .btnTags{align-self: flex-start;}
      }
 }
 @media screen and (max-width: 500px){

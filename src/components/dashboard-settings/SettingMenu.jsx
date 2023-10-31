@@ -14,7 +14,7 @@ export default function SettingMenu({user,activeElem,changePage}){
           {settingPages.map((page,i)=><li key={i} onClick={()=>changePage(page)} className={activeElem===page.name ? 'active' : ''}><page.IconName/>{page.title}</li>)}
           <li className={activeElem==='dashboard' ? 'active' : ''}><MdDashboard/><Link href="/dashboard">Dashboard</Link></li>
           <li className={activeElem==='comments' ? 'active' : ''}><FaComments/><Link href="/dashboard/comments">Comments</Link></li>
-          <li><FaNewspaper/><Link href={`/users/${user.username || user.user_id}`}>Posts</Link></li>
+          <li><FaNewspaper/><Link href={`/users/${user?.user_id}`}>Posts</Link></li>
      </ul>
 </div>
 }

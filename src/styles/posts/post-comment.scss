@@ -72,7 +72,7 @@
                          color: $col1;transition:.3s;cursor: pointer;
                          &:hover,&:focus{opacity: .6;}
                          background: none;border: none;outline: none;
-                         &.active{color: $col7}
+                         &.active{color: $col3}
                     }
                     .com-opt{padding: 0.25em;border: none;}
                }
@@ -82,7 +82,7 @@
                     padding: 5px;margin-left: 5px;
                     list-style: none;top: 72%;
                     border-radius: 0 5px 5px 5px;
-                    border: 2px solid $col8;
+                    border: 2px solid $col4;
                     li{
                          width: 100%;
                          justify-content: center;
@@ -92,7 +92,7 @@
                          button{
                               width: inherit;font-size: 18px;
                               padding: 3px;background: none;
-                              border: 0;color: $col8;
+                              border: 0;color: $col4;
                               cursor: pointer;
                               svg{margin-right: 5px;}
                               &:hover{opacity: .75;}

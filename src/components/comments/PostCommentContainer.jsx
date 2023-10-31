@@ -28,7 +28,7 @@ export default function PostCommentContainer({session, children, postId, update}
           <div className="frmComments-container">
                <h2>Leave a Comment</h2>
                <form className="frmComments" onSubmit={addComment}>
-                    {session.currUser || session.status==='authenticated' ? <>
+                    {session.status==='authenticated' ? <>
                     <Image src={session.currUser?.image || "/images/defaultPfp.webp"} alt="account profile" className="pfp" width={72} height={72}/>
                     <div className="fields">
                          <textarea name="comment" placeholder="Add Comment" value={comment} onChange={e=>setComment(e.target.value)}/>

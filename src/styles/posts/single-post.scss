@@ -13,13 +13,6 @@
           padding: 0 10px;
           justify-content: flex-start;
      }
-     &-subtitle{
-          margin: 5px 10px;
-          font-size: 36px;
-          font-weight: 500;
-          padding: 10px;
-          border-bottom: 2px solid $col4;
-     }
      &-header{
           position: relative;
           height: 350px;
@@ -90,7 +83,7 @@
                          color: $col4;transition:.3s;
                          cursor: pointer;
                          &:hover,&:focus{opacity: .6;}
-                         &.active{color: $col7}
+                         &.active{color: $col3}
                     }
                     &.edit-mode span{
                          cursor: auto;
@@ -125,7 +118,6 @@
      .single-post{
           padding: 6px;
           &-body .details-upper{flex-direction: column;}
-          &-subtitle{text-align: center;}
      }
 }
 @media screen and (max-width: 400px){

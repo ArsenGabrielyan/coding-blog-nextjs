@@ -1,0 +1,40 @@
+.single-post{
+     background: $black;
+     &-body{
+          .content{
+               code,pre{background: $darkGrey;}
+               blockquote{color: $grey;border-color: $darkGrey;}
+               a{color: $col2;&:hover{color: $white;}}
+          }
+          .details{
+               &-upper span :where(svg,a),
+               &-lower span{color: $col2;}
+          }
+     }
+     &-user{background: rgba(22,22,22,.7);}
+}
+.comments-container{
+     h2:not(.advice){border-color: $col2;}
+     .advice{color: $lightGrey;}
+     .frmComments-container, .comments .comment{background: $black;}
+     .comments .comment .editForm, .frmComments-container .frmComments .fields{
+          textarea{
+               border-color: $darkGrey;
+               &:focus{border-color: $col2;}
+               background: $black;
+               &::placeholder{color: $medGrey;}
+          }
+     }
+     .comments .comment{
+          &-details h3{&,a{color: $col2;}}
+          &-btns .comBtn{color: $col3;&.active{color: $col2}}
+          &-options{
+               background: $black; 
+               border-color: $col2;
+               li{
+                    border-color: $darkGrey;
+                    button{color: $col2;}
+               }
+          }
+     }
+}

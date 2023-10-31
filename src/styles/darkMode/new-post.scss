@@ -1,0 +1,37 @@
+.new-post-container{
+     .options, .title, .signIn, .frmNewPost, .results{
+          background: $col1;
+          color: $white;
+     }
+     .options button{
+          background: $col1;
+          border-color: transparent;
+          color: $white;
+          &:hover,&:focus,&.active{
+               color: $col2;
+               border-color: $col2;
+          }
+          &:disabled{
+               color: $grey;
+               border-color: $grey;
+          }
+     }
+}
+.frmNewPost{
+     .frmErr{background: rgba($color: $error, $alpha: 0.75);}
+     .frmGroup{label{background: $col1;}}
+     .imageUploads .imgUpload{
+          color: $white;
+          border-color: $white;
+          background: $col1;
+          &:hover,&:focus{
+               border-color: $col2;
+               color: $col2;
+          }
+     }
+     .tagTitle{color: $col2;}
+     .tagList li{
+          background: $col2;color: $col4;
+          button{color: $col4;}
+     }
+}

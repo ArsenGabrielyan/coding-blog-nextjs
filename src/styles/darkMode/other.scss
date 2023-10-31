@@ -1,0 +1,50 @@
+.loadTxt{background: $black; color: $col2;}
+.pageTitle{background: $col1;color: $white;}
+table {
+     border-color: $black !important;
+     tbody, td, tfoot, th, thead, tr {border-color: inherit !important;}
+     tr:nth-child(even){background: $lightGrey;}
+     thead,tfoot{background: $lightGrey;th,td{color: $col1;}}
+}
+.widgets .widget{
+     background: $black; 
+     box-shadow: 0 5px 25px rgba(255,255,255,.33);
+     h3:not(ul .w-post .w-post-content h3){border-color: $col2;}
+     .categories li a{
+          color: $black;background: $col2;
+          &:hover{background: $col1;color:$white;}
+     }
+     .w-posts .w-post{border-color: $lightGrey;}
+}
+.search{
+     &-filter{
+          background: $col1;
+          button{
+               border-color: transparent;color: $col2;
+               &:hover,&:focus{border-color: $white;}
+               &:active,&.active{border-color: $col2;}
+          }
+     }
+     &-container{
+          .user-searchElem, .post-searchElem{background: $black; }
+          .user-searchElem .details .username{color: $grey;}
+          .post-searchElem .details .postDetails svg{color: $col2;}
+     }
+}
+.modal-container{
+     background: rgba(0,0,0,.5);
+     .modal{
+          background-color: $black;
+          .modal-content{
+               ul li{
+                    border-color: $darkGrey;
+                    &.redTxt{color: $errDark;}
+                    a{color: $col2;}
+               }
+               .modal-close{
+                    border-color: $darkGrey;
+                    &:hover, &:focus{color: $col2;}
+               }
+          }
+     }
+}

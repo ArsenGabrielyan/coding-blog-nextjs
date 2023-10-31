@@ -1,0 +1,22 @@
+.stats-box{
+     background: $black;
+     box-shadow: 0 0 15px rgba(255,255,255,.3);
+     svg{color: $lightGrey;}
+     .details{
+          color: $col2;
+          span{color: $grey;}
+     }
+}
+.dashboard-element{
+     background: $black;
+     box-shadow: 0 0 15px rgba(255,255,255,.3);
+     .title{color: $col2;}
+}
+:where(.dashboard-list, .modal-content) .follower{
+     border-color: $darkGrey;
+     .follower-details p{color: $grey;}
+}
+.dashboard-list .comment{
+     border-color: $darkGrey;
+     .comment-details span{color: $grey;}
+}

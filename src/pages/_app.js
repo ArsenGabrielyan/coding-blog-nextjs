@@ -4,6 +4,7 @@ import "@/styles/globals.scss";
 import 'react-toastify/dist/ReactToastify.css';
 import "react-multi-carousel/lib/styles.css";
 import "@uiw/react-markdown-editor/markdown-editor.css";
+import { ThemeProvider } from "next-themes";
 
 export default function App({Component, pageProps}){
      return <>
@@ -12,8 +13,10 @@ export default function App({Component, pageProps}){
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <title>Edu-Articles | Educational Blog</title>
      </Head>
-     <SessionProvider session={pageProps.session}>
-          <Component {...pageProps}/>
-     </SessionProvider>
+     <ThemeProvider attribute="class">
+          <SessionProvider session={pageProps.session}>
+               <Component {...pageProps}/>
+          </SessionProvider>
+     </ThemeProvider>
      </>
 }

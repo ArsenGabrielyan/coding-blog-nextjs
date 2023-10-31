@@ -10,7 +10,7 @@ import User from "@/model/CredentialsUser";
 
 export default function Homepage({posts, recent, appProps}){
      return <Layout>
-          {appProps.settings.featured && <PostsCarousel posts={posts}/>}
+          {appProps.settings?.featured && <PostsCarousel posts={posts}/>}
           <main className="siteMain">
           <section className="posts">
                {posts.slice(0,12).map(post=><BlogPost key={post.post_id} data={post}/>)}
