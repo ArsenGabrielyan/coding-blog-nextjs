@@ -4,7 +4,10 @@
           .content{
                code,pre{background: $darkGrey;}
                blockquote{color: $grey;border-color: $darkGrey;}
-               a{color: $col2;&:hover{color: $white;}}
+               a{
+                    color: $col2;
+                    &:hover,&:focus{color: $white;}
+               }
           }
           .details{
                &-upper span :where(svg,a),

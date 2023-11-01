@@ -10,12 +10,12 @@ import { REQ_CONFIG } from "@/constants/forms/formData";
 
 export default function useSettings(user,mode,accPage){
      const currSetting = getInitialSettingData(user)
-     const initialAccSettings = currSetting || INITIAL_USER_DATA;
-     const initialSettings = user?.details.settings || INITIAL_SETTINGS;
+     const initialAccSettings = user ? currSetting : INITIAL_USER_DATA;
+     const initialSettings = user ? user?.details.settings : INITIAL_SETTINGS;
      const [accSettings, setAccSettings] = useState(initialAccSettings);
      const [settings, setSettings] = useState(initialSettings);
      const tagOptions = useTags(setAccSettings,accSettings);
-     const isCurrSetting = JSON.stringify({...accSettings,...settings})===JSON.stringify({...initialAccSettings,...initialSettings});
+     const isCurrSetting = JSON.stringify({...accSettings,settings})===JSON.stringify({...initialAccSettings,settings:initialSettings});
      const changeAccSetting = e => setAccSettings({...accSettings,[e.target.name]:e.target.value})
      const changeSetting = (e,type='input') => setSettings({...settings,[e.target.name]:type==='input' ? e.target.value : e.target.checked});
      const changeBio = val => setAccSettings({...accSettings,bio: val});

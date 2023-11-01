@@ -12,7 +12,7 @@ table {
      h3:not(ul .w-post .w-post-content h3){border-color: $col2;}
      .categories li a{
           color: $black;background: $col2;
-          &:hover{background: $col1;color:$white;}
+          &:hover,&:focus{background: $col1;color:$white;}
      }
      .w-posts .w-post{border-color: $lightGrey;}
 }

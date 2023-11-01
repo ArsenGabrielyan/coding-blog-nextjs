@@ -54,7 +54,7 @@
                     color: $col4;
                     font-weight: 500;
                     transition: .3s;
-                    &:hover{color: $medGrey;}
+                    &:hover,&:focus{color: $medGrey;}
                }
           }
           .details{

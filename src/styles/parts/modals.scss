@@ -40,7 +40,7 @@
                               color: $col3;
                               font-weight: 500;
                               text-decoration: none;
-                              &:hover{text-decoration: underline;}
+                              &:hover,&:focus{text-decoration: underline;}
                          }
                     }
                }

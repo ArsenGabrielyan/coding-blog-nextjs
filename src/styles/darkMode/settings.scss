@@ -38,7 +38,7 @@
           color: $col2;
           border-color: $col2;
           button{color: $col2;}
-          &:hover{
+          &:hover,&:focus{
                background: $col2;
                &,button{color: $black;}
           }
@@ -58,7 +58,7 @@
      }
      .post-info{
           color: $col2;
-          &:hover{color: $col3;}
+          &:hover,&:focus{color: $col3;}
      }
 }
 .editForm{

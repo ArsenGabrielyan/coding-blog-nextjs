@@ -1,6 +1,6 @@
 import { MdClose } from "react-icons/md";
 
-export default function Modal({title='',open, customCloseText="Close" ,children}){
+export default function Modal({title='',open, children}){
      const {isOpen,setIsOpen} = open;
      return isOpen ? <div className="modal-container">
           <div className="modal">
@@ -10,7 +10,7 @@ export default function Modal({title='',open, customCloseText="Close" ,children}
                </div>}
                <div className="modal-content">
                     {children}
-                    {title==='' && <button type="button" className="modal-close" title={customCloseText || "Close"} onClick={()=>setIsOpen(false)}>{customCloseText || 'Close'}</button>}
+                    {title==='' && <button type="button" className="modal-close" title="Close" onClick={()=>setIsOpen(false)}>Close</button>}
                </div>
           </div>
      </div> : null;

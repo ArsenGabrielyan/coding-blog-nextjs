@@ -41,7 +41,7 @@
 .sliderBtn{
      background: $transpCol2;
      svg{color: $white;}
-     &:hover{
+     &:hover,&:focus{
           background: $col2;
           svg{color: $black;}
      }

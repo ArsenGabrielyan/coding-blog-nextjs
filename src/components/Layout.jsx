@@ -9,6 +9,6 @@ export default function Layout({children}){
      <Header/>
      <div className="imgBg"><Image src="/images/bg.webp" alt="background" fill/></div>
      {children}
-     <ToastContainer position="top-right" autoClose={2000} newestOnTop closeOnClick draggable pauseOnHover/>
+     <ToastContainer position="top-right" autoClose={2000} newestOnTop closeOnClick draggable pauseOnHover theme={theme==='dark' ? 'dark' : 'light'}/>
      </div>
 }

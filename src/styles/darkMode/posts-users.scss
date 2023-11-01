@@ -1,5 +1,6 @@
 .posts .post{
      background: $black;
+     box-shadow: 1px 3px 12px rgba(255,255,255,.18);
      .content{
           :where(.details .user, .details .date) svg{color: $col2;}
           .btns .post-options{
@@ -12,19 +13,28 @@
           }
      }
 }
-.userProfile .header{
-     background: $black; 
-     .details{
-          .userName{color: $grey;}
-          .user-detail.link{
-               color: $col2;
-               border: 0;
-               &:hover{color: $col3;}     
+.userProfile{
+     background: $black;
+     .infoBox{
+          .pfp{box-shadow: 1px 3px 12px rgba(255,255,255,.18);}
+          p{color: $grey;}
+          .stats{
+               li{
+                    color: $grey;
+                    span{color: $white;}
+               }
+               &::after{background: $darkGrey;}
           }
+          .bio {
+               *{color: $white;}
+               a{color: $col2;}
+          }
+          .website{color: $col2;}
      }
-}
-@media screen and (max-width: 400px){
-     .userProfile .header .details .stats span{border-color: $midLightGrey;}
+     .main-page nav ul li {
+          a{color: $col3;}
+          &.active a{color: $col2;}
+     }
 }
 .userlist .user{
      background: $black; 

@@ -77,11 +77,11 @@
                button{
                     border-radius: 10px;position: relative;
                     z-index: 5; border: 0;cursor: pointer;
-                    background: none;justify-content: center;
+                    background: none;justify-content: center;opacity: 1;
                     color: $darkGrey;width: 100%;
                     padding: 8px 0;display: flex;
                     font-weight: 600;font-size: 18px;
-                    opacity: 1;&:hover{opacity: .8;}
+                    &:hover,&:focus{opacity: .8;}
                     &.active{background: $col4;color: $white;}
                }
           }
@@ -153,7 +153,7 @@
                     cursor: pointer;transition: .3s;
                     &:hover,&:focus{opacity: .75;}
                }
-               &:hover{
+               &:hover,&:focus{
                     background: $col1;
                     &,button{color: $white;}
                }
