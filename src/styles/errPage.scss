@@ -1,0 +1,45 @@
+.errPage{
+     &,.content{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+     }
+     min-height: 100vh;padding: 30px;background: $col3; 
+     background: -webkit-linear-gradient(to right, $col2, $col3); 
+     background: linear-gradient(to right, $col2, $col3);
+     .content{
+          flex-direction: column;border-radius: 10px;
+          background: url('/images/p404.png'), #151729;
+          background: url('/images/p404.webp'), #151729;
+          text-align: center;width: 100%;
+          color: $white;height: 80vh;
+          .heading{
+               display: flex;
+               flex-direction: column-reverse;
+          }
+          h2{
+               font-size: 18vw;
+               line-height: 1em;
+          }
+          h1{
+               position: relative;
+               font-size: 1.5em;
+               margin-bottom: 20px;
+               color: $black;
+               background: $white;
+               font-weight: 400;
+               padding: 10px 20px;
+               display: inline-block;
+          }
+          p{
+               color: $white;
+               font-size: 1.2em;
+          }
+          a{
+               position: relative;
+               display: inline-block;
+               margin-top: 15px;
+               font-size: 20px;
+          }
+     }
+}
