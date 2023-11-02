@@ -1,6 +1,7 @@
 import axios from "axios";
 import { REQ_CONFIG } from "./forms/formData";
 import { toast } from "react-toastify";
+
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
      let newChar = '';
@@ -69,4 +70,16 @@ export const format12Hr = time => {
      let hr12 = timeObj.getHours()%12;
      hr12 = hr12 ? hr12 : 12;
      return `${hr12}:${mn}:${sc} ${ampm}`;
+}
+export const shareData = async (title='') => {
+     const shareData = {
+          title: 'Edu-Articles',
+          text: title,
+          url: location.href
+     }
+     if(navigator.canShare(shareData)) await navigator.share(shareData)
+     else {
+          navigator.clipboard.writeText(location.href);
+          toast.success('Link is Copied');
+     }
 }

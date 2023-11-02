@@ -1,6 +1,5 @@
 .siteHeader{
-     position: relative;
-     width: 100%;z-index: 9999;
+     position: relative;width: 100%;z-index: 9999;
      padding: 10px 20px;background: $col3;
      justify-content: space-between;
      transition: .3s ease-in-out all;
@@ -10,13 +9,6 @@
           width: 50%;
           justify-content: center;
           margin-left: 10px;
-          .searchBtn{
-               background: none;
-               outline: none;border: none;
-               cursor: pointer;font-size: 25px;
-               color: $white;display: none;
-               &:hover,&:focus{color: $col2;}
-          }
           .search{
                &,button{display: flex;align-items: center;}
                width: 80%;
@@ -107,22 +99,15 @@
 @media screen and (max-width: 500px){
      .siteHeader{
           padding: 15px 10px;
-          position: relative;
-          height: 114px;
+          position: relative;height: 100px;
+          .logo{width: 100px;height: 65px;}
           .inner-content{
-               width: fit-content;
                justify-content: center;
-               .searchBtn{display: block;margin: 5px;}
-               height: 114px;margin: 0;background: none;
-               .search{width: 95%;position: absolute;display: none;z-index: 9999;}
-               &.active{
-                    position: absolute;
-                    width: 100%;top: 0;left: 0;
-                    .searchBtn{display: none;}
-                    background: $col3;
-                    z-index: 99999;
-                    .search{display: block;}
-               }
+               margin: 0;background: none;
+               position: absolute;height: inherit;
+               width: 100%;top: 0;left: 0;
+               background: $col3;z-index: 9999;
+               .search{width: 95%;position: inherit;z-index: inherit;}
           }
           .userData .link-icon{margin: 5px;}
      }

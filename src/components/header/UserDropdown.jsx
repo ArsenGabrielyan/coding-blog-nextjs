@@ -12,7 +12,7 @@ export default function UserDropdown({user}){
                if(!pfpRef.current?.contains(e.target)) setIsOpen(false);
           },true)//eslint-disable-next-line
      },[]);
-     return <div className="userData">
+     return <>
           <Link className="link-icon" title="Create a Post" href="/postEditor"><FaPlus/></Link>
           {user && <Image src={user.image} alt="profilePic" width={64} height={64} onClick={()=>setIsOpen(!isOpen)} ref={pfpRef}/>}
           <div className={`menu ${!isOpen ? 'hide' : ''}`}>
@@ -26,5 +26,5 @@ export default function UserDropdown({user}){
                     <li><MdLogout/><Link href='#' onClick={async()=>await signOut()}>Sign Out</Link></li>
                </ul>
           </div>
-     </div>
+     </>
 }

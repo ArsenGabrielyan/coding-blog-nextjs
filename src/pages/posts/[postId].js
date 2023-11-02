@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-icons/fa";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import { abbrNum, followUnfollow, serializeObject } from "@/constants/helpers";
+import { abbrNum, followUnfollow, serializeObject, shareData } from "@/constants/helpers";
 import { POST_COMMENT_LIMIT } from "@/constants/constantData";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -70,7 +70,7 @@ export default function NewPost({author, relatedPosts}){
                               </div>
                               <div>
                                    <span className={isCurrPost.isSaved?'active':""} title={isCurrPost.isSaved?'Remove From Reading List':"Save to Reading List"} onClick={()=>clickOn('save')}><FaBookmark/></span>
-                                   <span title="Share"><FaShare/></span>
+                                   <span title="Share" onClick={async()=>await shareData(post?.title)}><FaShare/></span>
                               </div>
                          </div>
                     </div>

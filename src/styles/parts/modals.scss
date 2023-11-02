@@ -36,12 +36,14 @@
                          border-bottom: 1px solid $mlg2;
                          &:last-child{border: 0;padding: 0;}
                          &.redTxt{color: $error;font-weight: 600;cursor: pointer;&:hover,&:focus{text-decoration: underline;}}
-                         a{
+                         a,&.list-btn{
                               color: $col3;
                               font-weight: 500;
                               text-decoration: none;
                               &:hover,&:focus{text-decoration: underline;}
+                              cursor: pointer;
                          }
+                         &.list-btn{color: $col4;}
                     }
                }
                .modal-close{

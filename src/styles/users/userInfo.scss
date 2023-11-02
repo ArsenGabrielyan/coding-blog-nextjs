@@ -13,7 +13,7 @@
           text-align: center;
           max-width: 350px;
           margin: 0 auto;
-          .stats li, .website{display: flex;}
+          .stats li, .website, .options{display: flex;}
           .pfp{
                object-fit: cover;
                border-radius: 50%;
@@ -74,6 +74,11 @@
                svg{margin-right: 5px;}
                transition: .3s;
                &:hover,&:focus{color: $col3;}
+          }
+          .options{
+               justify-content: center;
+               align-items: center;
+               button,a{margin: 2px;}
           }
      }
      .main-page{
