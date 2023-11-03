@@ -11,7 +11,6 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
      const [load, setLoad] = useState(false);
      const [isOpenDeletion, setIsOpenDeletion] = useState(false);
      const [data,setData] = useState({comments: 0,posts:0});
-     console.log(user)
      const sendPassResetLink = async e => {
           e.preventDefault();
           setLoad(true);
@@ -29,7 +28,6 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
                setIsOpenDeletion(true);
                const postList = posts.data.filter(val=>val.email===user?.email);
                const comments = posts.data.flatMap(val=>val.comments).filter(val=>val.email===user?.email);
-               console.log(comments)
                setData({comments: comments.length,posts: postList.length})
           }
      }

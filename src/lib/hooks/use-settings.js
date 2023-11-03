@@ -48,7 +48,6 @@ export default function useSettings(user,mode,accPage){
                error: 'Settings update failed. Please try again later.'
           });
      }
-     console.log(users?.filter(val=>val.details.followingUsers.includes(user?.user_id)).length)
      return {
           accSettings,
           tagOptions,
