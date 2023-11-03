@@ -7,8 +7,11 @@ import useTags from "./use-tags";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { REQ_CONFIG } from "@/constants/forms/formData";
+import useSWR from "swr";
+import { fetcher } from "@/constants/helpers";
 
 export default function useSettings(user,mode,accPage){
+     const {data: users} = useSWR('/api/users',fetcher)
      const currSetting = getInitialSettingData(user)
      const initialAccSettings = user ? currSetting : INITIAL_USER_DATA;
      const initialSettings = user ? user?.details.settings : INITIAL_SETTINGS;
@@ -16,13 +19,19 @@ export default function useSettings(user,mode,accPage){
      const [settings, setSettings] = useState(initialSettings);
      const tagOptions = useTags(setAccSettings,accSettings);
      const isCurrSetting = JSON.stringify({...accSettings,settings})===JSON.stringify({...initialAccSettings,settings:initialSettings});
+     const stats = {
+          followers: users?.filter(val=>val.details.followingUsers.includes(user?.user_id)).length,
+          following: user?.details.followingUsers.length,
+          likes: user?.details.likedPosts.length,
+          saves: user?.details.savedPosts.length
+     }
      const changeAccSetting = e => setAccSettings({...accSettings,[e.target.name]:e.target.value})
      const changeSetting = (e,type='input') => setSettings({...settings,[e.target.name]:type==='input' ? e.target.value : e.target.checked});
      const changeBio = val => setAccSettings({...accSettings,bio: val});
      const getSettings = () => {
           switch(mode){
                case 'account': return <>
-               {accPage==='basic' ? <AccBasic user={accSettings} changeAccSetting={changeAccSetting} changeBio={changeBio} tagOptions={tagOptions}/> : <AccAdvanced user={accSettings} changeAccSetting={changeAccSetting}/>}
+               {accPage==='basic' ? <AccBasic user={accSettings} changeAccSetting={changeAccSetting} changeBio={changeBio} tagOptions={tagOptions}/> : <AccAdvanced user={accSettings} changeAccSetting={changeAccSetting} stats={stats}/>}
                </>
                default: return <AdvancedSettings settings={settings} changeSetting={changeSetting}/>
           }
@@ -39,6 +48,7 @@ export default function useSettings(user,mode,accPage){
                error: 'Settings update failed. Please try again later.'
           });
      }
+     console.log(users?.filter(val=>val.details.followingUsers.includes(user?.user_id)).length)
      return {
           accSettings,
           tagOptions,

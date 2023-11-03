@@ -34,7 +34,7 @@ export default async function handler(req,res){
           const updatedUser = await User.findOneAndUpdate({email: accSettings?.email},format);
           if(updatedUser) {
                await updatedUser.save();
-               await Post.updateOne({email: accSettings?.email},{
+               await Post.updateMany({email: accSettings?.email},{
                     $set: {
                          author: updatedUser?.name,
                          email: updatedUser?.email,

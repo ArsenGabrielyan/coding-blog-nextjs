@@ -5,7 +5,7 @@ import { abbrNum, followUnfollow } from "@/constants/helpers";
 
 export default function UserSearchElem({type='other', user, currUser, status, update}){
      const router = useRouter();
-     const isFollowed = currUser?.details.followingUsers.includes(user.user_id);
+     const isFollowed = currUser?.details?.followingUsers.includes(user.user_id);
      const followOptions = {status, email: currUser?.email, userId: user?.user_id, name: user?.name};
      return <article className="user-searchElem">
           <Image src={user?.image} alt="pfp" width={100} height={100}/>

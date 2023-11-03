@@ -13,6 +13,11 @@
           &,.modal-content{flex-direction: column;}
           max-width: 450px;
           .modal-header,.modal-content{width: 100%;}
+          .modal-title{
+               font-weight: 500;
+               color: $col1;
+               width: 100%;
+          }
           .modal-header{
                &,button{
                     display: flex;
@@ -25,7 +30,8 @@
                display: flex;
                align-items: center;
                justify-content: center;
-               ul{
+               .modal-list li{margin: 10px 0;}
+               ul:not(.modal-list){
                     list-style: none;
                     width: 100%;
                     text-align: center;
