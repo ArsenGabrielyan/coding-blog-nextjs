@@ -30,3 +30,21 @@ export const settingPages = [
 ];
 export const SliderBtn = ({onClick, type}) => <button type="button" onClick={()=>onClick()} className={`sliderBtn ${type==='left' ? "left" : "right"}`}>{type==='left' ?<FaChevronLeft/> : <FaChevronRight/>}</button>
 export const POST_COMMENT_LIMIT = 4;
+export const RESPONSIVE_CARDS = {
+     superLargeDesktop: {
+       breakpoint: { max: 4000, min: 1050 },
+       items: 5,
+     },
+     desktop: {
+       breakpoint: { max: 1050, min: 800 },
+       items: 4,
+     },
+     tablet: {
+       breakpoint: { max: 800, min: 500 },
+       items: 2,
+     },
+     mobile: {
+       breakpoint: { max: 500, min: 0 },
+       items: 1,
+     },
+};   

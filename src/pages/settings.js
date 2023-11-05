@@ -1,12 +1,12 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/pageLayouts/Layout";
 import { settingPages } from "@/constants/constantData";
 import { serializeObject } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb"; import User from "@/model/CredentialsUser";
 import useSettings from "@/lib/hooks/use-settings";
-import useUnsavedChangesWarning from "@/lib/hooks/use-unsaved";
+import useUnsavedWarning from "@/lib/hooks/use-unsaved";
 import { getSession } from "next-auth/react"; import { useState } from "react";
 import Head from "next/head"; import { useRouter } from "next/router";
-import SettingMenu from "@/components/dashboard-settings/SettingMenu";
+import SettingMenu from "@/components/features/SettingMenu";
 
 export default function SettingsPage({user}){
      const router = useRouter();
@@ -17,7 +17,7 @@ export default function SettingsPage({user}){
           setMode(page.name)
           router.push(`/settings?page=${page.name}`,undefined,{shallow:true})
      };
-     useUnsavedChangesWarning(!settings.isCurrSetting);
+     useUnsavedWarning(!settings.isCurrSetting);
      return <>
      <Head><title>Settings | EduArticles</title></Head>
      <Layout>

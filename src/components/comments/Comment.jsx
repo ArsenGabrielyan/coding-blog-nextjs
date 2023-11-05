@@ -1,21 +1,20 @@
-import Image from "next/image"; import Link from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 import { FaThumbsUp } from "react-icons/fa";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import { toast } from "react-toastify"; import useSWR from "swr";
-import axios from "axios"; import { fetcher } from "@/constants/helpers";
+import { toast } from "react-toastify";
+import useSWR from "swr"; import axios from "axios";
+import { currentComment, fetcher } from "@/constants/helpers";
 import { useState } from "react";
-import useUnsavedChangesWarning from "@/lib/hooks/use-unsaved";
+import useUnsavedWarning from "@/lib/hooks/use-unsaved";
 
 export default function Comment({data, users, currUser, update}){
-     const [selected, setSelected] = useState('');
-     const [newComment, setNewComment] = useState('');
-     const [load, setLoad] = useState(false);
-     const commentLikes = users?.filter(val=>val.details.likedComments.includes(data.commentId)).length;
-     const isLikedComment = currUser?.details?.likedComments.includes(data.commentId);
+     const [comment, setComment] = useState({selected:'',newComment:'',load:false})
+     const {commentLikes,isLikedComment} = currentComment(users,currUser,data.commentId)
      const {data:post, isLoading} = useSWR(`/api/posts/${data.postId}`,fetcher);
-     useUnsavedChangesWarning(data.comment!==newComment)
+     useUnsavedWarning(data.comment!==comment.newComment)
      const deleteComment = async (id,postId) => {
           if(confirm('Are You Sure to Delete this Comment?')){
                const res = await toast.promise(
@@ -27,24 +26,17 @@ export default function Comment({data, users, currUser, update}){
                if(res.status===200) await update();
           }
      }
-     const finishEdit = () => {
-          setNewComment('');
-          setSelected('');
-     }
+     const finishEdit = () => setComment({load:false,newComment:'',selected:''});
      const applyEdit = async (e,postId,commentId) => {
           e.preventDefault();
-          setLoad(true);
-          const res = await axios.put(`/api/posts/comments?postId=${postId}`,{newComment, commentId},REQ_CONFIG);
+          setComment({...comment,load:true})
+          const res = await axios.put(`/api/posts/comments?postId=${postId}`,{newComment: comment.newComment, commentId},REQ_CONFIG);
           if(res.status===200) {
-               setLoad(false)
                await update();
                finishEdit();
           }
      }
-     const editComment = (commentData, commentId) => {
-          setNewComment(commentData);
-          setSelected(commentId);
-     }
+     const editComment = (commentData, commentId) => setComment({...comment,newComment:commentData,selected:commentId});
      const likeComment = async(postId,commentId,commentEmail)=>{
           const res = await toast.promise(
           axios.patch(`/api/posts/comments?postId=${postId}`,{commentId,commentEmail},REQ_CONFIG),{
@@ -57,11 +49,11 @@ export default function Comment({data, users, currUser, update}){
      return <div className="settings-comment" key={data.commentId}>
           <div className="commentData">
                <Image src={data.image} alt="pfp" width={64} height={64}/>
-               {selected===data.commentId ? <form className="editForm" onSubmit={e=>applyEdit(e,data.postId,data.commentId)}>
-                    <textarea name="comment" placeholder="Add Comment" value={newComment} onChange={e=>setNewComment(e.target.value)}/>
-                    {newComment!=='' && <div className="options">
-                         <button type="button" onClick={finishEdit} className="btn cancel" disabled={load}>Cancel</button>
-                         <button type='submit' disabled={load || newComment===data.comment} className="btn">{load?"Processing...":"Apply Changes"}</button>
+               {comment.selected===data.commentId ? <form className="editForm" onSubmit={e=>applyEdit(e,data.postId,data.commentId)}>
+                    <textarea name="comment" placeholder="Add Comment" value={comment.newComment} onChange={e=>setComment({...comment,newComment:e.target.value})}/>
+                    {comment.newComment!=='' && <div className="options">
+                         <button type="button" onClick={finishEdit} className="btn cancel" disabled={comment.load}>Cancel</button>
+                         <button type='submit' disabled={comment.load || comment.newComment===data.comment} className="btn">{comment.load?"Processing...":"Apply Changes"}</button>
                     </div>}
                </form>: <div className="comment-details">
                <h3 className="comment-title"><Link href={`/users/${data.name}`}>{data.name}</Link>&nbsp;&bull;&nbsp;{data.date}{data.edited&&<>&nbsp;&bull;&nbsp;Edited</>}</h3>

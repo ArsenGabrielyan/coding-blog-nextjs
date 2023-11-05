@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/pageLayouts/Layout"
 import BlogPost from "@/components/postElem/BlogPost";
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";
@@ -35,7 +35,7 @@ export default function UserProfile(){
                     <li><span>{abbrNum(followers)}</span>Followers</li>
                     <li><span>{abbrNum(user?.details?.followingUsers.length)}</span>Following</li>
                </ul>
-               {user?.otherData.bio ? <div className="bio">
+               {user?.otherData?.bio ? <div className="bio">
                     <MarkdownContent>{user?.otherData?.bio}</MarkdownContent>
                </div> : <div className="options">{buttons}</div>}
                <Link href={user?.otherData?.website} className="website"><FaGlobe/> Website</Link>

@@ -1,6 +1,6 @@
-import Widget from "@/components/Widget";
+import Widget from "@/components/widget/Widget";
 import Link from "next/link";
-import PostWidget from "../postElem/Post-Widget";
+import PostWidget from "./Post-Widget";
 import { getCategories } from "@/constants/constantData";
 import { useEffect, useState } from "react";
 import { FaNewspaper, FaUsers } from "react-icons/fa";
@@ -36,6 +36,5 @@ export default function WidgetsFeature({recent, settings}){
      {settings?.clock && <Widget title="Clock">
           <p className="time">{settings?.is24HrFormat ? date.time : format12Hr(date.time)}</p>
           <p className="date">{date.date}</p>
-     </Widget>}
-</aside>
+     </Widget>}</aside>
 }

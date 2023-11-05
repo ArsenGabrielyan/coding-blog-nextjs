@@ -1,18 +1,23 @@
 .comments-container{
      padding: 10px 0;
      &,.comments{
-          display: flex;
-          justify-content: center;
-          align-items: center;
           flex-direction: column;
+          justify-content: center;
+          width: 100%;
      }
-     &,.comments,h2:not(.advice){width: 100%;}
-     h2:not(.advice){
-          padding: 0.25em;font-weight: 500;
+     &,.frmHeader,.comments{
+          display: flex;
+          align-items: center;
+     }
+     h2{font-weight: 500;font-size: 27px;}
+     .frmHeader{
+          padding: 0.25em;
           border-bottom: 2px solid $col4;
-          margin-bottom: 10px;font-size: 27px;
+          margin-bottom: 10px;
+          h2{margin-right: 12.5px;}
+          .validator svg{fill: $col4;}
      }
-     .advice{font-weight: 500;color: $medGrey;}
+     .advice{color: $medGrey;}
      .frmComments-container, .comments .comment{
           background: $white;
           border-radius: 10px;

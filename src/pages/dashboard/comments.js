@@ -1,9 +1,9 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/pageLayouts/Layout";
 import { getSession } from "next-auth/react";
 import Head from "next/head"; import { useRouter } from "next/router";
 import Comment from "@/components/comments/Comment";
 import useDashboardComment from "@/lib/hooks/use-dashboard-comment";
-import SettingMenu from "@/components/dashboard-settings/SettingMenu";
+import SettingMenu from "@/components/features/SettingMenu";
 SettingMenu
 
 export default function DashboardCommentList({userEmail}){

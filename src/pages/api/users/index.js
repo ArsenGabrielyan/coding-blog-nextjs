@@ -34,7 +34,7 @@ export default async function handler(req,res){
           const updatedUser = await User.findOneAndUpdate({email: accSettings?.email},format);
           if(updatedUser) {
                await updatedUser.save();
-               await Post.updateMany({email: accSettings?.email},{
+               await Post.updateMany({email: updatedUser.email || accSettings?.email},{
                     $set: {
                          author: updatedUser?.name,
                          email: updatedUser?.email,
@@ -42,7 +42,7 @@ export default async function handler(req,res){
                          'comments.$[i].name': updatedUser?.username,
                          'comments.$[i].image': updatedUser?.image
                     }
-               },{arrayFilters: [{'i.email': {$eq: accSettings?.email}}]})
+               },{arrayFilters: [{'i.email': {$eq: updatedUser.email || accSettings?.email}}]})
                res.status(200).json(updatedUser);
           }
           else res.status(400).json({msg: 'Failed To Update'})

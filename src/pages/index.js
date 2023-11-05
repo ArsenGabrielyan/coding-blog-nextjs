@@ -1,10 +1,10 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/pageLayouts/Layout";
 import BlogPost from "@/components/postElem/BlogPost";
 import PostsCarousel from "@/components/features/posts-carousel";
 import connectDB from "@/lib/connectDb";
 import Post from "@/model/Post";
 import { serializeObject } from "@/constants/helpers";
-import WidgetsFeature from "@/components/features/WidgetFeature";
+import WidgetsFeature from "@/components/widget/WidgetFeature";
 import { getSession } from "next-auth/react";
 import User from "@/model/CredentialsUser";
 

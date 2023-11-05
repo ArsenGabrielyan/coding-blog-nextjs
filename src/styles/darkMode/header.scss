@@ -19,23 +19,17 @@
 .siteHeader{
      background: $col1;
      .logo{box-shadow: 0 0 5px 5px rgba(255,255,255,.6);}
-     .inner-content{
-          .searchBtn{
+     .inner-content .search{
+          input{
+               color: $white;
+               border-color: $white;
+               &::placeholder{color: $col2;}
+               &:focus{border-color: $col2;& ~ .icon{color: $col2;}}
+          }
+          .icon{color: $white;}
+          button{
                color: $white;
                &:hover,&:focus{color: $col2;}
-          }
-          .search{
-               input{
-                    color: $white;
-                    border-color: $white;
-                    &::placeholder{color: $col2;}
-                    &:focus{border-color: $col2;& ~ .icon{color: $col2;}}
-               }
-               .icon{color: $white;}
-               button{
-                    color: $white;
-                    &:hover,&:focus{color: $col2;}
-               }
           }
      }
      .userData .menu{

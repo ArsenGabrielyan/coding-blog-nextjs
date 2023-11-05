@@ -55,7 +55,7 @@ export const search = (val,q) =>
      val.username?.toLowerCase().includes(q.toLowerCase() ||
      val.keywords?.includes(q.toLowerCase())) ||
      val.otherData?.keywords.includes(q.toLowerCase())
-export const isCurrent = (currUser,post,author) => ({
+export const currentPost = (currUser,post,author) => ({
      isLiked:currUser?.details?.likedPosts.includes(post?.post_id),
      isSaved:currUser?.details?.savedPosts.includes(post?.post_id),
      isFollowed:currUser?.details?.followingUsers.includes(author?.user_id),
@@ -83,3 +83,7 @@ export const shareData = async (title='') => {
           toast.success('Link is Copied');
      }
 }
+export const currentComment = (users,currUser,commentId) => ({
+     commentLikes: users?.filter(val=>val.details.likedComments.includes(commentId)).length,
+     isLikedComment: currUser?.details?.likedComments.includes(commentId)
+})

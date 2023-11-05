@@ -8,9 +8,11 @@ export default function UserDropdown({user}){
      const [isOpen, setIsOpen] = useState(false)
      const pfpRef = useRef(null);
      useEffect(()=>{
-          document.addEventListener('click',e=>{
+          const handleClick = e => {
                if(!pfpRef.current?.contains(e.target)) setIsOpen(false);
-          },true)//eslint-disable-next-line
+          }
+          document.addEventListener('click',handleClick,true)
+          return () => document.removeEventListener('click',handleClick,true)
      },[]);
      return <>
           <Link className="link-icon" title="Create a Post" href="/post-editor"><FaPlus/></Link>

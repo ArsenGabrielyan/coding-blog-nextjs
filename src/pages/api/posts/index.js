@@ -11,7 +11,7 @@ export default async function handler(req,res){
           await newPost.save();
           res.status(200).json(newPost);
      } catch(err){
-          res.status(500).json({status: 'error',message: err.message})
+          res.status(500).json({status: 'error',message: err.message});
      } else if(req.method==='PUT'){
           await connectDB();
           const {_id, ...data} = req.body.postData;

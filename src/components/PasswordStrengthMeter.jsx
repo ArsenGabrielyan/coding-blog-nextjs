@@ -1,7 +1,8 @@
-import zxcvbn from "zxcvbn"
+import zxcvbn from "zxcvbn";
 
 export default function PasswordStrength({pass, moreSpace=false}){
-     const result = zxcvbn(pass), score = result.score*100/4;
+     const result = zxcvbn(pass);
+     const score = result.score*100/4;
      const getProps = (type='')=>{
           switch(result.score){
                case 0: return type==='color'?"#828282":'Very weak';

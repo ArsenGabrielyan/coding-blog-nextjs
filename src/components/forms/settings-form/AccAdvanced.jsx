@@ -14,12 +14,10 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
      const sendPassResetLink = async e => {
           e.preventDefault();
           setLoad(true);
-          const res = await toast.promise(
-               axios.post('/api/reset-pass/recover',{email: user?.email},REQ_CONFIG),{
-                    success: 'Reset Link Sent Successfully',
-                    error: 'Reset Link Failed to Sent. Please Try again Later'
-               }
-          );
+          const res = await toast.promise(axios.post('/api/reset-pass/recover',{email: user?.email},REQ_CONFIG),{
+               success: 'Reset Link Sent Successfully',
+               error: 'Reset Link Failed to Sent. Please Try again Later'
+          });
           if(res.status===200) setLoad(false);
      }
      const openDeletePopup = async()=>{
@@ -37,13 +35,11 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
           if(res.status===200) signOut();
      }
      const deleteAllPosts = async()=>{
-          if(confirm('Are you sure to delete all your posts?')) await toast.promise(
-               axios.delete(`/api/users?userEmail=${user?.email}`),{
-                    pending: 'Deleting...',
-                    error: 'Failed to Delete All Your Posts',
-                    success: 'All Your Posts are Deleted Successfully'
-               }
-          )
+          if(confirm('Are you sure to delete all your posts?')) await toast.promise(axios.delete(`/api/users?userEmail=${user?.email}`),{
+               pending: 'Deleting...',
+               error: 'Failed to Delete All Your Posts',
+               success: 'All Your Posts are Deleted Successfully'
+          })
      }
      return <>
      <div className="frmGroup">

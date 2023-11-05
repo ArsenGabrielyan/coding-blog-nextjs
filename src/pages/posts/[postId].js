@@ -1,12 +1,13 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/pageLayouts/Layout"
 import PostComment from "@/components/comments/PostComment";
 import PostCommentContainer from "@/components/comments/PostCommentContainer";
-import Widget from "@/components/Widget";
-import PostWidget from "@/components/postElem/Post-Widget";
+import Widget from "@/components/widget/Widget";
+import PostWidget from "@/components/widget/Post-Widget";
 import Link from "next/link"; import Image from "next/image";
-import connectDB from "@/lib/connectDb"; import Post from "@/model/Post";
+import connectDB from "@/lib/connectDb"; 
 import Head from "next/head"; import axios from "axios";
 import User from "@/model/CredentialsUser";
+import Post from "@/model/Post";
 import usePost from "@/lib/hooks/use-post";
 import { useRouter } from "next/router";
 import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-icons/fa";

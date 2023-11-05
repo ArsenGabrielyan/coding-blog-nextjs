@@ -1,7 +1,7 @@
 import { MdClose, MdError, MdImage } from "react-icons/md";
 import { useRef, useState } from "react";
 import useTags from "@/lib/hooks/use-tags";
-import useUnsavedChangesWarning from "@/lib/hooks/use-unsaved";
+import useUnsavedWarning from "@/lib/hooks/use-unsaved";
 import Compress from "compress.js";
 import { validatePost } from "@/constants/forms/validators";
 import dynamic from "next/dynamic";
@@ -20,9 +20,10 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
      const bannerRef = useRef(null), thumbRef = useRef(null);
      const [err, setErr] = useState('');
      const [loaded, setLoaded] = useState(false);
-     const tagOptions = useTags(setPostData,postData), compress = new Compress(), router = useRouter();
+     const tagOptions = useTags(setPostData,postData);
+     const compress = new Compress(), router = useRouter();
      const isCurrPost = JSON.stringify(postData)===JSON.stringify(currData);
-     useUnsavedChangesWarning(!isCurrPost);
+     useUnsavedWarning(!isCurrPost);
      const handleChange = e => setPostData({...postData, [e.target.name]: e.target.value});
      const reset = type => {
           if(type==='some'){
@@ -30,7 +31,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                setPostData({...INITIAL_POSTDATA,author,profileImage,email});
           }
           else setPostData(INITIAL_POSTDATA);
-          setErr(''); setLoaded(false);
+          setErr('');setLoaded(false);
      };
      const handleChangeFile = async e => {
           if(e.target.files[0]){

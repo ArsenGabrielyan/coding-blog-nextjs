@@ -9,31 +9,27 @@ import { fetcher, toQueryURL } from "@/constants/helpers";
 
 export default function Header(){
      const router = useRouter(), {status, data} = useSession();
-     const {data: user, isLoading} = useSWR(`/api/users/${data?.user.id}`,fetcher)
-     const [isOpenSearch, setIsOpenSearch] = useState(false);
-     const [search, setSearch] = useState('')
-     const clearSearch = () => {
-          setSearch('');
-          setIsOpenSearch(false)
-     }
+     const {data: user, isLoading} = useSWR(`/api/users/${data?.user.id}`,fetcher);
+     const [searchBox, setSearchBox] = useState({isOpen:false,search:''});
+     const clearSearch = () => setSearchBox({isOpen:false,search:''});
      const acceptSearch = e => {
           e.preventDefault();
-          if(search.trim()!=='') {
-               router.push(`/search?q=${toQueryURL(search)}`)
+          if(searchBox.search.trim()!=='') {
+               router.push(`/search?q=${toQueryURL(searchBox.search)}`)
                clearSearch();
           }
      }
      return <header className='siteHeader'>
           <Link href='/' id="logo"><Image src="/images/logo.webp" priority alt="" className="logo" width={125} height={80}/></Link>
-          {isOpenSearch && <div className="inner-content">
+          {searchBox.isOpen && <div className="inner-content">
                <form className="search" onSubmit={acceptSearch}>
-                    <input type="text" name="search" placeholder="Search..." value={search} onChange={e=>setSearch(e.target.value)} title="Search"/>
+                    <input type="text" name="search" placeholder="Search..." value={searchBox.search} onChange={e=>setSearchBox({...searchBox,search: e.target.value})} title="Search"/>
                     <span className="icon"><MdSearch/></span>
-                    {(search!=='' || isOpenSearch) && <button type='button' onClick={clearSearch}><MdClose/></button>}
+                    {(searchBox.search!=='' || searchBox.isOpen) && <button type='button' onClick={clearSearch}><MdClose/></button>}
                </form>
           </div>}
           <div className="userData">
-               <button type="button" className="link-icon" onClick={()=>setIsOpenSearch(true)} title="Search..."><MdSearch/></button>
+               <button type="button" className="link-icon" onClick={()=>setSearchBox({...searchBox,isOpen:true})} title="Search..."><MdSearch/></button>
                {status==="unauthenticated" ? <Link href='/auth/signin' className="link">Sign In</Link> : isLoading ? <h2>Loading...</h2> : <UserDropdown user={user}/>}
           </div>
      </header>

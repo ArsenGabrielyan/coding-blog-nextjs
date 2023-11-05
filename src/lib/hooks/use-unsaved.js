@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function useUnsavedChangesWarning(cond){
+export default function useUnsavedWarning(cond){
      useEffect(()=>{
           const handleBeforeUndload = e => {
                if(cond){
@@ -10,5 +10,5 @@ export default function useUnsavedChangesWarning(cond){
           };
           window.addEventListener('beforeunload',handleBeforeUndload);
           return ()=> window.removeEventListener('beforeunload',handleBeforeUndload);
-     },[cond])
+     },[cond]);
 }

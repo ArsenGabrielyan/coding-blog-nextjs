@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/pageLayouts/Layout";
 import ListNavbar from "@/components/header/ListNavbar";
 import BlogPost from "@/components/postElem/BlogPost"; import Head from "next/head";
 import { fetcher, sortList } from "@/constants/helpers";

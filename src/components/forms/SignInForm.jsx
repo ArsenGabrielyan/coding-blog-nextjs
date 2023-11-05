@@ -9,54 +9,49 @@ import { MdError } from "react-icons/md";
 
 export default function SignInForm(){
      const [data, setData] = useState(LOGIN_INITIAL);
-     const [err, setErr] = useState('');
-     const [success, setSuccess] = useState('')
-     const [loaded, setLoaded] = useState(false);
-     const [togglePass, setTogglePass] = useState(false)
+     const [options,setOptions] = useState({err:'',success:'',loaded:false,togglePass:false})
      const router = useRouter(), {status} = useSession();
      const callbackUrl = router.query.callbackUrl || "/";
      const handleChange = e => setData({...data, [e.target.name]:e.target.value})
      const handleSubmit = async e =>{
           e.preventDefault();
           try{
-               if(!data.email || !emailReg.test(data.email)) setErr('The Email is Invalid')
-               else if(!data.pass || !passReg.test(data.pass)) setErr('Password is Too Weak')
+               if(!data.email || !emailReg.test(data.email)) setOptions({...options,err:'The Email is Invalid'})
+               else if(!data.pass || !passReg.test(data.pass)) setOptions({...options,err:'Password is Too Weak'})
                else {
-                    setLoaded(true);setErr('')
+                    setOptions({...options,loaded:true,err:''});
                     const res = await signIn('credentials',{
                          redirect: false,
                          email: data.email,
                          password: data.pass,
                          callbackUrl
                     });
-                    setLoaded(false);
+                    setOptions({...options,loaded:false});
                     if(!res?.error) {
                          router.push(callbackUrl);
-                         setSuccess('Login Successful')
-                         setData(LOGIN_INITIAL)
-                    } else setErr(res.error);
+                         setOptions({...options,success:'Login Successful'});
+                         setData(LOGIN_INITIAL);
+                    } else setOptions({...options,err:res.error})
                }
           } catch(err){
-               setLoaded(false);
-               setErr(err.message);
-               setSuccess('')
+               setOptions({...options,loaded:false,err:err.message,success:''});
           }
      };
      if(status==='authenticated') router.push(callbackUrl)
      return <form onSubmit={handleSubmit}>
           <h1>Sign In</h1>
-          {err && <p className="error signin"><MdError/>{err}</p>}
-          {success && <p className="success signin"><FaCheckCircle/>{success}</p>}
+          {options.err && <p className="error signin"><MdError/>{options.err}</p>}
+          {options.success && <p className="success signin"><FaCheckCircle/>{options.success}</p>}
           <div className="frmGroup">
                <label htmlFor="email">Email Address</label>
                <input type="email" id='email' name="email" placeholder="e.g. name@example.com" value={data.email} onChange={handleChange}/>
           </div>
           <div className="frmGroup">
                <label htmlFor="password">Password</label>
-               <button className="inputIcon" type="button" onClick={()=>setTogglePass(!togglePass)}>{!togglePass?<FaEye/>:<FaEyeSlash/>}</button>
-               <input type={togglePass?'text':"password"} id="password" name="pass" value={data.pass} onChange={handleChange}/>
+               <button className="inputIcon" type="button" onClick={()=>setOptions({...options,togglePass: !options.togglePass})}>{!options.togglePass?<FaEye/>:<FaEyeSlash/>}</button>
+               <input type={options.togglePass?'text':"password"} id="password" name="pass" value={data.pass} onChange={handleChange}/>
           </div>
-          <button type="submit" className="frmBtn signInBtn">{loaded ? "Loading..." : "Sign In"}</button>
+          <button type="submit" className="frmBtn signInBtn">{options.loaded ? "Loading..." : "Sign In"}</button>
           <Link href='/auth/reset-password' className="forgot">Forgot Your Password?</Link>
           <span className="gap"/>
           <h2>Or Continue With</h2>

@@ -1,9 +1,6 @@
-import Layout from "@/components/Layout";
-import DashboardComment from "@/components/dashboard-settings/DashboardComment";
-import DashboardElem from "@/components/dashboard-settings/DashboardElement";
-import Follower from "@/components/dashboard-settings/Follower";
-import SettingMenu from "@/components/dashboard-settings/SettingMenu";
-import StatBox from "@/components/dashboard-settings/StatBox";
+import Layout from "@/components/pageLayouts/Layout";
+import SettingMenu from "@/components/features/SettingMenu";
+import { Follower, DashboardElem, DashboardComment, StatBox } from "@/components/features/DashboardElements"
 import Modal from "@/components/features/Modal";
 import { serializeObject } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb";

@@ -1,6 +1,6 @@
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import axios from "axios";
-import Image from "next/image";
+import axios from "axios"; import Image from "next/image";
+import { ThreeDots } from "react-loader-spinner";
 import { useState } from "react";
 
 export default function PostCommentContainer({session, children, postId, update}){
@@ -12,7 +12,7 @@ export default function PostCommentContainer({session, children, postId, update}
           if(comment.trim()!=='') {
                setLoading(true);
                const commentObj = {
-                    comment,postId,
+                    comment, postId,
                     date: new Date().toLocaleString(),
                     email: session.currUser?.email,
                };
@@ -26,7 +26,10 @@ export default function PostCommentContainer({session, children, postId, update}
      }
      return <><div className="comments-container" id="comment">
           <div className="frmComments-container">
-               <h2>Leave a Comment</h2>
+               <div className="frmHeader">
+                    <h2>Leave a Comment</h2>
+                    {isValidating && <ThreeDots height="32" width="32" radius="9" ariaLabel="loading" wrapperClass="validator"/>}
+               </div>
                <form className="frmComments" onSubmit={addComment}>
                     {session.status==='authenticated' ? <>
                     <Image src={session.currUser?.image || "/images/defaultPfp.webp"} alt="account profile" className="pfp" width={72} height={72}/>

@@ -1,7 +1,6 @@
-import Layout from "@/components/Layout";
-import UserSearchElem from "@/components/userElem/UserSearch";
+import Layout from "@/components/pageLayouts/Layout";
 import { useSession } from "next-auth/react";
-import PostSearchElem from "@/components/postElem/Post-Search";
+import { UserSearchElem, PostSearchElem } from "@/components/search-elements";
 import { useState } from "react"; import Head from "next/head";
 import { fetcher, search } from "@/constants/helpers";
 import { useRouter } from "next/router";

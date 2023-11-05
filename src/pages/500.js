@@ -1,4 +1,4 @@
-import ErrPage from "@/components/ErrPage";
+import ErrPage from "@/components/pageLayouts/ErrPage";
 import Head from "next/head";
 
 export default function ServerErrPage(){

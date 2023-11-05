@@ -17,19 +17,23 @@
                }
           }
      }
-     &-user{background: rgba(22,22,22,.7);}
+     &-user{
+          background: rgba(22,22,22,.7);
+          .pfp{box-shadow: 0 5px 15px rgba(255,255,255,.3);}
+     }
 }
 .comments-container{
-     h2:not(.advice){border-color: $col2;}
+     .frmHeader{
+          border-color: $col2;
+          .validator svg{fill: $col2;}
+     }
      .advice{color: $lightGrey;}
      .frmComments-container, .comments .comment{background: $black;}
-     .comments .comment .editForm, .frmComments-container .frmComments .fields{
-          textarea{
-               border-color: $darkGrey;
-               &:focus{border-color: $col2;}
-               background: $black;
-               &::placeholder{color: $medGrey;}
-          }
+     .comments .comment .editForm, .frmComments-container .frmComments .fields textarea{
+          border-color: $darkGrey;
+          &:focus{border-color: $col2;}
+          background: $black;
+          &::placeholder{color: $medGrey;}
      }
      .comments .comment{
           &-details h3{&,a{color: $col2;}}

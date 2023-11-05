@@ -1,12 +1,14 @@
 import dynamic from "next/dynamic";
 import { customToolbar, rehypePlugins, remarkPlugins } from "@/constants/markdown-options";
 import { MdClose } from "react-icons/md";
+import { useTheme } from "next-themes";
 
 const MarkdownEditor = dynamic(
      () => import("@uiw/react-markdown-editor").then((mod) => mod.default),
      { ssr: false }
 );   
 export default function AccBasic({user, changeAccSetting, changeBio, tagOptions}){
+     const {theme} = useTheme();
      return <>
           <div className="frmRow">
                <div className="frmGroup">
@@ -28,7 +30,7 @@ export default function AccBasic({user, changeAccSetting, changeBio, tagOptions}
                     <input type="text" name="website" value={user?.website} placeholder="e.g. www.example.com" id="website" onChange={changeAccSetting}/>
                </div>
           </div>
-          <div className="frmGroup">
+          <div className="frmGroup" data-color-mode={theme==='dark' ? 'dark' : 'light'}>
                <label htmlFor="bio">Bio</label>
                <MarkdownEditor value={user?.bio} className="editor" toolbars={customToolbar} toolbarsMode={['preview']} previewProps={{rehypePlugins,remarkPlugins}} id="bio" onChange={changeBio}/>
           </div>

@@ -8,14 +8,13 @@ import { toast } from "react-toastify";
 export default function BlogPost({data, noLink=false, adminMode=false, update}){
      const [open, setOpen] = useState(false), optRef = useRef(null);
      useEffect(()=>{
-          document.addEventListener('click',e=>{
-               if(!optRef.current?.contains(e.target)) setOpen(false);
-          })
+          const handleClick = e => { if(!optRef.current?.contains(e.target)) setOpen(false); }
+          document.addEventListener('click',handleClick);
+          return () => document.removeEventListener('click',handleClick);
      },[]);
      const deletePost = async () => {
           if(confirm('Are You Sure to Delete That Post?')){
-               const res= await toast.promise(
-               axios.delete(`/api/posts/${data?.post_id}`,REQ_CONFIG),{
+               const res = await toast.promise(axios.delete(`/api/posts/${data?.post_id}`,REQ_CONFIG),{
                     pending: 'Deleting...',
                     success: 'Post Deleted',
                     error: 'Failed to Delete the Post'

@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/pageLayouts/Layout";
 import { useEffect, useState } from "react";
 import { getSession, useSession } from "next-auth/react";
 import PostForm from "@/components/forms/PostForm";

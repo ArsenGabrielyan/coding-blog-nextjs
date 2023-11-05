@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/pageLayouts/Layout"
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";
 import Head from "next/head";import Link from "next/link";

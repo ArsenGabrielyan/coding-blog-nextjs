@@ -29,7 +29,7 @@ export const INITIAL_POSTDATA = {
      date: new Date().toDateString(),
      post_id: ''
 }
-export const GET_INITIAL_MULTISTEP_DATA = (data, updateFields) =>[
+export const GET_INITIAL_MULTISTEP_DATA = (data, updateFields) => [
 <PersonalDataForm {...data} updateFields={updateFields} key={1}/>,
 <BDateForm {...data} updateFields={updateFields} key={2}/>,
-<FinalForm {...data} updateFields={updateFields} key={3}/>]
+<FinalForm {...data} updateFields={updateFields} key={3}/> ]
