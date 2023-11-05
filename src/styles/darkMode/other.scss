@@ -35,6 +35,7 @@ table {
      background: rgba(0,0,0,.5);
      .modal{
           background-color: $black;
+          .modal-title{color: $col2}
           .modal-content{
                ul li{
                     border-color: $darkGrey;

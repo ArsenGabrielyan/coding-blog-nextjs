@@ -13,7 +13,7 @@ export default function UserDropdown({user}){
           },true)//eslint-disable-next-line
      },[]);
      return <>
-          <Link className="link-icon" title="Create a Post" href="/postEditor"><FaPlus/></Link>
+          <Link className="link-icon" title="Create a Post" href="/post-editor"><FaPlus/></Link>
           {user && <Image src={user.image} alt="profilePic" width={64} height={64} onClick={()=>setIsOpen(!isOpen)} ref={pfpRef}/>}
           <div className={`menu ${!isOpen ? 'hide' : ''}`}>
                <span className="full-name">{user?.name}</span><br/>

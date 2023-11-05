@@ -28,13 +28,22 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
                setIsOpenDeletion(true);
                const postList = posts.data.filter(val=>val.email===user?.email);
                const comments = posts.data.flatMap(val=>val.comments).filter(val=>val.email===user?.email);
-               setData({comments: comments.length,posts: postList.length})
+               setData({comments: comments.length, posts: postList.length})
           }
      }
      const deleteAccount = async()=>{
           setIsOpenDeletion(false);
           const res = await axios.delete(`/api/users/${user?.email}`,REQ_CONFIG);
           if(res.status===200) signOut();
+     }
+     const deleteAllPosts = async()=>{
+          if(confirm('Are you sure to delete all your posts?')) await toast.promise(
+               axios.delete(`/api/users?userEmail=${user?.email}`),{
+                    pending: 'Deleting...',
+                    error: 'Failed to Delete All Your Posts',
+                    success: 'All Your Posts are Deleted Successfully'
+               }
+          )
      }
      return <>
      <div className="frmGroup">
@@ -67,9 +76,12 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
           <button className="pfpBtn" type="button"><MdImage/> Change Profile Picture</button>
           <Image src={user?.image} alt="pfp" width={128} height={128} priority/>
      </div>
-     <button type="button" className="btn red mv" onClick={openDeletePopup}>Delete The Account</button>
+     <div className="btns">
+          <button type="button" className="btn red mv" onClick={openDeletePopup}>Delete The Account</button>
+          <button type="button" className="btn red mv" onClick={deleteAllPosts}>Delete All Posts</button>
+     </div>
      <Modal open={{isOpen:isOpenDeletion,setIsOpen:setIsOpenDeletion}} title="Account Deletion">
-          <h3 className="modal-title">The Following will be permanently deleted</h3>
+          <h3 className="modal-title">{Object.values({...data,...stats}).some(val=>val) ? 'The Following will be permanently deleted' : 'Are you sure to delete your account?'}</h3>
           <ul className="modal-list">
                {data.comments ?<li>Your {data.comments} Comments</li> : null}
                {data.posts ? <li>Your {data.posts} Posts</li> : null}

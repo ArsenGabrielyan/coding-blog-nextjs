@@ -16,7 +16,7 @@ export default function DashboardCommentList({userEmail}){
           <h1 className="pageTitle">All Comments</h1>
           {isAllLoading ? <h2 className="loadTxt">Loading...</h2> :<div className="settings-container">
                <SettingMenu user={user} activeElem='comments' changePage={changePage}/>
-               <div className="settings-content">{comments?.map(comment=><Comment key={comment.commentId} data={comment} users={users} currUser={user} update={updateDetails}/>)}</div>
+               <div className="settings-content">{comments?.length ? comments?.map(comment=><Comment key={comment.commentId} data={comment} users={users} currUser={user} update={updateDetails}/>) : <h2 className="empty">No New Comments Found</h2>}</div>
           </div>}
      </Layout>
      </>

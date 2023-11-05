@@ -159,6 +159,12 @@
                }
           }
      }
+     .btns{
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+     }
 }
 @media screen and (max-width: 500px){
      .settings-content form{
@@ -172,6 +178,10 @@
                flex-direction: column;
                button,img{margin: 5px 0;}
                button{width: 100%;}
+          }
+          .btns{
+               flex-direction: column;
+               button{width: 100%; margin: 3px 0;}
           }
      }
 }

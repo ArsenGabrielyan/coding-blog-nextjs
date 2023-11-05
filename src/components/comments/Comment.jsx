@@ -6,6 +6,7 @@ import { REQ_CONFIG } from "@/constants/forms/formData";
 import { toast } from "react-toastify"; import useSWR from "swr";
 import axios from "axios"; import { fetcher } from "@/constants/helpers";
 import { useState } from "react";
+import useUnsavedChangesWarning from "@/lib/hooks/use-unsaved";
 
 export default function Comment({data, users, currUser, update}){
      const [selected, setSelected] = useState('');
@@ -13,7 +14,8 @@ export default function Comment({data, users, currUser, update}){
      const [load, setLoad] = useState(false);
      const commentLikes = users?.filter(val=>val.details.likedComments.includes(data.commentId)).length;
      const isLikedComment = currUser?.details?.likedComments.includes(data.commentId);
-     const {data:post, isLoading} = useSWR(`/api/posts/${data.postId}`,fetcher)
+     const {data:post, isLoading} = useSWR(`/api/posts/${data.postId}`,fetcher);
+     useUnsavedChangesWarning(data.comment!==newComment)
      const deleteComment = async (id,postId) => {
           if(confirm('Are You Sure to Delete this Comment?')){
                const res = await toast.promise(

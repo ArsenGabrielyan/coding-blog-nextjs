@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link"; import axios from "axios";
 import { REQ_CONFIG } from "@/constants/forms/formData";
 import { toast } from "react-toastify";
+import useUnsavedChangesWarning from "@/lib/hooks/use-unsaved";
 
 export default function PostComment({data, session, postId, users, currUser, update}){
      const [commentOpen, setCommentOpen] = useState(false);
@@ -20,6 +21,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
                if(!commentOptRef.current?.contains(e.target)) setCommentOpen(false);
           })
      },[]);
+     useUnsavedChangesWarning(data.comment!==newComment)
      const deleteComment = async id => {
           if(confirm('Are You Sure to Delete this Comment?')){
                const res = await toast.promise(

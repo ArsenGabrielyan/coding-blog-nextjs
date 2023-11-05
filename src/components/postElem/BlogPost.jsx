@@ -36,7 +36,7 @@ export default function BlogPost({data, noLink=false, adminMode=false, update}){
                     {adminMode && <>
                          <button type="button" className="btn-icon" title="options" onClick={()=>setOpen(!open)} ref={optRef}><MdMoreHoriz/></button>
                          {open && <ul className="post-options">
-                              <li><Link href={`/postEditor/${data?.post_id}`}><MdEdit/>&nbsp;Edit</Link></li>
+                              <li><Link href={`/post-editor/${data?.post_id}`}><MdEdit/>&nbsp;Edit</Link></li>
                               <li><button type="button" onClick={deletePost}><MdDelete/>&nbsp;Delete</button></li>
                          </ul>}
                     </>}

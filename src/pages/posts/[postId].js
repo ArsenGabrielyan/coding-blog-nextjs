@@ -17,7 +17,7 @@ import { POST_COMMENT_LIMIT } from "@/constants/constantData";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function NewPost({author, relatedPosts}){
+export default function PostPage({author, relatedPosts}){
      const router = useRouter(), {state,update,conditions,session,followOptions} = usePost(router.query,author);
      const [limit, setLimit] = useState(POST_COMMENT_LIMIT)
      const {post,users,currUser,likeCount} = state, {user, status} = session, {updatePost,updateDetails} = update;
@@ -53,7 +53,7 @@ export default function NewPost({author, relatedPosts}){
                     <div className="single-post-body">
                          <h1>{post?.title}</h1>
                          {isCurrUser && <>
-                              <button type='button' className="btn customM" onClick={()=>router.push(`/postEditor/${post?.post_id}`)}>Edit Post</button>
+                              <button type='button' className="btn customM" onClick={()=>router.push(`/post-editor/${post?.post_id}`)}>Edit Post</button>
                               <button type='button' className="btn customM" onClick={deletePost}>Delete Post</button>
                          </>}
                          <div className="details-upper">
@@ -76,12 +76,14 @@ export default function NewPost({author, relatedPosts}){
                     </div>
                </div>
                <div className="single-post-user">
-                    <Image src={post?.profileImage || "/images/defaultPfp.webp"} alt="account profile" className="pfp" width={128} height={128} onClick={()=>router.push('/users/arsen2005')}/>
-                    <h2>{post?.author}</h2>
-                    <MarkdownContent contentClass="post-bio">{author?.otherData.bio}</MarkdownContent>
-                    <div className="options">
-                         {isCurrUser ? <Link href="/settings" className="btn">Settings</Link> : <button type='button' className="btn" onClick={()=>followUnfollow(followOptions,router,isCurrPost.isFollowed,updateDetails)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>}
-                         <Link href={`/users/${author?.user_id}`} className="btn">Explore</Link>
+                    <Image src={post?.profileImage || "/images/defaultPfp.webp"} alt="account profile" className="pfp" width={100} height={100} onClick={()=>router.push('/users/arsen2005')}/>
+                    <div className="details">
+                         <h2>{post?.author}</h2>
+                         <MarkdownContent contentClass="post-bio">{author?.otherData.bio}</MarkdownContent>
+                         <div className="options">
+                              {isCurrUser ? <Link href="/settings" className="btn">Settings</Link> : <button type='button' className="btn" onClick={()=>followUnfollow(followOptions,router,isCurrPost.isFollowed,updateDetails)}>{isCurrPost.isFollowed?'Unfollow':'Follow'}</button>}
+                              <Link href={`/users/${author?.user_id}`} className="btn">Explore</Link>
+                         </div>
                     </div>
                </div>
                <PostCommentContainer session={{currUser,status}} postId={post?.post_id} update={{updatePost,isValidating}}>

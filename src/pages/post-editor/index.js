@@ -17,7 +17,7 @@ export default function NewPost({session,currUser}){
                profileImage: currUser?.image || '/images/defaultPfp.webp',
                email: session?.user.email
           }); // eslint-disable-next-line
-     },[status])
+     },[status]);
      return <>
      <Head><title>Create a New Post | Edu-Articles</title></Head>
           <Layout>

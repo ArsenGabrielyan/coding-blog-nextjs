@@ -7,6 +7,8 @@
      &,&-container,&-user{
           display: flex;
           align-items: center;
+     }
+     &,&-container{
           flex-direction: column;
      }
      &-container{
@@ -94,20 +96,27 @@
           }
      }
      &-user{
-          position: relative;
+          width: 100%;
           .pfp{
-               position: absolute;
                top: -80px;z-index: 5;
                cursor: pointer;border-radius: 50%;
+               margin-right: 10px;
           }
-          margin-top: 95px;
-          padding: 50px 15px 15px;
+          margin-top: 10px;
+          padding: 15px 20px;
           background: rgba(255,255,255,.7);
           border-radius: 10px;p{margin: 7.5px 0;}
+          .post-bio{
+               display: -webkit-box;
+               -webkit-box-orient: vertical;
+               text-align: center;
+               -webkit-line-clamp: 3;
+               overflow: hidden;
+          }
           .options{
                display: flex;align-items: center;
                justify-content: center;
-               .btn{margin: 3px;}
+               .btn{margin: 10px 3px 0;}
           }
      }
 }
@@ -118,6 +127,7 @@
      .single-post{
           padding: 6px;
           &-body .details-upper{flex-direction: column;}
+          &-user{flex-direction: column;}
      }
 }
 @media screen and (max-width: 400px){

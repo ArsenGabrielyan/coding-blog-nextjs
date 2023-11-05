@@ -11,7 +11,7 @@ export default async function handler(req,res){
                await Post.deleteMany({email: userId});
                await User.findOneAndDelete({email: userId})
           }
-          res.status(200).json({msg: 'Delete Successful'});
+          res.status(200).json({msg: 'Deleted Successfully'});
      } else if(req.method==='GET'){
           await connectDB()
           const userList = await User.find();

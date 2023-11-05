@@ -46,6 +46,11 @@ export default async function handler(req,res){
                res.status(200).json(updatedUser);
           }
           else res.status(400).json({msg: 'Failed To Update'})
+     } else if(req.method==='DELETE'){
+          const {userEmail} = req.query;
+          await connectDB();
+          await Post.deleteMany({email: userEmail});
+          res.status(200).json({msg: 'Successfully Deleted All Posts'})
      } else if(req.method==='GET'){
           await connectDB();
           const userList = await User.find()
