@@ -7,6 +7,7 @@ import useSWR from "swr";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function PostList(){
      const router = useRouter(), {data: posts, isLoading} = useSWR('/api/posts',fetcher);
@@ -26,15 +27,9 @@ export default function PostList(){
                {!currPosts?.length ? <h2 className="empty">No Posts Found</h2> : currPosts?.map(post=><BlogPost key={post.post_id} data={post}/>)}
           </section></>}
           {!isLoading && <ReactPaginate
-               nextLabel={<MdChevronRight/>}
-               previousLabel={<MdChevronLeft/>}
                pageCount={pageCount}
                onPageChange={changePage}
-               containerClassName="pagination"
-               previousLinkClassName="prev-btn"
-               nextLinkClassName="next-btn"
-               disabledClassName="disabled"
-               activeClassName="active"
+               {...DEFAULT_PAGINATION_PROPS}
           />}
      </Layout></>
 }

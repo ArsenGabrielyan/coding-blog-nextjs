@@ -8,6 +8,7 @@ import { getSession } from "next-auth/react";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function SavedPosts({posts}){
      const {data: currSavedPosts,changePage,pageCount} = usePagination(posts,15);
@@ -19,15 +20,9 @@ export default function SavedPosts({posts}){
                {!currSavedPosts.length && <h2 className="empty">There are No Saved Posts</h2>}
           </section>
           <ReactPaginate
-               nextLabel={<MdChevronRight/>}
-               previousLabel={<MdChevronLeft/>}
                pageCount={pageCount}
                onPageChange={changePage}
-               containerClassName="pagination"
-               previousLinkClassName="prev-btn"
-               nextLinkClassName="next-btn"
-               disabledClassName="disabled"
-               activeClassName="active"
+               {...DEFAULT_PAGINATION_PROPS}
           />
      </Layout></>
 }

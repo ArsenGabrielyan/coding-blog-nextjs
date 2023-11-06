@@ -9,6 +9,7 @@ import useSWR from "swr"; import axios from "axios";
 import { currentComment, fetcher } from "@/constants/helpers";
 import { useState } from "react";
 import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
+import moment from "moment/moment";
 
 export default function Comment({data, users, currUser, update}){
      const [comment, setComment] = useState({selected:'',newComment:'',load:false})
@@ -56,7 +57,7 @@ export default function Comment({data, users, currUser, update}){
                          <button type='submit' disabled={comment.load || comment.newComment===data.comment} className="btn">{comment.load?"Processing...":"Apply Changes"}</button>
                     </div>}
                </form>: <div className="comment-details">
-               <h3 className="comment-title"><Link href={`/users/${data.name}`}>{data.name}</Link>&nbsp;&bull;&nbsp;{data.date}{data.edited&&<>&nbsp;&bull;&nbsp;Edited</>}</h3>
+               <h3 className="comment-title"><Link href={`/users/${data.name}`}>{data.name}</Link>&nbsp;&bull;&nbsp;{moment(data.date).fromNow()}{data.edited&&<>&nbsp;&bull;&nbsp;Edited</>}</h3>
                <MarkdownContent>{data.comment}</MarkdownContent>
                <div className="comment-btns">
                     <button type="button" className={`comBtn${isLikedComment?' active':''}`} title={isLikedComment?"Like":'Unlike'} onClick={async()=>await likeComment(data.postId,data.commentId,currUser?.email)}><FaThumbsUp/>&nbsp;{commentLikes}</button>
@@ -65,6 +66,6 @@ export default function Comment({data, users, currUser, update}){
                </div>
           </div>}
      </div>
-     {isLoading ? <p>Loading...</p> : <Link href={`/posts/${data.postId}`} className="post-info">{post?.title}</Link>}
+     {isLoading ? <p>Loading...</p> : <Link href={`/posts/${data.postId}#${data.commentId}`} className="post-info">{post?.title}</Link>}
 </div>
 }

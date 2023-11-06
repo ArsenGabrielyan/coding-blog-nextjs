@@ -6,6 +6,7 @@ import ListNavbar from "@/components/header/ListNavbar";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function UserList(){
      const {data,status} = useSession();
@@ -25,15 +26,9 @@ export default function UserList(){
           </section>
           </> : <h2 className="loadTxt">Loading...</h2>}
           {!isLoading && <ReactPaginate
-               nextLabel={<MdChevronRight/>}
-               previousLabel={<MdChevronLeft/>}
                pageCount={pageCount}
                onPageChange={changePage}
-               containerClassName="pagination"
-               previousLinkClassName="prev-btn"
-               nextLinkClassName="next-btn"
-               disabledClassName="disabled"
-               activeClassName="active"
+               {...DEFAULT_PAGINATION_PROPS}
           />}
      </Layout></>
 }

@@ -8,6 +8,7 @@ import { REQ_CONFIG } from "@/constants/forms/formData";
 import { toast } from "react-toastify";
 import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 import { currentComment } from "@/constants/helpers";
+import moment from "moment/moment";
 
 export default function PostComment({data, session, postId, users, currUser, update}){
      const [options, setOptions] = useState({commentOpen: false,editMode: false,load: false});
@@ -69,7 +70,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
                </div>}
           </form> : <>
                <div className="comment-details">
-               <h3><Link href={`/users/${data.name}`}>{data.name}</Link>&nbsp;&bull;&nbsp;{data.date}{data.edited && <>&nbsp;&bull;&nbsp;Edited</>}</h3>
+               <h3><Link href={`/users/${data.name}`}>{data.name}</Link>&nbsp;&bull;&nbsp;{moment(data.date).fromNow()}{data.edited && <>&nbsp;&bull;&nbsp;Edited</>}</h3>
                <MarkdownContent>{data.comment}</MarkdownContent>
                <div className="comment-btns">
                     <button type="button" className={`comBtn ${isLikedComment?'active':''}`} title={isLikedComment?"Unlike":"Like"} onClick={likeComment}><FaThumbsUp/>&nbsp;{commentLikes}</button>

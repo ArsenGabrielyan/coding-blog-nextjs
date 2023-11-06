@@ -16,6 +16,7 @@ import { MdComment, MdThumbUpAlt } from "react-icons/md";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function Dashboard({user}){
      const router = useRouter(), {userData,stats,isAllLoading} = useDashboard(user);
@@ -58,15 +59,9 @@ export default function Dashboard({user}){
      <Modal open={{isOpen: openFollowers, setIsOpen: setOpenFollowers}} title="Followers">
           {currFollowers.map(follower=><Follower key={follower.user_id} data={follower} onClick={()=>setOpenFollowers(false)}/>)}
           {!isAllLoading && <ReactPaginate
-               nextLabel={<MdChevronRight/>}
-               previousLabel={<MdChevronLeft/>}
                pageCount={pageCount}
                onPageChange={changeList}
-               containerClassName="pagination"
-               previousLinkClassName="prev-btn"
-               nextLinkClassName="next-btn"
-               disabledClassName="disabled"
-               activeClassName="active"
+               {...DEFAULT_PAGINATION_PROPS}
           />}
      </Modal>
      </>
