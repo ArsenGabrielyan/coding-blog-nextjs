@@ -89,7 +89,7 @@ export default function PostPage({author, relatedPosts}){
                </div>
                <PostCommentContainer session={{currUser,status}} postId={post?.post_id} update={{updatePost,isValidating}}>
                     {post?.comments && post?.comments.sort((a,b)=>a.commentId>b.commentId ? 1 : a.commentId<b.commentId ? -1: 0).slice(0,limit).map(comment=><PostComment key={comment.commentId} data={comment} session={user} users={users} postId={post?.post_id} currUser={currUser} update={{updateDetails,updatePost}}/>)}
-                    {limit<post?.comments.length && <button type='button' className="btn" onClick={loadMoreComments}>Load More Comments</button>}
+                    {limit<post?.comments.length && <button type='button' className="btn fill" onClick={loadMoreComments}>Load More Comments</button>}
                </PostCommentContainer>
           </section>
           {!!relatedPosts.filter(val=>val.post_id!==post?.post_id).length && <aside className="widgets">

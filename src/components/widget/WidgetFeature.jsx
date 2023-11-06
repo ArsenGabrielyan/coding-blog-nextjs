@@ -1,7 +1,7 @@
 import Widget from "@/components/widget/Widget";
 import Link from "next/link";
 import PostWidget from "./Post-Widget";
-import { getCategories } from "@/constants/constantData";
+import { getCategories } from "@/constants/helpers";
 import { useEffect, useState } from "react";
 import { FaNewspaper, FaUsers } from "react-icons/fa";
 import { format12Hr } from "@/constants/helpers";

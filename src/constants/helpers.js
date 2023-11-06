@@ -1,7 +1,5 @@
-import axios from "axios";
-import { REQ_CONFIG } from "./forms/formData";
+import axios from "axios"; import { REQ_CONFIG } from "./forms/formData";
 import { toast } from "react-toastify";
-
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
      let newChar = '';
@@ -54,7 +52,8 @@ export const search = (val,q) =>
      val.title?.toLowerCase().includes(q.toLowerCase()) ||
      val.username?.toLowerCase().includes(q.toLowerCase() ||
      val.keywords?.includes(q.toLowerCase())) ||
-     val.otherData?.keywords.includes(q.toLowerCase())
+     val.otherData?.keywords.includes(q.toLowerCase()) ||
+     val.content?.toLowerCase().includes(q.toLowerCase())
 export const currentPost = (currUser,post,author) => ({
      isLiked:currUser?.details?.likedPosts.includes(post?.post_id),
      isSaved:currUser?.details?.savedPosts.includes(post?.post_id),
@@ -86,4 +85,21 @@ export const shareData = async (title='') => {
 export const currentComment = (users,currUser,commentId) => ({
      commentLikes: users?.filter(val=>val.details.likedComments.includes(commentId)).length,
      isLikedComment: currUser?.details?.likedComments.includes(commentId)
-})
+});
+export const getCategories = (type='standard')=>{
+     const filterMode = type==='filter' ? [{name: 'Filter By Category'},{name: 'All', value: 'all'}] : [];
+     return [...filterMode,
+          {name: 'Science & Tech', value: 'science-tech'},
+          {name: 'Arts & Crafts', value: 'arts-crafts'},
+          {name: 'Mathematics', value: 'maths'},
+          {name: 'Preschool', value: 'preschool'},
+          {name: 'Literature', value: 'literature'},
+          {name: 'Health & Sports', value: 'health-sports'},
+          {name: 'History', value: 'history'},
+          {name: 'Music', value: 'music'},
+          {name: 'Gardening', value: 'gardening'},
+          {name: 'Languages', value: 'langs'},
+          {name: 'Arithmetics', value: 'arithmetics'},
+          {name: 'Miscellaneous', value: 'misc'},
+     ]
+}

@@ -33,7 +33,7 @@
                align-items: center;
                justify-content: center;
                .modal-list li{margin: 5px 0 10px;}
-               ul:not(.modal-list){
+               ul:not(.modal-list,.pagination){
                     list-style: none;
                     width: 100%;
                     text-align: center;

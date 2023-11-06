@@ -13,12 +13,16 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { FaUser, FaBookmark } from "react-icons/fa";
 import { MdComment, MdThumbUpAlt } from "react-icons/md";
+import usePagination from "@/lib/hooks/tools/use-pagination";
+import ReactPaginate from "react-paginate";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 export default function Dashboard({user}){
      const router = useRouter(), {userData,stats,isAllLoading} = useDashboard(user);
      const changePage = (page) => router.push(`/settings?page=${page.name}`);
      const {totalComments,totalLikes,totalSaves,followers} = stats;
-     const [openFollowers, setOpenFollowers] = useState(false)
+     const [openFollowers, setOpenFollowers] = useState(false);
+     const {data: currFollowers, pageCount, changePage: changeList} = usePagination(followers,10)
      return <>
      <Head><title>Dashboard | EduArticles</title></Head>
      <Layout>
@@ -52,7 +56,18 @@ export default function Dashboard({user}){
           </div>}
      </Layout>
      <Modal open={{isOpen: openFollowers, setIsOpen: setOpenFollowers}} title="Followers">
-          {followers?.slice(0,3).map(follower=><Follower key={follower.user_id} data={follower} onClick={()=>setOpenFollowers(false)}/>)}
+          {currFollowers.map(follower=><Follower key={follower.user_id} data={follower} onClick={()=>setOpenFollowers(false)}/>)}
+          {!isAllLoading && <ReactPaginate
+               nextLabel={<MdChevronRight/>}
+               previousLabel={<MdChevronLeft/>}
+               pageCount={pageCount}
+               onPageChange={changeList}
+               containerClassName="pagination"
+               previousLinkClassName="prev-btn"
+               nextLinkClassName="next-btn"
+               disabledClassName="disabled"
+               activeClassName="active"
+          />}
      </Modal>
      </>
 }

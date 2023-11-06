@@ -9,6 +9,9 @@ import { useRouter } from "next/router";
 import useUser from "@/lib/hooks/use-user";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { FaGlobe, FaShare } from "react-icons/fa";
+import usePagination from "@/lib/hooks/tools/use-pagination";
+import ReactPaginate from "react-paginate";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 export default function UserProfile(){
      const router = useRouter();
@@ -16,6 +19,7 @@ export default function UserProfile(){
      const {user,followers} = state;
      const {isCurrUser,isFollowed,isLoading} = conditions;
      const {data: posts, mutate: updatePosts, isLoading: arePostsLoading} = useSWR(`/api/posts?email=${user?.email}`,fetcher);
+     const {data: currPosts, pageCount, changePage} = usePagination(posts,5)
      
      const buttons = <>
           {isCurrUser ? <Link className="btn" href="/settings?page=account">Settings</Link> : <button type='button' className="btn" onClick={async()=>await followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>}
@@ -49,8 +53,19 @@ export default function UserProfile(){
                     <div className="btns">{buttons}</div>
                </nav>}
                <div className="posts small userPosts">
-                    {arePostsLoading ? <h2 className="empty">Loading...</h2> : !posts.length ? <h2 className="empty">This User Doesn&apos;t have any posts</h2> : posts?.map(post=><BlogPost key={post.post_id} data={post} adminMode={isCurrUser} update={updatePosts}/>)}
+                    {arePostsLoading ? <h2 className="empty">Loading...</h2> : !posts.length ? <h2 className="empty">This User Doesn&apos;t have any posts</h2> : currPosts?.map(post=><BlogPost key={post.post_id} data={post} adminMode={isCurrUser} update={updatePosts}/>)}
                </div>
+               {!arePostsLoading && <ReactPaginate
+                    nextLabel={<MdChevronRight/>}
+                    previousLabel={<MdChevronLeft/>}
+                    pageCount={pageCount}
+                    onPageChange={changePage}
+                    containerClassName="pagination"
+                    previousLinkClassName="prev-btn"
+                    nextLinkClassName="next-btn"
+                    disabledClassName="disabled"
+                    activeClassName="active"
+               />}
           </div>
      </div>}
      </Layout></>

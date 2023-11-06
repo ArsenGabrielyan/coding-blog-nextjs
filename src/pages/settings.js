@@ -3,7 +3,7 @@ import { settingPages } from "@/constants/constantData";
 import { serializeObject } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb"; import User from "@/model/CredentialsUser";
 import useSettings from "@/lib/hooks/use-settings";
-import useUnsavedWarning from "@/lib/hooks/use-unsaved";
+import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 import { getSession } from "next-auth/react"; import { useState } from "react";
 import Head from "next/head"; import { useRouter } from "next/router";
 import SettingMenu from "@/components/features/SettingMenu";

@@ -1,10 +1,10 @@
 .loadTxt{background: $black; color: $col2;}
-.pageTitle{background: $col1;color: $white;}
+.pageTitle{background: $black;color: $white;}
 table {
      border-color: $black !important;
      tbody, td, tfoot, th, thead, tr {border-color: inherit !important;}
      tr:nth-child(even){background: $lightGrey;}
-     thead,tfoot{background: $lightGrey;th,td{color: $col1;}}
+     thead,tfoot{background: $lightGrey;th,td{color: $black;}}
 }
 .widgets .widget{
      background: $black; 
@@ -12,7 +12,7 @@ table {
      h3:not(ul .w-post .w-post-content h3){border-color: $col2;}
      .categories li a{
           color: $black;background: $col2;
-          &:hover,&:focus{background: $col1;color:$white;}
+          &:hover,&:focus{background: $black;color:$white;}
      }
      .w-posts .w-post{
           border-color: $lightGrey;
@@ -22,9 +22,18 @@ table {
           }
      }
 }
+.pagination{
+     background: $black;
+     color: $white;
+     li{color: $moreLightGrey}
+     .active{
+          color: $black;
+          background: $col2 !important;
+     }
+}
 .search{
      &-filter{
-          background: $col1;
+          background: $black;
           button{
                border-color: transparent;color: $col2;
                &:hover,&:focus{border-color: $white;}
@@ -43,7 +52,7 @@ table {
           background-color: $black;
           .modal-title{color: $col2}
           .modal-content{
-               ul li{
+               ul:not(.pagination) li{
                     border-color: $darkGrey;
                     &.redTxt{color: $errDark;}
                     a{color: $col2;}

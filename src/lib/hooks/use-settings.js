@@ -3,7 +3,7 @@ import AdvancedSettings from "@/components/forms/settings-form/AppSettings";
 import AccAdvanced from "@/components/forms/settings-form/AccAdvanced";
 import { getInitialSettingData, INITIAL_SETTINGS, INITIAL_USER_DATA } from "@/constants/forms/settingsData";
 import { useState } from "react";
-import useTags from "./use-tags";
+import useTags from "./tools/use-tags";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { REQ_CONFIG } from "@/constants/forms/formData";

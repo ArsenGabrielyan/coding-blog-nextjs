@@ -1,23 +1,23 @@
 .list-nav{
-     background: $black; 
+     background: $black;
      box-shadow: 0 5px 25px rgba(255,255,255,.5);
-     h1{color: $col4;}
+     h1{color: $col2;}
      &-links a{
           border-color: transparent; color: $grey;
           &:hover,&:focus{border-color: $grey;}
-          &.active{color: $col4;border-color: $col4;}
+          &.active{color: $col2;border-color: $col2;}
      }
      &-options{
-          background: $col2;
+          background: $black;
           select{
-               border-color: $black;
+               border-color: $white;
                &:hover{color: $medGrey;border-color: $medGrey;}
                &:active,&:focus{color: $col4;border-color: $col4;}
           }
      }
 }
 .siteHeader{
-     background: $col1;
+     background: $black;
      .logo{box-shadow: 0 0 5px 5px rgba(255,255,255,.6);}
      .inner-content .search{
           input{

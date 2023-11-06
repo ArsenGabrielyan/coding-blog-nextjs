@@ -1,5 +1,5 @@
 import { REQ_CONFIG, GET_INITIAL_MULTISTEP_DATA, REGISTER_INITIAL } from "@/constants/forms/formData"
-import { useMultistep } from "@/lib/hooks/use-multistep"
+import { useMultistep } from "@/lib/hooks/tools/use-multistep"
 import { useState } from "react"; import { signIn, useSession } from "next-auth/react";
 import Link from "next/link"; import {useRouter} from "next/navigation";
 import { validateSignup } from "@/constants/forms/validators";

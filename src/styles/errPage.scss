@@ -9,8 +9,8 @@
      background: linear-gradient(to right, $col2, $col3);
      .content{
           flex-direction: column;border-radius: 10px;
-          background: url('/images/p404.png'), #151729;
-          background: url('/images/p404.webp'), #151729;
+          background: url('/images/p404.png'), $darkerBlue;
+          background: url('/images/p404.webp'), $darkerBlue;
           text-align: center;width: 100%;
           color: $white;height: 80vh;
           .heading{

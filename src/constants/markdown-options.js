@@ -22,6 +22,9 @@ const separator = {
 }
 
 export const remarkPlugins = [remarkEmoji,remarkGfm], rehypePlugins = [rehypeRaw];
-export const customToolbar = ['bold','italic','underline','strike',separator,'code','codeBlock',separator,'ulist','olist','todo',separator,'header','image','link','quote']
+
+export const customToolbar = ['bold','italic','underline','strike',separator,'code','codeBlock',separator,'ulist','olist','todo',separator,'header','image','link','quote'];
+
 export const customMode = ['undo','redo','fullscreen'];
+
 export const MarkdownContent = ({children, contentClass})=><ReactMarkdown className={contentClass} components={customComponents} remarkPlugins={remarkPlugins} rehypePlugins={rehypePlugins}>{DOMPurify.sanitize(children)}</ReactMarkdown>

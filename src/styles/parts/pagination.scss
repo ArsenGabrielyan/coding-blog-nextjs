@@ -1,0 +1,48 @@
+.pagination{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: $white;
+     color: $black;
+     padding: 10px 40px;
+     border-radius: 6px;
+     margin: 10px;
+     list-style: none;
+     li{
+          font-size: 20px;
+          font-weight: 500;
+          color: $darkGrey;
+          cursor: pointer;
+          user-select: none;
+          transition: .3s;
+     }
+     li:not(.next,.previous){
+          margin: 0 10px;
+          display: inline-block;
+          width: 45px; height: 45px;
+          border-radius: 50%;
+          text-align: center;
+          line-height: 45px;
+          font-size: 25px;
+     }
+     .next-btn,.prev-btn{
+          margin: 0 5px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 0;
+          outline: none;
+          background: none;
+          svg{width: 25px;height: 25px;}
+     }
+     .next-btn svg{margin-left: 5px;}
+     .prev-btn svg{margin-right: 5px;}
+     .active{
+          color: $white;
+          background: $col4 !important;
+     }
+     .disabled{
+          opacity: .5;
+          pointer-events: none;
+     }
+}

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link"; import axios from "axios";
 import { REQ_CONFIG } from "@/constants/forms/formData";
 import { toast } from "react-toastify";
-import useUnsavedWarning from "@/lib/hooks/use-unsaved";
+import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 import { currentComment } from "@/constants/helpers";
 
 export default function PostComment({data, session, postId, users, currUser, update}){
@@ -59,7 +59,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
                await updateDetails();
           };
      }
-     return <div className="comment">
+     return <div className="comment" id={data.commentId}>
           <Link href={`/users/${data.name}`}><Image src={data.image} alt="account profile" className="comment-pfp" width={64} height={64}/></Link>
           {options.editMode ? <form className="editForm" onSubmit={applyEdit}>
                <textarea name="comment" placeholder="Add Comment" value={newComment} onChange={e=>setNewComment(e.target.value)}/>

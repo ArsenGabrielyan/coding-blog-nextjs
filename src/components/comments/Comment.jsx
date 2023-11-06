@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import useSWR from "swr"; import axios from "axios";
 import { currentComment, fetcher } from "@/constants/helpers";
 import { useState } from "react";
-import useUnsavedWarning from "@/lib/hooks/use-unsaved";
+import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 
 export default function Comment({data, users, currUser, update}){
      const [comment, setComment] = useState({selected:'',newComment:'',load:false})

@@ -74,7 +74,7 @@
      &-menu ul li{
           background: $darkGrey;
           &.active{background: $col2; color: $black;}
-          &:hover,&:focus{background: $col1;}
+          &:hover,&:focus{background: $black;}
           &,a{color: $white;}
           &.active,&.active a{color: $black}
           &:hover, &:focus,&:hover a, &:focus a{color: $white;}

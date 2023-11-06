@@ -6,13 +6,13 @@
      &.white,&-icon.white{
           border-color: $white;
           color: $white;
-          &:hover,&:focus{background: $white; color: $col1;}
+          &:hover,&:focus{background: $white; color: $black;}
      }
      &.fill,&-icon.fill{
           border-color: transparent;
           background: $col4;
           color: $white;
-          &:hover,&:focus{background: $col2;color: $col1;}
+          &:hover,&:focus{background: $col2;color: $black;}
      }
      &:disabled:not(.fill:disabled){
           color: $midLightGrey;

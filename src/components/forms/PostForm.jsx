@@ -1,16 +1,15 @@
 import { MdClose, MdError, MdImage } from "react-icons/md";
 import { useRef, useState } from "react";
-import useTags from "@/lib/hooks/use-tags";
-import useUnsavedWarning from "@/lib/hooks/use-unsaved";
+import useTags from "@/lib/hooks/tools/use-tags";
+import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 import Compress from "compress.js";
 import { validatePost } from "@/constants/forms/validators";
 import dynamic from "next/dynamic";
 import { customMode, customToolbar, rehypePlugins, remarkPlugins } from "@/constants/markdown-options";
 import axios from "axios"; import Link from "next/link";
 import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
-import { generate } from "@/constants/helpers";
+import { generate, getCategories } from "@/constants/helpers";
 import { useRouter } from "next/navigation";
-import { getCategories } from "@/constants/constantData";
 
 const MarkdownEditor = dynamic(
      () => import("@uiw/react-markdown-editor").then((mod) => mod.default),

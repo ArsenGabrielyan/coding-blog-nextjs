@@ -1,4 +1,5 @@
-import { sortPostOptions, getCategories } from "@/constants/constantData";
+import { sortPostOptions } from "@/constants/constantData";
+import { getCategories } from "@/constants/helpers"
 import Link from "next/link"; import { useRouter } from "next/router";
 
 export default function ListNavbar({options, change, usermode=false}){

@@ -7,13 +7,18 @@ import { serializeObject } from "@/constants/helpers";
 import WidgetsFeature from "@/components/widget/WidgetFeature";
 import { getSession } from "next-auth/react";
 import User from "@/model/CredentialsUser";
+import { MAIN_PAGE_LIMIT } from "@/constants/constantData";
+import { useState } from "react";
 
 export default function Homepage({posts, recent, appProps}){
+     const [postCount, setPostCount] = useState(MAIN_PAGE_LIMIT);
+     const showMore = () => {if(postCount<=posts?.length) setPostCount(postCount*3);}
      return <Layout>
           {appProps.settings?.featured && <PostsCarousel posts={posts}/>}
           <main className="siteMain">
           <section className="posts">
-               {posts.slice(0,12).map(post=><BlogPost key={post.post_id} data={post}/>)}
+               {posts.slice(0,postCount).map(post=><BlogPost key={post.post_id} data={post}/>)}
+               {postCount<posts?.length && <button className="btn fill" onClick={showMore}>Load More</button>}
           </section>
           <WidgetsFeature recent={recent} settings={appProps.settings}/>
           </main>

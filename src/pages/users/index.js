@@ -3,6 +3,9 @@ import UserListItem from "@/components/UserListItem";
 import Head from "next/head"; import { useSession } from "next-auth/react";
 import { fetcher } from "@/constants/helpers"; import useSWR from "swr";
 import ListNavbar from "@/components/header/ListNavbar";
+import usePagination from "@/lib/hooks/tools/use-pagination";
+import ReactPaginate from "react-paginate";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 export default function UserList(){
      const {data,status} = useSession();
@@ -12,13 +15,25 @@ export default function UserList(){
           await updateSession();
           await updateUsers()
      }
+     const {data: currUsers, pageCount, changePage} = usePagination(users,20);
      return <><Head><title>Explore Users | Edu-Articles</title></Head>
      <Layout>
           {!isLoading ? <>
           <ListNavbar usermode/>
           <section className="userlist">
-               {!users?.length ? <h2 className="empty">No User Found</h2> : users?.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} currUser={currUser} status={status} update={updateDetails}/>)}
+               {!currUsers?.length ? <h2 className="empty">No User Found</h2> : currUsers?.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} currUser={currUser} status={status} update={updateDetails}/>)}
           </section>
           </> : <h2 className="loadTxt">Loading...</h2>}
+          {!isLoading && <ReactPaginate
+               nextLabel={<MdChevronRight/>}
+               previousLabel={<MdChevronLeft/>}
+               pageCount={pageCount}
+               onPageChange={changePage}
+               containerClassName="pagination"
+               previousLinkClassName="prev-btn"
+               nextLinkClassName="next-btn"
+               disabledClassName="disabled"
+               activeClassName="active"
+          />}
      </Layout></>
 }

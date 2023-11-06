@@ -1,10 +1,10 @@
 .new-post-container{
      .options, .title, .signIn, .frmNewPost, .results{
-          background: $col1;
+          background: $black;
           color: $white;
      }
      .options button{
-          background: $col1;
+          background: $black;
           border-color: transparent;
           color: $white;
           &:hover,&:focus,&.active{
@@ -19,11 +19,11 @@
 }
 .frmNewPost{
      .frmErr{background: rgba($color: $error, $alpha: 0.75);}
-     .frmGroup{label{background: $col1;}}
+     .frmGroup{label{background: $black;}}
      .imageUploads .imgUpload{
           color: $white;
           border-color: $white;
-          background: $col1;
+          background: $black;
           &:hover,&:focus{
                border-color: $col2;
                color: $col2;
