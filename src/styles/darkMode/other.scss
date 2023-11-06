@@ -14,7 +14,13 @@ table {
           color: $black;background: $col2;
           &:hover,&:focus{background: $col1;color:$white;}
      }
-     .w-posts .w-post{border-color: $lightGrey;}
+     .w-posts .w-post{
+          border-color: $lightGrey;
+          h3 a{
+               color: $col2;
+               &:hover{color: $col3}
+          }
+     }
 }
 .search{
      &-filter{

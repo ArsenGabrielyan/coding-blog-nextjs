@@ -9,7 +9,7 @@ export default function SignUpForm(){
      const [signupData, setSignupData] = useState(REGISTER_INITIAL); 
      const [err, setErr] = useState('');
      const [loaded, setLoaded] = useState(false);
-     const updateField = (fields)=>setSignupData({...signupData, ...fields});
+     const updateField = fields => setSignupData({...signupData, ...fields});
      const multistep = useMultistep(GET_INITIAL_MULTISTEP_DATA(signupData, updateField));
      const {status} = useSession(), router = useRouter();
      const reset = () => {

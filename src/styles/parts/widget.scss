@@ -68,6 +68,12 @@
                          font-size: 20px;
                          font-weight: 600;
                          -webkit-line-clamp: 2;
+                         a{
+                              color: $col1;
+                              text-decoration: none;
+                              transition: .3s;
+                              &:hover{color: $col4; text-decoration: underline;}
+                         }
                     }
                }
                border-bottom: 1px solid $lightGrey;

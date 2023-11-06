@@ -36,7 +36,7 @@ export default function Comment({data, users, currUser, update}){
                finishEdit();
           }
      }
-     const editComment = (commentData, commentId) => setComment({...comment,newComment:commentData,selected:commentId});
+     const editComment = data => setComment({...comment,newComment:data.comment,selected:data.commentId});
      const likeComment = async(postId,commentId,commentEmail)=>{
           const res = await toast.promise(
           axios.patch(`/api/posts/comments?postId=${postId}`,{commentId,commentEmail},REQ_CONFIG),{
@@ -60,7 +60,7 @@ export default function Comment({data, users, currUser, update}){
                <MarkdownContent>{data.comment}</MarkdownContent>
                <div className="comment-btns">
                     <button type="button" className={`comBtn${isLikedComment?' active':''}`} title={isLikedComment?"Like":'Unlike'} onClick={async()=>await likeComment(data.postId,data.commentId,currUser?.email)}><FaThumbsUp/>&nbsp;{commentLikes}</button>
-                    {currUser?.email===data.email && <button type="button" title="Edit" className="btn-icon com-opt" onClick={()=>editComment(data.comment,data.commentId)}><MdEdit/></button>}
+                    {currUser?.email===data.email && <button type="button" title="Edit" className="btn-icon com-opt" onClick={()=>editComment(data)}><MdEdit/></button>}
                     <button type="button" title="Delete" className="btn-icon com-opt" onClick={async()=>await deleteComment(data.commentId,data.postId)}><MdDelete/></button>
                </div>
           </div>}

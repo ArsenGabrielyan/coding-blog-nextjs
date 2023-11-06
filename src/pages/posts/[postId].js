@@ -30,7 +30,7 @@ export default function PostPage({author, relatedPosts}){
                if(res.status===200) router.push(`/users/${currUser.username}`)
           }
      }
-     const clickOn = async(type)=>{ 
+     const clickOn = async type =>{ 
           if(status==='authenticated') {
                const likeTxt = !isCurrPost.isLiked ? 'Liked The Post' : 'Unliked The Post';
                const saveTxt = !isCurrPost.isSaved ? 'Saved The Post' : 'Removed the Post From Saved'
