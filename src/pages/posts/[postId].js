@@ -3,9 +3,11 @@ import PostComment from "@/components/comments/PostComment";
 import PostCommentContainer from "@/components/comments/PostCommentContainer";
 import Widget from "@/components/widget/Widget";
 import PostWidget from "@/components/widget/Post-Widget";
-import Link from "next/link"; import Image from "next/image";
+import Link from "next/link";
+import Image from "next/image";
 import connectDB from "@/lib/connectDb"; 
-import Head from "next/head"; import axios from "axios";
+import Head from "next/head";
+import axios from "axios";
 import User from "@/model/CredentialsUser";
 import Post from "@/model/Post";
 import usePost from "@/lib/hooks/use-post";
@@ -13,17 +15,18 @@ import { useRouter } from "next/router";
 import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-icons/fa";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
-import { abbrNum, followUnfollow, serializeObject, shareData } from "@/constants/helpers";
-import { POST_COMMENT_LIMIT } from "@/constants/constantData";
-import { useState } from "react";
+import { abbrNum, followUnfollow, serializeObject, shareData, sortByLatest } from "@/constants/helpers";
 import { toast } from "react-toastify";
+import usePagination from "@/lib/hooks/tools/use-pagination";
+import ReactPaginate from "react-paginate";
+import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function PostPage({author, relatedPosts}){
-     const router = useRouter(), {state,update,conditions,session,followOptions} = usePost(router.query,author);
-     const [limit, setLimit] = useState(POST_COMMENT_LIMIT)
+     const router = useRouter();
+     const {state,update,conditions,session,followOptions} = usePost(router.query,author);
      const {post,users,currUser,likeCount} = state, {user, status} = session, {updatePost,updateDetails} = update;
      const {isLoading,isValidating,isCurrUser,isCurrPost} = conditions;
-     const loadMoreComments = () => { if(limit<=post?.comments.length) setLimit(limit*2); }
+     const {changePage: changeComment, data: currComments, pageCount} = usePagination(sortByLatest(post?.comments), 5);
      const deletePost = async()=>{
           if(confirm('Are You Sure to Delete That Post?')){
                const res = await axios.delete(`/api/posts/${post?.post_id}`,REQ_CONFIG);
@@ -88,8 +91,12 @@ export default function PostPage({author, relatedPosts}){
                     </div>
                </div>
                <PostCommentContainer session={{currUser,status}} postId={post?.post_id} update={{updatePost,isValidating}}>
-                    {post?.comments && post?.comments.sort((a,b)=>a.commentId>b.commentId ? 1 : a.commentId<b.commentId ? -1: 0).slice(0,limit).map(comment=><PostComment key={comment.commentId} data={comment} session={user} users={users} postId={post?.post_id} currUser={currUser} update={{updateDetails,updatePost}}/>)}
-                    {limit<post?.comments.length && <button type='button' className="btn fill" onClick={loadMoreComments}>Load More Comments</button>}
+                    {post?.comments && currComments.map(comment=><PostComment key={comment.commentId} data={comment} session={user} users={users} postId={post?.post_id} currUser={currUser} update={{updateDetails,updatePost}}/>)}
+                    {currComments.length ? <ReactPaginate
+                         pageCount={pageCount}
+                         onPageChange={changeComment}
+                         {...DEFAULT_PAGINATION_PROPS}
+                    /> : null}
                </PostCommentContainer>
           </section>
           {!!relatedPosts.filter(val=>val.post_id!==post?.post_id).length && <aside className="widgets">

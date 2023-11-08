@@ -15,7 +15,6 @@ import { FaUser, FaBookmark } from "react-icons/fa";
 import { MdComment, MdThumbUpAlt } from "react-icons/md";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function Dashboard({user}){
@@ -58,11 +57,11 @@ export default function Dashboard({user}){
      </Layout>
      <Modal open={{isOpen: openFollowers, setIsOpen: setOpenFollowers}} title="Followers">
           {currFollowers.map(follower=><Follower key={follower.user_id} data={follower} onClick={()=>setOpenFollowers(false)}/>)}
-          {!isAllLoading && <ReactPaginate
+          {!isAllLoading && currFollowers.length ? <ReactPaginate
                pageCount={pageCount}
                onPageChange={changeList}
                {...DEFAULT_PAGINATION_PROPS}
-          />}
+          /> : null}
      </Modal>
      </>
 }

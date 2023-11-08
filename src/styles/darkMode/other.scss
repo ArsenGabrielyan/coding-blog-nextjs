@@ -1,5 +1,11 @@
 .loadTxt{background: $black; color: $col2;}
 .pageTitle{background: $black;color: $white;}
+.empty{
+     color: $lightGrey;
+     padding: 10px;
+     background: $black;
+     border-radius: 10px;
+}
 table {
      border-color: $black !important;
      tbody, td, tfoot, th, thead, tr {border-color: inherit !important;}

@@ -3,7 +3,7 @@ import { REQ_CONFIG } from "@/constants/forms/formData";
 import axios from "axios";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdImage } from "react-icons/md";
 import { toast } from "react-toastify";
 
@@ -11,6 +11,16 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
      const [load, setLoad] = useState(false);
      const [isOpenDeletion, setIsOpenDeletion] = useState(false);
      const [data,setData] = useState({comments: 0,posts:0});
+     useEffect(()=>{
+          (async()=>{
+               const posts = await axios.get('/api/posts',REQ_CONFIG);
+               if(posts.status===200){
+                    const postList = posts.data.filter(val=>val.email===user?.email);
+                    const comments = posts.data.flatMap(val=>val.comments).filter(val=>val.email===user?.email);
+                    setData({comments: comments.length, posts: postList.length})
+               }
+          })();
+     },[user]);
      const sendPassResetLink = async e => {
           e.preventDefault();
           setLoad(true);
@@ -20,26 +30,19 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
           });
           if(res.status===200) setLoad(false);
      }
-     const openDeletePopup = async()=>{
-          const posts = await axios.get('/api/posts',REQ_CONFIG);
-          if(posts.status===200){
-               setIsOpenDeletion(true);
-               const postList = posts.data.filter(val=>val.email===user?.email);
-               const comments = posts.data.flatMap(val=>val.comments).filter(val=>val.email===user?.email);
-               setData({comments: comments.length, posts: postList.length})
-          }
-     }
      const deleteAccount = async()=>{
           setIsOpenDeletion(false);
           const res = await axios.delete(`/api/users/${user?.email}`,REQ_CONFIG);
           if(res.status===200) signOut();
      }
-     const deleteAllPosts = async()=>{
-          if(confirm('Are you sure to delete all your posts?')) await toast.promise(axios.delete(`/api/users?userEmail=${user?.email}`),{
-               pending: 'Deleting...',
-               error: 'Failed to Delete All Your Posts',
-               success: 'All Your Posts are Deleted Successfully'
-          })
+     const deleteFromAccounts = async type => {
+          if(confirm(`Are you sure to delete all your ${type==='comments'?'comments':'posts'}?`)){
+               await toast.promise(axios.delete(`/api/users?userEmail=${user?.email}${type==='comments'?'&type=comments':''}`),{
+                    pending: 'Deleting...',
+                    error: `Failed to Delete All Your ${type==='comments' ? 'Comments' : 'Posts'}`,
+                    success: `All Your ${type==='comments' ? 'Comments' : 'Posts'} are Deleted Successfully`
+               })
+          }
      }
      return <>
      <div className="frmGroup">
@@ -73,8 +76,9 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
           <Image src={user?.image} alt="pfp" width={128} height={128} priority/>
      </div>
      <div className="btns">
-          <button type="button" className="btn red mv" onClick={openDeletePopup}>Delete The Account</button>
-          <button type="button" className="btn red mv" onClick={deleteAllPosts}>Delete All Posts</button>
+          <button type="button" className="btn red mv" onClick={async()=>await deleteFromAccounts('posts')} disabled={!data.posts}>Delete All Posts</button>
+          <button type="button" className="btn red mv" onClick={async()=>await deleteFromAccounts('comments')} disabled={!data.comments}>Delete All Comments</button>
+          <button type="button" className="btn red mv" onClick={()=>setIsOpenDeletion(true)}>Delete The Account</button>
      </div>
      <Modal open={{isOpen:isOpenDeletion,setIsOpen:setIsOpenDeletion}} title="Account Deletion">
           <h3 className="modal-title">{Object.values({...data,...stats}).some(val=>val) ? 'The Following will be permanently deleted' : 'Are you sure to delete your account?'}</h3>

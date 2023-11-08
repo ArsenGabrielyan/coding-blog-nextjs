@@ -1,14 +1,11 @@
 import Layout from "@/components/pageLayouts/Layout";
 import BlogPost from "@/components/postElem/BlogPost";
 import PostsCarousel from "@/components/features/posts-carousel";
-import connectDB from "@/lib/connectDb";
-import Post from "@/model/Post";
-import { serializeObject } from "@/constants/helpers";
+import connectDB from "@/lib/connectDb"; import { useState } from "react";
+import { serializeObject, sortByLatest } from "@/constants/helpers";
 import WidgetsFeature from "@/components/widget/WidgetFeature";
-import { getSession } from "next-auth/react";
-import User from "@/model/CredentialsUser";
-import { MAIN_PAGE_LIMIT } from "@/constants/constantData";
-import { useState } from "react";
+import { getSession } from "next-auth/react"; import Post from "@/model/Post";
+import User from "@/model/CredentialsUser"; import { MAIN_PAGE_LIMIT } from "@/constants/constantData";
 
 export default function Homepage({posts, recent, appProps}){
      const [postCount, setPostCount] = useState(MAIN_PAGE_LIMIT);
@@ -33,8 +30,7 @@ export async function getServerSideProps(ctx){
      ]))[0] : {};
      const posts = await Post.aggregate([{$project: { _id:0, banner:0, content:0, comments:0 }}]);
      return {props: {
-          posts,
-          appProps,
-          recent: serializeObject(posts.sort((a,b)=>a?-1:b?1:0).slice(0,3)),
+          posts, appProps,
+          recent: serializeObject(sortByLatest(posts).slice(0,3)),
      }}
 }

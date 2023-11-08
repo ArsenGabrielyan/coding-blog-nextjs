@@ -38,14 +38,16 @@
           pointer-events: none;
      }
      &.fill:disabled{opacity: .5;}
-     &:disabled:not(&.fill:disabled){
+     
+     &:disabled:not(.btn.fill:disabled){
           color: $midLightGrey;
           border-color: $midLightGrey;
      }
      &.red{
-          border: 2px solid $error;
-          color: $error;
-          &:hover,&:focus{background: $error;color: $white;}
+          border: 2px solid $error !important;
+          color: $error !important;
+          &:hover,&:focus{background: $error !important;color: $white !important;}
+          &:disabled{opacity: .5;}
      }
      &.mv{margin: 5px 3px;}
 }

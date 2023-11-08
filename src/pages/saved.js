@@ -7,7 +7,6 @@ import { serializeObject } from "@/constants/helpers";
 import { getSession } from "next-auth/react";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function SavedPosts({posts}){
@@ -16,14 +15,13 @@ export default function SavedPosts({posts}){
      <Layout>
           <h1 className="pageTitle">Saved Posts</h1>
           <section className="posts small">
-               {currSavedPosts.map(post=><BlogPost key={post.post_id} data={post}/>)}
-               {!currSavedPosts.length && <h2 className="empty">There are No Saved Posts</h2>}
+               {currSavedPosts.length ? currSavedPosts.map(post=><BlogPost key={post.post_id} data={post}/>) : <h2 className="empty">There are No Saved Posts</h2>}
           </section>
-          <ReactPaginate
+          {currSavedPosts.length ? <ReactPaginate
                pageCount={pageCount}
                onPageChange={changePage}
                {...DEFAULT_PAGINATION_PROPS}
-          />
+          /> : null}
      </Layout></>
 }
 export async function getServerSideProps(ctx){

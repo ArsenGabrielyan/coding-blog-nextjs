@@ -14,14 +14,14 @@
           color: $white;
           &:hover,&:focus{background: $col2;color: $black;}
      }
-     &:disabled:not(.fill:disabled){
+     &:disabled:not(.btn.fill:disabled){
           color: $midLightGrey;
           border-color: $midLightGrey;
      }
      &.red{
-          border-color: $errDark;
-          color: $errDark;
-          &:hover,&:focus{background: $errDark;color: $black;}
+          border-color: $errDark !important;
+          color: $errDark !important;
+          &:hover,&:focus{background: $errDark!important;color: $black!important;}
      }
 }
 .link{

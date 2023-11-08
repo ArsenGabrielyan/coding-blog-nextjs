@@ -36,6 +36,10 @@ export const followUnfollow = async({status,email,userId,name},router,isFollowed
           });
      } else router.push('/auth/signin')
 }
+export const sortByLatest = arr => arr?.sort((a,b)=>{
+     const d1 = new Date(a.date).getTime(), d2 = new Date(b.date).getTime();
+     return d1>d2?-1:d1<d2?1:0
+})
 export const sortList = (a,b,options)=>{
      const d1 = new Date(a.date).getTime(), d2 = new Date(b.date).getTime();
      switch(options.sortPost){

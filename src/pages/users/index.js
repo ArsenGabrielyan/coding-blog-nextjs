@@ -5,7 +5,6 @@ import { fetcher } from "@/constants/helpers"; import useSWR from "swr";
 import ListNavbar from "@/components/header/ListNavbar";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function UserList(){
@@ -25,10 +24,10 @@ export default function UserList(){
                {!currUsers?.length ? <h2 className="empty">No User Found</h2> : currUsers?.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} currUser={currUser} status={status} update={updateDetails}/>)}
           </section>
           </> : <h2 className="loadTxt">Loading...</h2>}
-          {!isLoading && <ReactPaginate
+          {!isLoading && currUsers?.length ? <ReactPaginate
                pageCount={pageCount}
                onPageChange={changePage}
                {...DEFAULT_PAGINATION_PROPS}
-          />}
+          /> : null}
      </Layout></>
 }

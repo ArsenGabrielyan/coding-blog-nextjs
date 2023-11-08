@@ -1,8 +1,7 @@
 import { MdAccountCircle, MdAppSettingsAlt, MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-export const POST_COMMENT_LIMIT = 4;
 export const SEARCH_LIMIT = 7;
-export const MAIN_PAGE_LIMIT = 3;
+export const MAIN_PAGE_LIMIT = 4;
 
 export const RESPONSIVE_CARDS = {
   superLargeDesktop: {
@@ -22,6 +21,7 @@ export const RESPONSIVE_CARDS = {
     items: 1,
   },
 };
+
 export const DEFAULT_PAGINATION_PROPS = {
   nextLabel: <MdChevronRight/>,
   previousLabel: <MdChevronLeft/>,

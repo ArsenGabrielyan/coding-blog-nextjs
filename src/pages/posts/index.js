@@ -6,7 +6,6 @@ import { useState } from "react"; import { useRouter } from "next/router";
 import useSWR from "swr";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function PostList(){
@@ -26,10 +25,10 @@ export default function PostList(){
           <section className="posts small">
                {!currPosts?.length ? <h2 className="empty">No Posts Found</h2> : currPosts?.map(post=><BlogPost key={post.post_id} data={post}/>)}
           </section></>}
-          {!isLoading && <ReactPaginate
+          {!isLoading && currPosts?.length ? <ReactPaginate
                pageCount={pageCount}
                onPageChange={changePage}
                {...DEFAULT_PAGINATION_PROPS}
-          />}
+          /> : null}
      </Layout></>
 }
