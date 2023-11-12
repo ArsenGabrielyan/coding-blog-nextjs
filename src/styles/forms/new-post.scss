@@ -57,7 +57,7 @@
                     left: 10px;
                }
                .separated{position: relative;}
-               input, select{
+               input:not(.editor), select{
                     width: 100%;
                     padding: 0.5em;
                     font-size: 16px;
@@ -81,7 +81,7 @@
                align-items: center;
           }
           padding: 10px;
-          .editor{width: 100%;}
+          .editor{width: 100%; min-height: 180px;}
           .imgPreview{
                margin-top: 8px;width: 100%;
                font-weight: 500;font-size: 16px;
