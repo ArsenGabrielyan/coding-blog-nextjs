@@ -52,7 +52,7 @@ export default function PostPage({author, relatedPosts}){
           <section className="single-post-container">
                <div className="single-post">
                     <div className="single-post-header">
-                         <Image src={post?.banner.file || "/images/post-header.webp"} alt="banner" fill priority/> 
+                         <Image src={post?.banner || "/images/post-header.webp"} alt="banner" fill priority/> 
                     </div>
                     <div className="single-post-body">
                          <h1>{post?.title}</h1>

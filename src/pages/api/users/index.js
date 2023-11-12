@@ -1,6 +1,8 @@
 import connectDB from "@/lib/connectDb";
+import { appStorage } from "@/lib/firebase";
 import User from "@/model/CredentialsUser";
 import Post from "@/model/Post";
+import { deleteObject, ref } from "firebase/storage";
 
 export default async function handler(req,res){
      const {email, userId, accSettings, settings} = req.body;
@@ -55,6 +57,13 @@ export default async function handler(req,res){
                     res.status(200).json({msg: 'Successfully Deleted All Comments'});
                     break;
                default:
+                    const posts = await Post.find({email: userEmail});
+                    if(posts) posts?.forEach(val=>{
+                         const bannerRef = posts ? ref(appStorage, `post-${val?.post_id}/banner`) : null;
+                         const thumbnailRef = posts ? ref(appStorage, `post-${val?.post_id}/thumbnail`) : null;
+                         if(bannerRef) deleteObject(bannerRef);
+                         if(thumbnailRef) deleteObject(thumbnailRef);
+                    })
                     await Post.deleteMany({email: userEmail});
                     res.status(200).json({msg: 'Successfully Deleted All Posts'})
           }

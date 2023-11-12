@@ -8,8 +8,8 @@ const postSchema = new Schema({
           type: String,
           required: [true, 'Content Field is Required']
      },
-     thumbnail: Schema.Types.Mixed,
-     banner: Schema.Types.Mixed,
+     thumbnail: String,
+     banner: String,
      keywords: [String],
      email: String,author: String,
      profileImage: {

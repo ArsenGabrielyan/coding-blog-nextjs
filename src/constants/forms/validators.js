@@ -34,9 +34,12 @@ export const validateSignup = (data, setError, type) => {
 }
 export const validatePost = (postData, setError) => {
      let errTxt = ''; const {banner,thumbnail,title,content,keywords,category} = postData;
+     const bannerSize = banner ? (banner.size/1024/1024).toFixed(2) : 0;
+     const thumbSize = thumbnail ? (thumbnail.size/1024/1024).toFixed(2) : 0;
      switch(true){
-          case banner.file==='' || thumbnail.file==='': errTxt = 'It is Required to Upload Banner or Thumbnail'; break;
-          case banner.size >= 3 || thumbnail.size >= 3: errTxt = "That File is Too Large, Select a File less than 3mb"; break;
+          case !banner: errTxt = 'It is Required to Upload Banner'; break;
+          case !thumbnail: errTxt = 'It is Required to Upload Thumbnail'; break;
+          case bannerSize >= 4 || thumbSize >= 4: errTxt = "That File is Too Large, Select a File less than 4mb"; break;
           case !title || title.trim()==='': errTxt = 'Title Field is Required'; break;
           case title.length<20: errTxt = 'Title Should Not Be Less than 20 Characters'; break;
           case !content || content.trim()==='': errTxt = 'Description Field is Required'; break;

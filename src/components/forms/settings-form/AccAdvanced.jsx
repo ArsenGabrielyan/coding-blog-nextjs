@@ -3,14 +3,15 @@ import { REQ_CONFIG } from "@/constants/forms/formData";
 import axios from "axios";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdImage } from "react-icons/md";
 import { toast } from "react-toastify";
 
-export default function AccAdvanced({user, changeAccSetting, stats}){
+export default function AccAdvanced({user, changeAccSetting, stats, changePfp, id}){
      const [load, setLoad] = useState(false);
      const [isOpenDeletion, setIsOpenDeletion] = useState(false);
      const [data,setData] = useState({comments: 0,posts:0});
+     const pfpRef = useRef(null);
      useEffect(()=>{
           (async()=>{
                const posts = await axios.get('/api/posts',REQ_CONFIG);
@@ -32,7 +33,7 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
      }
      const deleteAccount = async()=>{
           setIsOpenDeletion(false);
-          const res = await axios.delete(`/api/users/${user?.email}`,REQ_CONFIG);
+          const res = await axios.delete(`/api/users/${user?.email}?pfpId=${id}`,REQ_CONFIG);
           if(res.status===200) signOut();
      }
      const deleteFromAccounts = async type => {
@@ -71,8 +72,8 @@ export default function AccAdvanced({user, changeAccSetting, stats}){
           <button type="button" className="btn" id="pass-reset" onClick={sendPassResetLink}>{load ? 'Processing...' : 'Get Secure Link'}</button>
      </div>
      <div className="frmPfp">
-          <input type="file" name="image" onChange={changeAccSetting} hidden accept="image/*"/>
-          <button className="pfpBtn" type="button"><MdImage/> Change Profile Picture</button>
+          <input type="file" name="image" onChange={changePfp} hidden accept="image/*" ref={pfpRef}/>
+          <button className="pfpBtn" type="button" onClick={()=>pfpRef.current.click()}><MdImage/> Change Profile Picture</button>
           <Image src={user?.image} alt="pfp" width={128} height={128} priority/>
      </div>
      <div className="btns">

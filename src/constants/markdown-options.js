@@ -5,6 +5,7 @@ import rehypeRaw from "rehype-raw"; import remarkGfm from "remark-gfm";
 import remarkEmoji from "remark-emoji";
 import DOMPurify from 'isomorphic-dompurify';
 import ReactMarkdown from "react-markdown";
+import dynamic from "next/dynamic";
 
 const CodeBlock = ({node, inline, className, children, ...props}) => {
      const match = /language-(\w+)/.exec(className || '');
@@ -13,6 +14,10 @@ const CodeBlock = ({node, inline, className, children, ...props}) => {
      <code {...props} className={className}>{children}</code>
 }
 const Heading1 = ({children}) => <h2 className="md-h1">{children}</h2>
+const MdEditor = dynamic(
+     () => import("@uiw/react-markdown-editor").then((mod) => mod.default),
+     { ssr: false }
+);
 const customComponents = {h1: Heading1,code: CodeBlock,u: 'ins'}
 const separator = {
      name: 'separator',
@@ -21,10 +26,12 @@ const separator = {
      icon: <RxDividerVertical/>
 }
 
-export const remarkPlugins = [remarkEmoji,remarkGfm], rehypePlugins = [rehypeRaw];
+const remarkPlugins = [remarkEmoji,remarkGfm], rehypePlugins = [rehypeRaw];
 
-export const customToolbar = ['bold','italic','underline','strike',separator,'code','codeBlock',separator,'ulist','olist','todo',separator,'header','image','link','quote'];
+const customToolbar = ['bold','italic','underline','strike',separator,'code','codeBlock',separator,'ulist','olist','todo',separator,'header','image','link','quote'];
 
-export const customMode = ['undo','redo','fullscreen'];
+const customMode = ['undo','redo','fullscreen','preview'];
 
-export const MarkdownContent = ({children, contentClass})=><ReactMarkdown className={contentClass} components={customComponents} remarkPlugins={remarkPlugins} rehypePlugins={rehypePlugins}>{DOMPurify.sanitize(children)}</ReactMarkdown>
+export const MarkdownContent = ({children, contentClass})=><ReactMarkdown className={contentClass} components={customComponents} remarkPlugins={remarkPlugins} rehypePlugins={rehypePlugins}>{DOMPurify.sanitize(children)}</ReactMarkdown>;
+
+export const MarkdownInput = ({val, changeVal, id}) => <MdEditor value={val} onChange={changeVal} className="editor" toolbars={customToolbar} toolbarsMode={customMode} previewProps={{rehypePlugins,remarkPlugins}} id={id}/>

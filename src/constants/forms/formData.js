@@ -18,11 +18,8 @@ export const REGISTER_INITIAL = {
 }
 export const REQ_CONFIG = { headers: {"Content-Type": "application/json"} }
 export const INITIAL_POSTDATA = {
-     title: '',content: '',
-     thumbnail: {file: '',preview: '',size:0},
-     banner: {file: '',preview: '',size:0}, 
-     keywords: [],email: '',category: '',author: '',profileImage: '',
-     date: new Date().toDateString(),post_id: ''
+     title: '',content: '',post_id: '', thumbnail: '', banner: '', profileImage: '', keywords: [], email: '',category: '',author: '',
+     date: new Date().toDateString(),
 }
 export const GET_INITIAL_MULTISTEP_DATA = (data, updateFields) => [
 <PersonalDataForm {...data} updateFields={updateFields} key={1}/>,

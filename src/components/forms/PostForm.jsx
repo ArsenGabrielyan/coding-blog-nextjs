@@ -2,25 +2,19 @@ import { MdClose, MdError, MdImage } from "react-icons/md";
 import { useRef, useState } from "react";
 import useTags from "@/lib/hooks/tools/use-tags";
 import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
-import Compress from "compress.js";
 import { validatePost } from "@/constants/forms/validators";
-import dynamic from "next/dynamic";
-import { customMode, customToolbar, rehypePlugins, remarkPlugins } from "@/constants/markdown-options";
 import axios from "axios"; import Link from "next/link";
 import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
-import { generate, getCategories } from "@/constants/helpers";
+import { generate, getCategories, uploadPostImage } from "@/constants/helpers";
 import { useRouter } from "next/navigation";
+import { MarkdownInput } from "@/constants/markdown-options";
 
-const MarkdownEditor = dynamic(
-     () => import("@uiw/react-markdown-editor").then((mod) => mod.default),
-     { ssr: false }
-);   
 export default function PostForm({postData,setPostData,currData,type='new'}){
      const bannerRef = useRef(null), thumbRef = useRef(null);
      const [err, setErr] = useState('');
      const [loaded, setLoaded] = useState(false);
      const tagOptions = useTags(setPostData,postData);
-     const compress = new Compress(), router = useRouter();
+     const router = useRouter();
      const isCurrPost = JSON.stringify(postData)===JSON.stringify(currData);
      useUnsavedWarning(!isCurrPost);
      const handleChange = e => setPostData({...postData, [e.target.name]: e.target.value});
@@ -33,34 +27,26 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
           setErr('');setLoaded(false);
      };
      const handleChangeFile = async e => {
-          if(e.target.files[0]){
-               const optimized = await compress.compress([...e.target.files],{
-                    maxWidth: 1000,
-                    maxHeight: 560,
-                    size: 4, quality: 0.75
-               });
-               setPostData({...postData, [e.target.id==='banner' ? 'banner' : 'thumbnail']: {
-                    preview: optimized[0].alt,
-                    file: optimized[0].prefix+optimized[0].data,
-                    size: optimized[0].initialSizeInMb
-               }})
-          }
+          if(e.target.files.length)  setPostData({...postData, [e.target.id==='banner' ? 'banner' : 'thumbnail']: e.target.files[0]});
      }
      const handleSubmit = async e => {
           e.preventDefault();
           if(validatePost(postData,setErr)) try{
+               setLoaded(true);
                if(type==='new') {
-                    setLoaded(true);
                     const postId = generate('id',12);
-                    const res = await axios.post('/api/posts',{postData: {...postData, post_id: postId}},REQ_CONFIG);
+                    const bannerImg = await uploadPostImage(postData,'banner',postId);
+                    const thumbImg = await uploadPostImage(postData,'thumb',postId);
+                    const res = await axios.post('/api/posts',{postData: {...postData, post_id: postId, banner: bannerImg, thumbnail: thumbImg}},REQ_CONFIG);
                     if(res?.status===200){
                          setLoaded(false);
                          router.push(`/posts/${postId}`);
                          reset('all');
                     }
                } else{
-                    setLoaded(true);
-                    const res = await axios.put('/api/posts',{postData},REQ_CONFIG);
+                    const bannerImg = await uploadPostImage(postData,'banner',postData.post_id);
+                    const thumbImg = await uploadPostImage(postData,'thumb',postData.post_id);
+                    const res = await axios.put('/api/posts',{postData: {...postData, banner: bannerImg, thumbnail: thumbImg}},REQ_CONFIG);
                     if(res?.status===200){
                          setLoaded(false);
                          router.push(`/posts/${postData.post_id}`);
@@ -80,15 +66,15 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                <input type="file" name="thumbnail" ref={thumbRef} onChange={handleChangeFile} hidden accept="image/*" id="thumbnail"/>
                <input type="file" name="banner" ref={bannerRef} hidden onChange={handleChangeFile} accept="image/*" id="banner"/>
           </div>
-          {postData.banner.preview && <p className="imgPreview"><MdImage/> Banner: {postData.banner.preview} </p>}
-          {postData.thumbnail.preview &&<p className="imgPreview"><MdImage/> Thumbnail: {postData.thumbnail.preview}</p>}
+          {postData.banner?.name && <p className="imgPreview"><MdImage/> Banner: {postData.banner?.name} </p>}
+          {postData.thumbnail?.name &&<p className="imgPreview"><MdImage/> Thumbnail: {postData.thumbnail?.name}</p>}
           <div className="frmGroup">
                <label>Post Title</label>
                <input type="text" name="title" placeholder="Make Sure It Represents the post you are currently creating" value={postData.title} onChange={handleChange}/>
           </div>
           <div className="frmGroup">
                <label className="separated">Post Description</label>
-               <MarkdownEditor value={postData.content} onChange={val=>setPostData({...postData, content: val})} className="editor" enablePreview={false} toolbars={customToolbar} toolbarsMode={customMode} previewProps={{rehypePlugins,remarkPlugins}}/>
+               <MarkdownInput val={postData.content} changeVal={val=>setPostData({...postData, content: val})}/>
           </div>
           <div className="row">
                <div className="frmGroup">

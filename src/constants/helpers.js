@@ -1,5 +1,9 @@
-import axios from "axios"; import { REQ_CONFIG } from "./forms/formData";
+import axios from "axios";
+import { REQ_CONFIG } from "./forms/formData";
 import { toast } from "react-toastify";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { appStorage } from "@/lib/firebase";
+
 export const generate = (type,length) => {
      const chars = type==='id' ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' : 'abcdefghijklmnopqrstuvwxyz0123456789';
      let newChar = '';
@@ -106,4 +110,11 @@ export const getCategories = (type='standard')=>{
           {name: 'Arithmetics', value: 'arithmetics'},
           {name: 'Miscellaneous', value: 'misc'},
      ]
+}
+export async function uploadPostImage(data,type,postId){
+     const fileName = type!=='thumb' ? 'banner' : 'thumbnail';
+     const file = type!=='thumb' ? data.banner : data.thumbnail;
+     const imgRef = ref(appStorage,`post-${postId}/${fileName}`);
+     await uploadBytes(imgRef,file);
+     return await getDownloadURL(imgRef);
 }

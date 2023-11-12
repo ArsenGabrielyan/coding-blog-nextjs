@@ -6,53 +6,20 @@
           justify-content: center;
           align-items: center; 
      }
-     .options, .title, .signIn, .frmNewPost, .results{
+     .title, .signIn, .frmNewPost, .results{
           background: $col4;
           width: 100%;
           color: $white;
+          border-radius: 10px;
      }
-     .title{border-radius: 10px 10px 0 0;}
      .title, .signIn{
           text-align: center;
           font-size: 27px;
           font-weight: 600;
           padding: 10px;
      }
-     .signIn{
-          border-radius: 10px;
-          margin-top: 8px;
-     }
-     .options {
-          border-radius: 0 0 10px 10px;
-          button{
-               padding: 0.5em 1em;
-               font-size: 20px;
-               background: $col4;
-               border: solid transparent;
-               border-width: 0 0 2px 0;
-               color: $white;
-               cursor: pointer;
-               transition: .3s;
-               &:hover,&:focus,&.active{
-                    color: $col2;
-                    border-color: $col2;
-               }
-               &:disabled{
-                    color: $grey;
-                    border-color: $grey;
-                    cursor: auto;
-                    user-select: none;
-                    pointer-events: none;
-               }
-          }
-     }
-     .frmNewPost, .results{
-          border-radius: 10px;
-          margin-top: 8px;
-     }
-     .results,.result-card{
-          min-height: 100%;
-     }
+     .signIn, .frmNewPost, .results{margin-top: 8px;}
+     .results,.result-card{min-height: 100%;}
      .results{
           color: $black;
           .title{padding: 0;padding-bottom: 10px;}
@@ -66,9 +33,7 @@
           padding-top: 0;
      }
      .frmNewPost{
-          .row &{
-               margin-left: 10px;
-          }
+          .row &{margin-left: 10px;}
           .frmErr{
                display: flex;
                align-items: center;
@@ -201,9 +166,7 @@
                grid-template-columns: auto;
                .imgUpload{margin: 5px 0;}
           }
-          .row{
-               flex-direction: column;
-          }
+          .row{flex-direction: column;}
      }
 }
 @media screen and (max-width: 400px){

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { abbrNum, followUnfollow } from "@/constants/helpers";
 
 export const PostSearchElem = ({post}) => <article className="post-searchElem">
-     <Image src={post?.thumbnail.file || "/images/post-thumbnail.webp"} alt="thumbnail" width={128} height={128}/>
+     <Image src={post?.thumbnail || "/images/post-thumbnail.webp"} alt="thumbnail" width={128} height={128}/>
      <div className="details">
           <h2>{post?.title}</h2>
           <span className="postDetails"><FaUser/>{post?.author}<FaCalendar/>{post?.date}</span>
