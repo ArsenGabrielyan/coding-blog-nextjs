@@ -1,22 +1,17 @@
 import Layout from "@/components/pageLayouts/Layout"
 import PostComment from "@/components/comments/PostComment";
 import PostCommentContainer from "@/components/comments/PostCommentContainer";
-import Widget from "@/components/widget/Widget";
-import PostWidget from "@/components/widget/Post-Widget";
-import Link from "next/link";
-import Image from "next/image";
+import {Widget, PostWidget} from "@/components/widget/Widget";
+import Link from "next/link"; import Image from "next/image";
 import connectDB from "@/lib/connectDb"; 
-import Head from "next/head";
-import axios from "axios";
-import User from "@/model/CredentialsUser";
-import Post from "@/model/Post";
+import Head from "next/head"; import axios from "axios";
+import User from "@/model/CredentialsUser"; import Post from "@/model/Post";
 import usePost from "@/lib/hooks/use-post";
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"; import { toast } from "react-toastify";
 import { FaCalendar, FaThumbsUp, FaComment, FaShare, FaBookmark } from "react-icons/fa";
 import { MarkdownContent } from "@/constants/markdown-options";
 import { REQ_CONFIG } from "@/constants/forms/formData";
 import { abbrNum, followUnfollow, serializeObject, shareData, sortByLatest } from "@/constants/helpers";
-import { toast } from "react-toastify";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";

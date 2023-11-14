@@ -70,3 +70,11 @@ table {
           }
      }
 }
+.skeleton{
+     background: $midDarkGrey;
+     &-wrapper{background: $black;}
+}
+.shimmer{
+     background: rgba(255,255,255,.075);
+     box-shadow: 0 0 30px 30px rgba(255,255,255,.075);
+}
