@@ -16,6 +16,7 @@ import { MdComment, MdThumbUpAlt } from "react-icons/md";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
+import { SkeletonDashboard, SkeletonStatBox } from "@/components/pageLayouts/Skeleton-Loaders";
 
 export default function Dashboard({user}){
      const router = useRouter(), {userData,stats,isAllLoading} = useDashboard(user);
@@ -27,16 +28,26 @@ export default function Dashboard({user}){
      <Head><title>Dashboard | EduArticles</title></Head>
      <Layout>
           <h1 className="pageTitle">Dashboard</h1>
-          {isAllLoading ? <h2 className="loadTxt">Loading...</h2> :<div className="settings-container">
+          <div className="settings-container">
                <SettingMenu user={user} activeElem='dashboard' changePage={changePage}/>
                <div className="settings-content">
                     <div className="stats-container">
+                         {isAllLoading ? <>
+                         <SkeletonStatBox/>
+                         <SkeletonStatBox/>
+                         <SkeletonStatBox/>
+                         <SkeletonStatBox/>
+                         </> : <>
                          <StatBox Icon={FaUser} data={userData?.followers} title='Followers'/>
                          <StatBox Icon={MdComment} data={totalComments?.length} title='Comments' enableAttr/>
                          <StatBox Icon={MdThumbUpAlt} data={totalLikes?.length} title='Likes' enableAttr/>
-                         <StatBox Icon={FaBookmark} data={totalSaves} title='Saved' enableAttr/>
+                         <StatBox Icon={FaBookmark} data={totalSaves} title='Saved' enableAttr/></>}
                     </div>
                     <div className="dashboard-content">
+                         {isAllLoading ? <>
+                         <SkeletonDashboard/>
+                         <SkeletonDashboard/>
+                         </> : <>
                          <DashboardElem title="Latest Comments">
                               {!totalComments?.length ? <p>There are no New Comments</p> : <>
                               <div className="dashboard-list">
@@ -50,14 +61,14 @@ export default function Dashboard({user}){
                                         {followers?.slice(0,3).map(follower=><Follower key={follower.user_id} data={follower}/>)}
                                    </div>
                                    <button className="btn dashboard-btn" onClick={()=>setOpenFollowers(!openFollowers)}>See More</button></>}
-                         </DashboardElem>
+                         </DashboardElem></>}
                     </div>
                </div>
-          </div>}
+          </div>
      </Layout>
      <Modal open={{isOpen: openFollowers, setIsOpen: setOpenFollowers}} title="Followers">
-          {currFollowers.map(follower=><Follower key={follower.user_id} data={follower} onClick={()=>setOpenFollowers(false)}/>)}
-          {!isAllLoading && currFollowers.length ? <ReactPaginate
+          {currFollowers?.map(follower=><Follower key={follower.user_id} data={follower} onClick={()=>setOpenFollowers(false)}/>)}
+          {!isAllLoading && currFollowers?.length ? <ReactPaginate
                pageCount={pageCount}
                onPageChange={changeList}
                {...DEFAULT_PAGINATION_PROPS}

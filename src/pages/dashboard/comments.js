@@ -8,6 +8,7 @@ import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 import { sortByLatest } from "@/constants/helpers";
+import { SkeletonComment } from "@/components/pageLayouts/Skeleton-Loaders";
 
 export default function DashboardCommentList({userEmail}){
      const router = useRouter(), dashboardComment = useDashboardComment(userEmail)
@@ -18,10 +19,14 @@ export default function DashboardCommentList({userEmail}){
      <Head><title>All Comments | EduArticles</title></Head>
      <Layout>
           <h1 className="pageTitle">All Comments</h1>
-          {isAllLoading ? <h2 className="loadTxt">Loading...</h2> :<div className="settings-container">
+          <div className="settings-container">
                <SettingMenu user={user} activeElem='comments' changePage={changePage}/>
                <div className="settings-content">
-                    {comments?.length ? <>
+                    {isAllLoading ? <>
+                         <SkeletonComment/>
+                         <SkeletonComment/>
+                         <SkeletonComment/>
+                    </> : comments?.length ? <>
                     {currComments.map(comment=><Comment key={comment.commentId} data={comment} users={users} currUser={user} update={updateDetails}/>)}
                     <ReactPaginate
                          pageCount={pageCount}
@@ -30,7 +35,7 @@ export default function DashboardCommentList({userEmail}){
                     />
                     </> : <h2 className="empty">No New Comments Found</h2>}
                </div>
-          </div>}
+          </div>
      </Layout>
      </>
 }

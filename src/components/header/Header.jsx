@@ -6,6 +6,7 @@ import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/navigation"; 
 import { fetcher, toQueryURL } from "@/constants/helpers";
+import { SkeletonElement } from "../pageLayouts/Skeleton-Loaders";
 
 export default function Header(){
      const router = useRouter(), {status, data} = useSession();
@@ -30,7 +31,10 @@ export default function Header(){
           </div>}
           <div className="userData">
                <button type="button" className="link-icon" onClick={()=>setSearchBox({...searchBox,isOpen:true})} title="Search..."><MdSearch/></button>
-               {status==="unauthenticated" ? <Link href='/auth/signin' className="link">Sign In</Link> : isLoading ? <h2>Loading...</h2> : <UserDropdown user={user}/>}
+               {status==="unauthenticated" ? <Link href='/auth/signin' className="link">Sign In</Link> : isLoading ? <>
+               <SkeletonElement type="square small icon-btn"/>
+               <SkeletonElement type="pfp small"/>
+               </> : <UserDropdown user={user}/>}
           </div>
      </header>
 }

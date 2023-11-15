@@ -9,7 +9,9 @@ export default function ResetPassEmail({isLinkInvalid}){
      const {userToken, userEmail} = query;
      return <>
           <Head><title>Reset Password | Edu-Articles</title></Head>
-          <div className="formContainer"><PassResetForm isLinkInvalid={isLinkInvalid} token={userToken} email={userEmail}/></div>
+          <div className="formContainer">
+               <PassResetForm isLinkInvalid={isLinkInvalid} token={userToken} email={userEmail}/>
+          </div>
      </>
 }
 export async function getServerSideProps({query}){

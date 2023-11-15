@@ -10,6 +10,7 @@ import { currentComment, fetcher } from "@/constants/helpers";
 import { useState } from "react";
 import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 import moment from "moment/moment";
+import { SkeletonElement } from "../pageLayouts/Skeleton-Loaders";
 
 export default function Comment({data, users, currUser, update}){
      const [comment, setComment] = useState({selected:'',newComment:'',load:false})
@@ -66,6 +67,6 @@ export default function Comment({data, users, currUser, update}){
                </div>
           </div>}
      </div>
-     {isLoading ? <p>Loading...</p> : <Link href={`/posts/${data.postId}#${data.commentId}`} className="post-info">{post?.title}</Link>}
+     {isLoading ? <SkeletonElement type="text short"/> : <Link href={`/posts/${data.postId}#${data.commentId}`} className="post-info">{post?.title}</Link>}
 </div>
 }

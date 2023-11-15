@@ -15,6 +15,7 @@ import { abbrNum, followUnfollow, serializeObject, shareData, sortByLatest } fro
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
+import { SkeletonSinglePost } from "@/components/pageLayouts/Skeleton-Loaders";
 
 export default function PostPage({author, relatedPosts}){
      const router = useRouter();
@@ -43,7 +44,7 @@ export default function PostPage({author, relatedPosts}){
      }
      return <><Head><title>{post?.title}</title></Head>
      <Layout>
-     {(isLoading || !post) ? <h2 className="loadTxt">Loading...</h2> : <main className={`single-post-main ${relatedPosts.filter(val=>val.post_id!==post?.post_id).length?'':'full'}`}>
+     {(isLoading || !post) ? <SkeletonSinglePost/> : <main className={`single-post-main ${relatedPosts.filter(val=>val.post_id!==post?.post_id).length?'':'full'}`}>
           <section className="single-post-container">
                <div className="single-post">
                     <div className="single-post-header">

@@ -7,6 +7,7 @@ import useSWR from "swr";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
+import { SkeletonPost } from "@/components/pageLayouts/Skeleton-Loaders";
 
 export default function PostList(){
      const router = useRouter(), {data: posts, isLoading} = useSWR('/api/posts',fetcher);
@@ -20,11 +21,16 @@ export default function PostList(){
      }
      return <><Head><title>Explore Posts | Edu-Articles</title></Head>
      <Layout>
-          {isLoading ? <h2 className="loadTxt">Loading...</h2> : <>
           <ListNavbar options={options} change={{handleChange,changeFilter: handleChangeFilter}}/>
           <section className="posts small">
-               {!currPosts?.length ? <h2 className="empty">No Posts Found</h2> : currPosts?.map(post=><BlogPost key={post.post_id} data={post}/>)}
-          </section></>}
+               {isLoading ? <>
+                    <SkeletonPost/>
+                    <SkeletonPost/>
+                    <SkeletonPost/>
+                    <SkeletonPost/>
+                    <SkeletonPost/>
+               </> : !currPosts?.length ? <h2 className="empty">No Posts Found</h2> : currPosts?.map(post=><BlogPost key={post.post_id} data={post}/>)}
+          </section>
           {!isLoading && currPosts?.length ? <ReactPaginate
                pageCount={pageCount}
                onPageChange={changePage}

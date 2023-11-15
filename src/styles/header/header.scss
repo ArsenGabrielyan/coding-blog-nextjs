@@ -91,10 +91,7 @@
      }
 }
 @media screen and (max-width: 900px){
-     .siteHeader .userData{
-          img{width: 48px;height: 48px;}
-          .menu::before{right: 14px;}
-     }
+     .siteHeader .userData .menu::before{right: 14px;}
 }
 @media screen and (max-width: 500px){
      .siteHeader{

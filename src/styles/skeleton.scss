@@ -1,40 +1,133 @@
 .skeleton{
      background: $lightGrey;
      margin: 10px 0;
-     border-radius: 10px;
+     border-radius: 20px;
      &.text{
           width: 100%;
           height: 10px;
+          &.short{width: 50%;}
      }
      &.title{
           width: 50%;
           height: 20px;
-          margin-bottom: 15px;
+          margin-bottom: 10px;
+          &.h1{
+               width: 100%;
+               height: 25px;
+          }
+          &.full{width: 100%;}
      }
      &.pfp{
           width: 100px;
           height: 100px;
           border-radius: 50%;
+          &.small{width: 64px; height: 64px;}
+          &.smaller{width: 48px; height: 48px;}
+          &.big{width: 180px; height: 180px;}
      }
-     &.thumbnail{
-          width: 100px;
-          height: 100px;
+     &.square{
+          width: 50px;
+          height: 50px;
+          &.small{width: 30px; height: 30px;}
+          &.icon-btn{
+               margin: 0 10px;
+               padding: .25em;
+               border-radius: 8px;
+          }
+          &.thumb{width: 100px;height: 100px;}
+     }
+     &.post-header{
+          width: 100%;
+          height: 300px;
+          margin: 0 0 8px;
+     }
+     &.post-thumb{
+          width: 100%;
+          height: 180px;
+          margin: 0 0 15px;
      }
      &-wrapper{
-          margin: 20px auto;
-          padding: 10px 15px;
-          background: $white;
-          width: 100%;
-          border-radius: 5px;
-          position: relative;
-          overflow: hidden;
+          margin-bottom: 10px;
+          padding: 10px;background: $white;
+          width: 100%;height: 100%;
+          border-radius: 15px;
+          position: relative;overflow: hidden;
+          &.shadow{box-shadow: 0 0 20px rgba(0,0,0,.3);}
+          &.search{max-width: 650px;padding: 20px;}
+          &.single-post{
+               padding: 12px;
+               border-radius: 10px;
+               .details{
+                    display: grid;
+                    width: 100%;
+                    grid-template-columns: repeat(2,1fr);
+                    &,.user{
+                         justify-content: center;
+                         align-items: center;
+                    }
+                    .user{
+                         width: 100%;
+                         display: flex;
+                         .pfp{margin-right: 10px;}
+                    }
+               }
+          }
+          &.post-card .details, &.user-card .details{
+               display: flex;width: 100%;
+               div{width: inherit;}
+               div:first-child{margin-right: 10px;}
+          }
+          &.post-card{
+               padding: 12px;
+               margin: 8px;
+               max-width: 350px;
+          }
+          &.user-card{
+               max-width: 365px;
+               margin: 0 12px 12px;
+               padding: 20px;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+               text-align: center;
+          }
+          &.statbox{
+               padding: 8px;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+               .skeleton{margin: 5px;}
+          }
+          &.comment{
+               width: 100%;
+               height: 100px;
+          }
+          &.comment, .item{
+               display: grid;
+               grid-template-columns: 1fr 5fr;
+               justify-content: center;
+               align-items: center;
+          }
      }
+     &-search{
+          display: grid;
+          grid-template-columns: 1fr 3fr;
+          .details{
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               justify-content: center;
+          }
+     }
+     &-single-post{padding: 10px 20px;}
 }
 .shimmer{
      width: 50%; height: 100%;
-     background: rgba($color: $white, $alpha: .2);
+     background: rgba($color: $white, $alpha: .25);
      transform: skewX(-20deg);
-     box-shadow: 0 0 30px 30px rgba($color: $white, $alpha: .2);
+     box-shadow: 0 0 30px 30px rgba($color: $white, $alpha: .25);
      &-wrapper{
           position: absolute;
           top: 0;left: 0;
@@ -46,4 +139,10 @@
      0%{transform: translateX(-150%);}
      50%{transform: translateX(-60%);}
      100%{transform: translateX(150%);}
+}
+@media screen and (max-width: 900px){
+     .skeleton{
+          &.post-header{height: 150px;}
+          &-single-post{grid-template-columns: auto;}
+     }
 }

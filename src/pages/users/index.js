@@ -6,6 +6,7 @@ import ListNavbar from "@/components/header/ListNavbar";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
+import { SkeletonUser } from "@/components/pageLayouts/Skeleton-Loaders";
 
 export default function UserList(){
      const {data,status} = useSession();
@@ -18,12 +19,16 @@ export default function UserList(){
      const {data: currUsers, pageCount, changePage} = usePagination(users,20);
      return <><Head><title>Explore Users | Edu-Articles</title></Head>
      <Layout>
-          {!isLoading ? <>
           <ListNavbar usermode/>
           <section className="userlist">
-               {!currUsers?.length ? <h2 className="empty">No User Found</h2> : currUsers?.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} currUser={currUser} status={status} update={updateDetails}/>)}
+               {isLoading ? <>
+                    <SkeletonUser/>
+                    <SkeletonUser/>
+                    <SkeletonUser/>
+                    <SkeletonUser/>
+                    <SkeletonUser/>
+               </> : !currUsers?.length ? <h2 className="empty">No User Found</h2> : currUsers?.map(user=><UserListItem key={user.user_id} user={user} type={data?.user.email===user.email?"session":"other"} currUser={currUser} status={status} update={updateDetails}/>)}
           </section>
-          </> : <h2 className="loadTxt">Loading...</h2>}
           {!isLoading && currUsers?.length ? <ReactPaginate
                pageCount={pageCount}
                onPageChange={changePage}

@@ -42,7 +42,7 @@ export default function SignUpForm(){
           {multistep.steps.length && <div className="steps">
                {multistep.steps.map((_,i)=><span className={`circle ${i+1<=multistep.currentIndex+1 ? 'active' : ''}`} key={i+1}>{i+1}</span>)}
                <div className="progress-bar">
-                    <div className="indicator" style={{width: `${((multistep.currentIndex+1)/(multistep.steps.length))*100}%`}}></div>
+                    <div className="indicator" style={{width: `${((multistep.currentIndex+1)/(multistep.steps.length))*100}%`}}/>
                </div>
           </div>}
           {err ? <><p className="error"><MdError/>{err}</p>{multistep.step}</> : multistep.step}

@@ -18,7 +18,7 @@ export default function PasswordStrength({pass, moreSpace=false}){
           background: getProps('color')
      } : {color: getProps('color')}
      return <div className={`frmProgress${moreSpace ? ' large' : ''}`}>
-          <div className="bar" style={changeColor('bar')}></div>
+          <div className="bar" style={changeColor('bar')}/>
           <div className="label" style={changeColor()}>{getProps()}</div>
      </div>
 }

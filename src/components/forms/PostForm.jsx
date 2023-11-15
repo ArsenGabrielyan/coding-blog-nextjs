@@ -8,9 +8,10 @@ import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
 import { generate, getCategories, uploadPostImage } from "@/constants/helpers";
 import { useRouter } from "next/navigation";
 import { MarkdownInput } from "@/constants/markdown-options";
+import { useTheme } from "next-themes";
 
 export default function PostForm({postData,setPostData,currData,type='new'}){
-     const bannerRef = useRef(null), thumbRef = useRef(null);
+     const bannerRef = useRef(null), thumbRef = useRef(null), {theme} = useTheme();
      const [err, setErr] = useState('');
      const [loaded, setLoaded] = useState(false);
      const tagOptions = useTags(setPostData,postData);
@@ -72,7 +73,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                <label>Post Title</label>
                <input type="text" name="title" placeholder="Make Sure It Represents the post you are currently creating" value={postData.title} onChange={handleChange}/>
           </div>
-          <div className="frmGroup">
+          <div className="frmGroup" data-color-mode={theme==='dark' ? 'dark' : 'light'}>
                <label className="separated">Post Description</label>
                <MarkdownInput val={postData.content} changeVal={val=>setPostData({...postData, content: val})}/>
           </div>

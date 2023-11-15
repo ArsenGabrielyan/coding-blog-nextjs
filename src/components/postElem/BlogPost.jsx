@@ -23,7 +23,9 @@ export default function BlogPost({data, noLink=false, adminMode=false, update}){
           }
      }
      return <article className="post">
-          <div className="header"><Image src={data?.thumbnail || "/images/post-thumbnail.webp"} alt="post" fill priority sizes="(max-width: 500px) 270px"/></div> 
+          <div className="header">
+               <Image src={data?.thumbnail || "/images/post-thumbnail.webp"} alt="post" fill priority sizes="(max-width: 500px) 270px"/>
+          </div> 
           <div className="content">
                <h2 className="blog-title">{data?.title}</h2>
                <div className="details">

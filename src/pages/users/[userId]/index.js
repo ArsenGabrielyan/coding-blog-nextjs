@@ -12,6 +12,7 @@ import { FaGlobe, FaShare } from "react-icons/fa";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
+import { SkeletonPost } from "@/components/pageLayouts/Skeleton-Loaders";
 
 export default function UserProfile(){
      const router = useRouter();
@@ -53,7 +54,13 @@ export default function UserProfile(){
                     <div className="btns">{buttons}</div>
                </nav>}
                <div className="posts small userPosts">
-                    {arePostsLoading ? <h2 className="empty">Loading...</h2> : !posts.length ? <h2 className="empty">This User Doesn&apos;t have any posts</h2> : currPosts?.map(post=><BlogPost key={post.post_id} data={post} adminMode={isCurrUser} update={updatePosts}/>)}
+                    {arePostsLoading ? <>
+                         <SkeletonPost/>
+                         <SkeletonPost/>
+                         <SkeletonPost/>
+                         <SkeletonPost/>
+                         <SkeletonPost/>
+                    </> : !posts.length ? <h2 className="empty">This User Doesn&apos;t have any posts</h2> : currPosts?.map(post=><BlogPost key={post.post_id} data={post} adminMode={isCurrUser} update={updatePosts}/>)}
                </div>
                {!arePostsLoading && posts.length ? <ReactPaginate
                     pageCount={pageCount}
