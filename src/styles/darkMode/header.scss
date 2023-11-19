@@ -18,7 +18,7 @@
 }
 .siteHeader{
      background: $black;
-     .logo{box-shadow: 0 0 5px 5px rgba(255,255,255,.6);}
+     .logo{filter: drop-shadow(0 0 3px $white);}
      .inner-content .search{
           input{
                color: $white;

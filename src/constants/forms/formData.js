@@ -17,10 +17,7 @@ export const REGISTER_INITIAL = {
      confirmPass: '',
 }
 export const REQ_CONFIG = { headers: {"Content-Type": "application/json"} }
-export const INITIAL_POSTDATA = {
-     title: '',content: '',post_id: '', thumbnail: '', banner: '', profileImage: '', keywords: [], email: '',category: '',author: '',
-     date: new Date().toDateString(),
-}
+export const INITIAL_POSTDATA = { title: '',content: '',post_id: '', thumbnail: '', banner: '', profileImage: '', keywords: [], email: '',category: '',author: '',date: new Date().toDateString() }
 export const GET_INITIAL_MULTISTEP_DATA = (data, updateFields) => [
 <PersonalDataForm {...data} updateFields={updateFields} key={1}/>,
 <BDateForm {...data} updateFields={updateFields} key={2}/>,

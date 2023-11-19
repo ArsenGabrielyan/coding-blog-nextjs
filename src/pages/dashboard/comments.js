@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head"; import { useRouter } from "next/router";
 import Comment from "@/components/comments/Comment";
 import useDashboardComment from "@/lib/hooks/use-dashboard-comment";
-import SettingMenu from "@/components/features/SettingMenu";
+import SettingMenu from "@/components/header/SettingMenu";
 import usePagination from "@/lib/hooks/tools/use-pagination";
 import ReactPaginate from "react-paginate";
 import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";

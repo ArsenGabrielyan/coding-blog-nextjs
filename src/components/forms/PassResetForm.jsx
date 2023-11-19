@@ -5,7 +5,7 @@ import { MdError } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import axios from "axios"; import { FORGOT_PASS_INITIAL, REQ_CONFIG } from "@/constants/forms/formData";
-import PasswordStrength from "../PasswordStrengthMeter";
+import PasswordStrength from "../features/PasswordStrengthMeter";
 
 export default function PassResetForm({isLinkInvalid, token, email}){
      const router = useRouter()

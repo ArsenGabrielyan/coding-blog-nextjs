@@ -1,6 +1,6 @@
 import Layout from "@/components/pageLayouts/Layout";
-import SettingMenu from "@/components/features/SettingMenu";
-import { Follower, DashboardElem, DashboardComment, StatBox } from "@/components/features/DashboardElements"
+import SettingMenu from "@/components/header/SettingMenu";
+import { Follower, DashboardElem, DashboardComment, StatBox } from "@/components/cards/DashboardElements"
 import Modal from "@/components/features/Modal";
 import { serializeObject } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb";

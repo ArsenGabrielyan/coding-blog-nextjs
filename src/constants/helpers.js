@@ -97,18 +97,18 @@ export const currentComment = (users,currUser,commentId) => ({
 export const getCategories = (type='standard')=>{
      const filterMode = type==='filter' ? [{name: 'Filter By Category'},{name: 'All', value: 'all'}] : [];
      return [...filterMode,
-          {name: 'Science & Tech', value: 'science-tech'},
-          {name: 'Arts & Crafts', value: 'arts-crafts'},
-          {name: 'Mathematics', value: 'maths'},
-          {name: 'Preschool', value: 'preschool'},
-          {name: 'Literature', value: 'literature'},
-          {name: 'Health & Sports', value: 'health-sports'},
-          {name: 'History', value: 'history'},
-          {name: 'Music', value: 'music'},
-          {name: 'Gardening', value: 'gardening'},
-          {name: 'Languages', value: 'langs'},
-          {name: 'Arithmetics', value: 'arithmetics'},
-          {name: 'Miscellaneous', value: 'misc'},
+          {name: 'Game Dev', value: 'game-dev'},
+          {name: 'FrontEnd', value: 'frontend'},
+          {name: 'BackEnd', value: 'backend'},
+          {name: 'Full Stack', value: 'full-stack'},
+          {name: 'Databases', value: 'databases'},
+          {name: 'Coding Tools', value: 'coding-tools'},
+          {name: 'Others (Coding Related)', value: 'others'},
+          {name: 'Software Dev', value: 'software-dev'},
+          {name: 'Mobile Dev', value: 'mobile-dev'},
+          {name: 'Hardware Dev', value: 'hardware-dev'},
+          {name: 'IoT Things', value: 'iot'},
+          {name: 'Circuits', value: 'circuits'},
      ]
 }
 export async function uploadPostImage(data,type,postId){
@@ -117,4 +117,20 @@ export async function uploadPostImage(data,type,postId){
      const imgRef = ref(appStorage,`post-${postId}/${fileName}`);
      await uploadBytes(imgRef,file);
      return await getDownloadURL(imgRef);
+}
+export const getRecommendedTags = category =>{
+     switch(category){
+          case 'game-dev': return ['unity','unreal-engine','game-maker','clickteam-fusion','godot']
+          case 'frontend': return ['html','css','bootstrap','javascript','react','angular','vue','jquery','json','pwa','spa','website']
+          case 'backend': return ['php','python','ruby','node-js','api']
+          case 'full-stack': return ['next-js','javascript','react','angular','vue','php','python','ruby','node-js','api']
+          case 'databases': return ['sql','mysql','postgresql','mongodb','nosql']
+          case 'coding-tools': return ['github','git','firebase','supabase','gitlab','aws','visual-studio','vscode','api','google-cloud','linux','docker']
+          case 'software-dev': return ['java','c++','c#','c','python','visual-basic','dotnet']
+          case 'mobile-dev': return ['react-native','android','ios','lua','kotlin','java','swift','dotnet']
+          case 'hardware-dev': return ['pc','mac','macbook','hardware','circuits']
+          case 'iot': return ['raspberry-pi','arduino','node-mcu']
+          case 'circuits': return ['pcb','breadboard','raspberry-pi','arduino','node-mcu','rc','smart-projects','hardware','circuits']
+          default: return []
+     }
 }

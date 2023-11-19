@@ -21,7 +21,7 @@ export default function Header(){
           }
      }
      return <header className='siteHeader'>
-          <Link href='/' id="logo"><Image src="/images/logo.webp" priority alt="" className="logo" width={125} height={80}/></Link>
+          <Link href='/' id="logo"><Image src="/images/logo.webp" priority alt="" className="logo" width={200} height={55}/></Link>
           {searchBox.isOpen && <div className="inner-content">
                <form className="search" onSubmit={acceptSearch}>
                     <input type="text" name="search" placeholder="Search..." value={searchBox.search} onChange={e=>setSearchBox({...searchBox,search: e.target.value})} title="Search"/>

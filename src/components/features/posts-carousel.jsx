@@ -1,5 +1,5 @@
 import Carousel from "react-multi-carousel";
-import SmallPost from "../postElem/Small-Post";
+import {SmallPost} from "../cards/Post-Cards";
 import { RESPONSIVE_CARDS } from "@/constants/constantData";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 

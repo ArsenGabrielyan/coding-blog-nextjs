@@ -1,6 +1,6 @@
 import { useState } from "react"; import FormWrapper from "../FormWrapper";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import PasswordStrength from "@/components/PasswordStrengthMeter";
+import PasswordStrength from "@/components/features/PasswordStrengthMeter";
 
 export default function FinalForm({username='',password='',confirmPass='', updateFields}){
      const [toggle, setToggle] = useState({pass:false,cPass:false})

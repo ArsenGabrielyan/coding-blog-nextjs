@@ -1,9 +1,9 @@
 .siteHeader{
      position: relative;width: 100%;z-index: 9999;
-     padding: 10px 20px;background: $col3;
+     padding: 10px 20px;background: $col4;
      justify-content: space-between;
      transition: .3s ease-in-out all;
-     .logo{border-radius: 10px;box-shadow: 0 0 5px 5px rgba(255,255,255,.6);}
+     .logo{filter: drop-shadow(0 0 3px $black);}
      &,.inner-content{display: flex;align-items: center;}
      .inner-content{
           width: 50%;
@@ -46,6 +46,7 @@
                overflow: hidden;
                cursor: pointer;
                margin-left: 5px;
+               box-shadow: 0 5px 20px rgba(255,255,255,.3);
           }
           .menu{
                position: absolute;
@@ -97,7 +98,7 @@
      .siteHeader{
           padding: 15px 10px;
           position: relative;height: 100px;
-          .logo{width: 100px;height: 65px;}
+          .logo{width: 135px; height: 36px;}
           .inner-content{
                justify-content: center;
                margin: 0;background: none;

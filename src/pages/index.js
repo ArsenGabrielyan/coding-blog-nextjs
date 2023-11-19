@@ -1,9 +1,9 @@
 import Layout from "@/components/pageLayouts/Layout";
-import BlogPost from "@/components/postElem/BlogPost";
+import {BlogPost} from "@/components/cards/Post-Cards";
 import PostsCarousel from "@/components/features/posts-carousel";
 import connectDB from "@/lib/connectDb"; import { useState } from "react";
 import { serializeObject, sortByLatest } from "@/constants/helpers";
-import WidgetsFeature from "@/components/widget/WidgetFeature";
+import WidgetsFeature from "@/components/features/Widget";
 import { getSession } from "next-auth/react"; import Post from "@/model/Post";
 import User from "@/model/CredentialsUser"; import { MAIN_PAGE_LIMIT } from "@/constants/constantData";
 

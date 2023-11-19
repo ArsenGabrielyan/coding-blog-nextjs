@@ -1,7 +1,7 @@
 import Layout from "@/components/pageLayouts/Layout"
 import PostComment from "@/components/comments/PostComment";
 import PostCommentContainer from "@/components/comments/PostCommentContainer";
-import {Widget, PostWidget} from "@/components/widget/Widget";
+import {Widget, PostWidget} from "@/components/features/Widget";
 import Link from "next/link"; import Image from "next/image";
 import connectDB from "@/lib/connectDb"; 
 import Head from "next/head"; import axios from "axios";

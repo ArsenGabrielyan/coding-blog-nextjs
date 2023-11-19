@@ -2,8 +2,8 @@ import { dateReg, emailReg, passReg, phoneReg } from "./regexp";
 
 export const validateSignup = (data, setError, type) => {
      const {name,email,phone,bdate,gender,address,password,confirmPass} = data;
-     const d = new Date(), selectedD = new Date(bdate);
-     const age = d.getFullYear() - selectedD.getFullYear(); let errTxt = '';
+     const d = new Date(), selectedD = new Date(bdate); let errTxt = '';
+     const age = d.getFullYear() - selectedD.getFullYear();
      switch(true){
           case (!name || name.length <= 2): errTxt ='Full name is Too Short'; break;
           case (!email || !emailReg.test(email)): errTxt ='The Email Format is Invalid'; break;
@@ -41,9 +41,9 @@ export const validatePost = (postData, setError) => {
           case !thumbnail: errTxt = 'It is Required to Upload Thumbnail'; break;
           case bannerSize >= 4 || thumbSize >= 4: errTxt = "That File is Too Large, Select a File less than 4mb"; break;
           case !title || title.trim()==='': errTxt = 'Title Field is Required'; break;
-          case title.length<20: errTxt = 'Title Should Not Be Less than 20 Characters'; break;
+          case title.length<12: errTxt = 'Title Should Not Be Less than 12 Characters'; break;
           case !content || content.trim()==='': errTxt = 'Description Field is Required'; break;
-          case content.length<30: errTxt = 'Description Should Not Be Less than 30 Characters'; break;
+          case content.length<21: errTxt = 'Description Should Not Be Less than 21 Characters'; break;
           case !keywords.length: errTxt = "It is Required to Add some Keywords"; break;
           case !category: errTxt = "Select Category For Your Post"; break;
           default: errTxt = ''

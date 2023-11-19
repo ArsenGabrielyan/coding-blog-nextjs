@@ -1,5 +1,5 @@
 import Layout from "@/components/pageLayouts/Layout";
-import UserListItem from "@/components/UserListItem";
+import UserListItem from "@/components/cards/UserListItem";
 import Head from "next/head"; import { useSession } from "next-auth/react";
 import { fetcher } from "@/constants/helpers"; import useSWR from "swr";
 import ListNavbar from "@/components/header/ListNavbar";

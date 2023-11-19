@@ -4,8 +4,21 @@ import { FaCalendar, FaUser } from "react-icons/fa";
 import { MdMoreHoriz, MdEdit, MdDelete } from "react-icons/md";
 import axios from "axios"; import { REQ_CONFIG } from "@/constants/forms/formData";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
-export default function BlogPost({data, noLink=false, adminMode=false, update}){
+export function SmallPost({data}){
+     const router = useRouter();
+     return <div className="smallPost" onClick={()=>router.push(`/posts/${data.post_id}`)}>
+          <Image src={data.thumbnail} alt="thumbnail" fill priority/>
+          <div className="details">
+               <span><FaCalendar/>{data.date}</span>
+               <h2>{data.title}</h2>
+               <span><FaUser/>{data.author}</span>
+          </div>
+     </div>
+}
+
+export function BlogPost({data, noLink=false, adminMode=false, update}){
      const [open, setOpen] = useState(false), optRef = useRef(null);
      useEffect(()=>{
           const handleClick = e => { if(!optRef.current?.contains(e.target)) setOpen(false); }

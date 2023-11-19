@@ -8,9 +8,7 @@ export default function UserDropdown({user}){
      const [isOpen, setIsOpen] = useState(false)
      const pfpRef = useRef(null);
      useEffect(()=>{
-          const handleClick = e => {
-               if(!pfpRef.current?.contains(e.target)) setIsOpen(false);
-          }
+          const handleClick = e => {if(!pfpRef.current?.contains(e.target)) setIsOpen(false);}
           document.addEventListener('click',handleClick,true)
           return () => document.removeEventListener('click',handleClick,true)
      },[]);

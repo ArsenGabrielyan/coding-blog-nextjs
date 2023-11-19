@@ -58,7 +58,7 @@ export default function PostComment({data, session, postId, users, currUser, upd
           if(res.status===200) {
                await updatePost();
                await updateDetails();
-          };
+          }
      }
      return <div className="comment" id={data.commentId}>
           <Link href={`/users/${data.name}`}><Image src={data.image} alt="account profile" className="comment-pfp" width={64} height={64}/></Link>

@@ -1,11 +1,11 @@
-import { MdClose, MdError, MdImage } from "react-icons/md";
+import { MdAdd, MdClose, MdError, MdImage } from "react-icons/md";
 import { useRef, useState } from "react";
 import useTags from "@/lib/hooks/tools/use-tags";
 import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 import { validatePost } from "@/constants/forms/validators";
 import axios from "axios"; import Link from "next/link";
 import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
-import { generate, getCategories, uploadPostImage } from "@/constants/helpers";
+import { generate, getCategories, getRecommendedTags, uploadPostImage } from "@/constants/helpers";
 import { useRouter } from "next/navigation";
 import { MarkdownInput } from "@/constants/markdown-options";
 import { useTheme } from "next-themes";
@@ -14,11 +14,24 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
      const bannerRef = useRef(null), thumbRef = useRef(null), {theme} = useTheme();
      const [err, setErr] = useState('');
      const [loaded, setLoaded] = useState(false);
+     const [recomTags, setRecomTags] = useState([])
      const tagOptions = useTags(setPostData,postData);
      const router = useRouter();
      const isCurrPost = JSON.stringify(postData)===JSON.stringify(currData);
      useUnsavedWarning(!isCurrPost);
      const handleChange = e => setPostData({...postData, [e.target.name]: e.target.value});
+     const handleChangeCategory = e => {
+          setRecomTags(getRecommendedTags(e.target.value))
+          setPostData({...postData,category: e.target.value})
+     }
+     const addTag = (type='some', i=0) => {
+          const arr = [...recomTags];
+          setPostData({...postData, keywords: type!=='all' ? [...postData.keywords, arr[i]] : [...postData.keywords, ...arr]});
+          if(type!=='all'){
+               arr.splice(i,1)
+               setRecomTags(arr)
+          } else setRecomTags([])
+     }
      const reset = type => {
           if(type==='some'){
                const {author,profileImage,email} = postData;
@@ -28,7 +41,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
           setErr('');setLoaded(false);
      };
      const handleChangeFile = async e => {
-          if(e.target.files.length)  setPostData({...postData, [e.target.id==='banner' ? 'banner' : 'thumbnail']: e.target.files[0]});
+          if(e.target.files.length) setPostData({...postData, [e.target.id==='banner' ? 'banner' : 'thumbnail']: e.target.files[0]});
      }
      const handleSubmit = async e => {
           e.preventDefault();
@@ -67,8 +80,8 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                <input type="file" name="thumbnail" ref={thumbRef} onChange={handleChangeFile} hidden accept="image/*" id="thumbnail"/>
                <input type="file" name="banner" ref={bannerRef} hidden onChange={handleChangeFile} accept="image/*" id="banner"/>
           </div>
-          {postData.banner?.name && <p className="imgPreview"><MdImage/> Banner: {postData.banner?.name} </p>}
-          {postData.thumbnail?.name &&<p className="imgPreview"><MdImage/> Thumbnail: {postData.thumbnail?.name}</p>}
+          {postData.banner && <p className="imgPreview"><MdImage/> Banner: {postData.banner.name || postData.banner} </p>}
+          {postData.thumbnail &&<p className="imgPreview"><MdImage/> Thumbnail: {postData.thumbnail.name || postData.thumbnail}</p>}
           <div className="frmGroup">
                <label>Post Title</label>
                <input type="text" name="title" placeholder="Make Sure It Represents the post you are currently creating" value={postData.title} onChange={handleChange}/>
@@ -84,7 +97,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                </div>
                <div className="frmGroup">
                     <label>Post Category</label>
-                    <select name="category" value={postData.category} onChange={handleChange}>
+                    <select name="category" value={postData.category} onChange={handleChangeCategory}>
                          {getCategories().map((opt,i)=><option key={i} value={opt.value} disabled={!opt.value}>{opt.name}</option>)}
                     </select>
                </div>
@@ -93,6 +106,11 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                <label>Keywords</label>
                <input type="text" name="keywords" placeholder="Enter a comma after each keyword and make sure they are unique" value={tagOptions.tagInput} onChange={tagOptions.changeTags} onKeyDown={tagOptions.handleKeydown}/>
           </div>
+          {!!recomTags.length && <>
+               <h3>Recommended Tags</h3>
+               <ul className="tagList">{recomTags.map((tag,i)=><li key={i}>{tag}<button type="button" onClick={()=>addTag('some',i)}><MdAdd/></button></li>)}</ul>
+               <button type="button" className="btn white btnTags" onClick={()=>addTag('all')}>Add All of them</button>
+          </>}
           {!!postData.keywords.length && <>
                <ul className="tagList">
                     {postData.keywords.map((tag,i)=><li key={i}><span onClick={()=>tagOptions.editTag(i)}>{tag}</span><button type="button" onClick={()=>tagOptions.removeTag(i)}><MdClose/></button></li>)}

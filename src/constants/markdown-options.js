@@ -18,6 +18,7 @@ const MdEditor = dynamic(
      () => import("@uiw/react-markdown-editor").then((mod) => mod.default),
      { ssr: false }
 );
+
 const customComponents = {h1: Heading1,code: CodeBlock,u: 'ins'}
 const separator = {
      name: 'separator',
@@ -25,13 +26,10 @@ const separator = {
      button: {className: 'divider', 'aria-label': 'separator'},
      icon: <RxDividerVertical/>
 }
-
 const remarkPlugins = [remarkEmoji,remarkGfm], rehypePlugins = [rehypeRaw];
 
 const customToolbar = ['bold','italic','underline','strike',separator,'code','codeBlock',separator,'ulist','olist','todo',separator,'header','image','link','quote'];
-
 const customMode = ['undo','redo','fullscreen','preview'];
 
 export const MarkdownContent = ({children, contentClass})=><ReactMarkdown className={contentClass} components={customComponents} remarkPlugins={remarkPlugins} rehypePlugins={rehypePlugins}>{DOMPurify.sanitize(children)}</ReactMarkdown>;
-
 export const MarkdownInput = ({val, changeVal, id}) => <MdEditor value={val} onChange={changeVal} className="editor" toolbars={customToolbar} toolbarsMode={customMode} previewProps={{rehypePlugins,remarkPlugins}} id={id}/>

@@ -1,5 +1,6 @@
 .dark{
      color: $white;
+     body{background: $col1}
      @import "./buttons.scss";
      @import "./dashboard.scss";
      @import "./form.scss";

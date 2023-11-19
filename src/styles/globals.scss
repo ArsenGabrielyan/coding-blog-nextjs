@@ -6,6 +6,7 @@
 }
 html,body{position: relative;scroll-behavior: smooth;}
 @import "./allStyles.scss";
+::selection{background: $col2;color: $black;}
 .customM{margin: 8px 3.5px;}
 .divider{
      -webkit-user-select: none;

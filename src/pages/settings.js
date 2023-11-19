@@ -6,7 +6,7 @@ import useSettings from "@/lib/hooks/use-settings";
 import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 import { getSession } from "next-auth/react"; import { useState } from "react";
 import Head from "next/head"; import { useRouter } from "next/router";
-import SettingMenu from "@/components/features/SettingMenu";
+import SettingMenu from "@/components/header/SettingMenu";
 
 export default function SettingsPage({user}){
      const router = useRouter();

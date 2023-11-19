@@ -1,5 +1,5 @@
 import Layout from "@/components/pageLayouts/Layout";
-import BlogPost from "@/components/postElem/BlogPost";
+import {BlogPost} from "@/components/cards/Post-Cards";
 import connectDB from "@/lib/connectDb";
 import User from "@/model/CredentialsUser";
 import Post from "@/model/Post"; import Head from "next/head";
