@@ -8,7 +8,7 @@
           box-shadow: 0 5px 25px rgba(0,0,0,.2);
           .error, .success{color: $white;}
           .error{background: rgba($color: $error, $alpha: 0.75);}
-          .success{background: rgba($color: $col4, $alpha: 0.75);}
+          .success{background: rgba($color: $success, $alpha: 0.75);}
           .frmGroup{
                input[type=text], input[type=email],input[type=date], input[type=password]{
                     border-color: $grey; background: $black;

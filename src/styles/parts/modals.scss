@@ -41,7 +41,7 @@
                          margin: 10px 0;
                          font-size: 16px;
                          padding-bottom: 10px;
-                         border-bottom: 1px solid $mlg2;
+                         border-bottom: 1px solid $midLightGrey;
                          &:last-child{border: 0;padding: 0;}
                          &.redTxt{color: $error;font-weight: 600;cursor: pointer;&:hover,&:focus{text-decoration: underline;}}
                          a,&.list-btn{
@@ -59,7 +59,7 @@
                     background: none;cursor: pointer;
                     border: none;outline: none;
                     font-weight: 550;
-                    border-top: 1px solid $mlg2;
+                    border-top: 1px solid $midLightGrey;
                     &:hover, &:focus{
                          color: $col1;
                          text-decoration: underline;
