@@ -11,7 +11,7 @@ export default function App({Component, pageProps}){
      <Head>
           <link rel="shortcut icon" href="/favicon.ico"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-          <title>Edu-Articles | Educational Blog</title>
+          <title>Arsen&apos;s CodeBlog</title>
      </Head>
      <ThemeProvider attribute="class">
           <SessionProvider session={pageProps.session}>

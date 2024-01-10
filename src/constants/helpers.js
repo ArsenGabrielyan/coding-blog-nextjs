@@ -80,7 +80,7 @@ export const format12Hr = time => {
 }
 export const shareData = async (title='') => {
      const shareData = {
-          title: 'Edu-Articles',
+          title: 'CodeBlog',
           text: title,
           url: location.href
      }
@@ -120,13 +120,13 @@ export async function uploadPostImage(data,type,postId){
 }
 export const getRecommendedTags = category =>{
      switch(category){
-          case 'game-dev': return ['unity','unreal-engine','game-maker','clickteam-fusion','godot']
-          case 'frontend': return ['html','css','bootstrap','javascript','react','angular','vue','jquery','json','pwa','spa','website']
-          case 'backend': return ['php','python','ruby','node-js','api']
-          case 'full-stack': return ['next-js','javascript','react','angular','vue','php','python','ruby','node-js','api']
+          case 'game-dev': return ['unity','unreal-engine','game-maker','clickteam-fusion','godot','kaboom-js']
+          case 'frontend': return ['html','css','bootstrap','javascript','react','angular','vue','jquery','json','pwa','spa','website','web','web-app','sass','scss']
+          case 'backend': return ['php','python','ruby','node-js','api','express-js']
+          case 'full-stack': return ['next-js','javascript','express-js','php','python','ruby','node-js','api']
           case 'databases': return ['sql','mysql','postgresql','mongodb','nosql']
           case 'coding-tools': return ['github','git','firebase','supabase','gitlab','aws','visual-studio','vscode','api','google-cloud','linux','docker']
-          case 'software-dev': return ['java','c++','c#','c','python','visual-basic','dotnet']
+          case 'software-dev': return ['java','c++','c#','c','python','visual-basic','dotnet','software']
           case 'mobile-dev': return ['react-native','android','ios','lua','kotlin','java','swift','dotnet']
           case 'hardware-dev': return ['pc','mac','macbook','hardware','circuits']
           case 'iot': return ['raspberry-pi','arduino','node-mcu']

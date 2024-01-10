@@ -25,7 +25,7 @@ export default function Dashboard({user}){
      const [openFollowers, setOpenFollowers] = useState(false);
      const {data: currFollowers, pageCount, changePage: changeList} = usePagination(followers,10)
      return <>
-     <Head><title>Dashboard | EduArticles</title></Head>
+     <Head><title>Dashboard | Arsen&apos;s CodeBlog</title></Head>
      <Layout>
           <h1 className="pageTitle">Dashboard</h1>
           <div className="settings-container">

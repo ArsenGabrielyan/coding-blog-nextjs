@@ -1,9 +1,10 @@
 import { MdAdd, MdClose, MdError, MdImage } from "react-icons/md";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import useTags from "@/lib/hooks/tools/use-tags";
 import useUnsavedWarning from "@/lib/hooks/tools/use-unsaved";
 import { validatePost } from "@/constants/forms/validators";
-import axios from "axios"; import Link from "next/link";
+import axios from "axios";
+import Link from "next/link";
 import { REQ_CONFIG, INITIAL_POSTDATA } from "@/constants/forms/formData";
 import { generate, getCategories, getRecommendedTags, uploadPostImage } from "@/constants/helpers";
 import { useRouter } from "next/navigation";
@@ -11,7 +12,8 @@ import { MarkdownInput } from "@/constants/markdown-options";
 import { useTheme } from "next-themes";
 
 export default function PostForm({postData,setPostData,currData,type='new'}){
-     const bannerRef = useRef(null), thumbRef = useRef(null), {theme} = useTheme();
+     const bannerRef = useRef(null), thumbRef = useRef(null);
+     const {theme} = useTheme();
      const [err, setErr] = useState('');
      const [loaded, setLoaded] = useState(false);
      const [recomTags, setRecomTags] = useState([])
@@ -72,6 +74,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
                setErr(err.response ? err.response.data.message : err.message)
           } 
      }
+     const recommended = useMemo(()=>[...new Set(recomTags.filter(val=>!postData.keywords.includes(val)))],[postData.keywords,recomTags])
      return <form className="frmNewPost" onSubmit={handleSubmit}>
           {err && <p className="frmErr"><MdError/> {err}</p>}
           <div className="imageUploads">
@@ -108,7 +111,7 @@ export default function PostForm({postData,setPostData,currData,type='new'}){
           </div>
           {!!recomTags.length && <>
                <h3>Recommended Tags</h3>
-               <ul className="tagList">{recomTags.map((tag,i)=><li key={i}>{tag}<button type="button" onClick={()=>addTag('some',i)}><MdAdd/></button></li>)}</ul>
+               <ul className="tagList">{recommended.map((tag,i)=><li key={i}>{tag}<button type="button" onClick={()=>addTag('some',i)}><MdAdd/></button></li>)}</ul>
                <button type="button" className="btn white btnTags" onClick={()=>addTag('all')}>Add All of them</button>
           </>}
           {!!postData.keywords.length && <>

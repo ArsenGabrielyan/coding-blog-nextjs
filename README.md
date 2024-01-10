@@ -15,7 +15,7 @@ npm run dev
 - **Storage:** Firebase
 - **Database:** MongoDB
 - **FrontEnd:** React JS
-- **Backend:** Next JS API Routes, `getServerSideProps`
+- **Backend:** Next JS Backend
 
 > GitHub [@ArsenGabrielyan](https://github.com/ArsenGabrielyan) &nbsp;&middot;&nbsp;
 > [Arsen's Website](https://arsen-g.web.app)

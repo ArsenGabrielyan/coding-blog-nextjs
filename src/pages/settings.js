@@ -19,7 +19,7 @@ export default function SettingsPage({user}){
      };
      useUnsavedWarning(!settings.isCurrSetting);
      return <>
-     <Head><title>Settings | EduArticles</title></Head>
+     <Head><title>Settings | Arsen&apos;s CodeBlog</title></Head>
      <Layout>
           <h1 className="pageTitle">Settings</h1>
           <div className="settings-container">

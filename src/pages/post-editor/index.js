@@ -17,7 +17,7 @@ export default function NewPost({session,currUser}){
           }); // eslint-disable-next-line
      },[status]);
      return <>
-     <Head><title>Create a New Post | Edu-Articles</title></Head>
+     <Head><title>Create a New Post | Arsen&apos;s CodeBlog</title></Head>
      <Layout>
           <section className="new-post-container">
                <h1 className="title">Create a new Post</h1>

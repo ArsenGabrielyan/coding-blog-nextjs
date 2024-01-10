@@ -24,10 +24,10 @@ export default function UserProfile(){
      
      const buttons = <>
           {isCurrUser ? <Link className="btn" href="/settings?page=account">Settings</Link> : <button type='button' className="btn" onClick={async()=>await followUnfollow(followOptions,router,isFollowed,updateDetails)}>{isFollowed ? 'Unfollow' : 'Follow'}</button>}
-          <button type='button' className="btn-icon" title="Options" onClick={async()=>await shareData(`${user?.name?.split(' ')[0]} at Edu-Articles`)}><FaShare/></button>
+          <button type='button' className="btn-icon" title="Options" onClick={async()=>await shareData(`${user?.name?.split(' ')[0]} at Arsen's CodeBlog`)}><FaShare/></button>
      </>
 
-     return <><Head><title>{!user ? "Edu-Articles | Educational Blog" : `${user?.name?.split(' ')[0]} at Edu-Articles`}</title></Head>
+     return <><Head><title>{!user ? "Arsen's CodeBlog" : `${user?.name?.split(' ')[0]} at Arsen's CodeBlog`}</title></Head>
      <Layout>
      {isLoading ? <h2 className="loadTxt">Loading...</h2> : <div className="userProfile">
           <div className="infoBox">

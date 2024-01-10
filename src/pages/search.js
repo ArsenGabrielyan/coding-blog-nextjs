@@ -19,7 +19,7 @@ export default function Search(){
           await updateSearch()
      }
      const showMore = () => {if(postCount<=list?.length) setPostCount(postCount*2);}
-     return <><Head><title>{String(query.q)} | Edu-Articles</title></Head>
+     return <><Head><title>{String(query.q)} | Arsen&apos;s CodeBlog</title></Head>
      <Layout>
           <h1 className="pageTitle">Search</h1>
           <div className="search-filter">

@@ -19,7 +19,7 @@ export default function PostList(){
           setOptions({...options, filterCategory: e.target.value});
           router.push(`/posts?category=${e.target.value}`,undefined,{shallow:true})
      }
-     return <><Head><title>Explore Posts | Edu-Articles</title></Head>
+     return <><Head><title>Explore Posts | Arsen&apos;s CodeBlog</title></Head>
      <Layout>
           <ListNavbar options={options} change={{handleChange,changeFilter: handleChangeFilter}}/>
           <section className="posts small">

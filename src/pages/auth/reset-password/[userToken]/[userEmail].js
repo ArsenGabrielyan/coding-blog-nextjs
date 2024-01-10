@@ -8,7 +8,7 @@ export default function ResetPassEmail({isLinkInvalid}){
      const {query} = useRouter();
      const {userToken, userEmail} = query;
      return <>
-          <Head><title>Reset Password | Edu-Articles</title></Head>
+          <Head><title>Reset Password | Arsen&apos;s CodeBlog</title></Head>
           <div className="formContainer">
                <PassResetForm isLinkInvalid={isLinkInvalid} token={userToken} email={userEmail}/>
           </div>

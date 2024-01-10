@@ -16,7 +16,7 @@ export default function DashboardCommentList({userEmail}){
      const {user,comments,users,updateDetails, isAllLoading} = dashboardComment;
      const {pageCount,changePage: changeComment,data: currComments} = usePagination(sortByLatest(comments),5)
      return <>
-     <Head><title>All Comments | EduArticles</title></Head>
+     <Head><title>All Comments | Arsen&apos;s CodeBlog</title></Head>
      <Layout>
           <h1 className="pageTitle">All Comments</h1>
           <div className="settings-container">

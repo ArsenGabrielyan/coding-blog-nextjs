@@ -17,7 +17,7 @@ export default function UserList(){
           await updateUsers()
      }
      const {data: currUsers, pageCount, changePage} = usePagination(users,20);
-     return <><Head><title>Explore Users | Edu-Articles</title></Head>
+     return <><Head><title>Explore Users | Arsen&apos;s CodeBlog</title></Head>
      <Layout>
           <ListNavbar usermode/>
           <section className="userlist">

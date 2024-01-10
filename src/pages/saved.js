@@ -11,7 +11,7 @@ import { DEFAULT_PAGINATION_PROPS } from "@/constants/constantData";
 
 export default function SavedPosts({posts}){
      const {data: currSavedPosts,changePage,pageCount} = usePagination(posts,15);
-     return <><Head><title>Saved Posts | Edu-Articles</title></Head>
+     return <><Head><title>Saved Posts | Arsen&apos;s CodeBlog</title></Head>
      <Layout>
           <h1 className="pageTitle">Saved Posts</h1>
           <section className="posts small">

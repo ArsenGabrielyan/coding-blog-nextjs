@@ -15,7 +15,7 @@ export const nextAuthOptions = {
      pages: {signIn: '/auth/signin'},
      providers: [
           CredentialsProvider({
-               name: 'Edu Articles',
+               name: "Arsen's CodeBlog",
                id: 'credentials',
                credentials: {
                     email: {label: "Email Address", type: 'email', placeholder: 'name@example.com'},

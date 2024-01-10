@@ -11,7 +11,7 @@ export default function EditPost({currPost}){
      const {data} = useSession(), [postData, setPostData] = useState(currPost)
      const isCurrUser = data?.user.email===postData.email;
      return <>
-          <Head><title>Edit Current Post | Edu-Articles</title></Head>
+          <Head><title>Edit Current Post | Arsen&apos;s CodeBlog</title></Head>
           <Layout>
           <section className="new-post-container">
                <h1 className="title">Edit Current Post</h1>
