@@ -2,7 +2,7 @@ import Layout from "@/components/pageLayouts/Layout";
 import SettingMenu from "@/components/header/SettingMenu";
 import { Follower, DashboardElem, DashboardComment, StatBox } from "@/components/cards/DashboardElements"
 import Modal from "@/components/features/Modal";
-import { serializeObject } from "@/constants/helpers";
+import { serializeObject, sortByLatest } from "@/constants/helpers";
 import connectDB from "@/lib/connectDb";
 import useDashboard from "@/lib/hooks/use-dashboard";
 import User from "@/model/CredentialsUser";
@@ -51,7 +51,7 @@ export default function Dashboard({user}){
                          <DashboardElem title="Latest Comments">
                               {!totalComments?.length ? <p>There are no New Comments</p> : <>
                               <div className="dashboard-list">
-                                   {totalComments?.slice(0,3).map(comment=><DashboardComment key={comment.commentId} data={comment}/>)}
+                                   {sortByLatest(totalComments)?.slice(0,3).map(comment=><DashboardComment key={comment.commentId} data={comment}/>)}
                               </div>
                               <Link className="btn dashboard-btn" href="/dashboard/comments">See More</Link></>}
                          </DashboardElem>

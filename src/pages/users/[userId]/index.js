@@ -43,7 +43,7 @@ export default function UserProfile(){
                {user?.otherData?.bio ? <div className="bio">
                     <MarkdownContent>{user?.otherData?.bio}</MarkdownContent>
                </div> : <div className="options">{buttons}</div>}
-               <Link href={user?.otherData?.website} className="website"><FaGlobe/> Website</Link>
+               {user?.otherData?.website && <Link href={user?.otherData?.website} className="website"><FaGlobe/> Website</Link>}
           </div>
           <div className="main-page">
                {user?.otherData?.bio &&<nav>
