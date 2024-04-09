@@ -40,5 +40,11 @@
     "sharp": "^0.32.5",
     "swr": "^2.2.2",
     "zxcvbn": "^4.4.2"
+  },
+  "devDependencies": {
+    "undici": "^5.28.4"
+  },
+  "overrides": {
+    "undici": "^5.28.4"
   }
 }
