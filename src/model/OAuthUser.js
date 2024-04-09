@@ -24,13 +24,13 @@ const oAuthSchema = new Schema({
           }
      },
      otherData: {
-          website: {type:String,default:''},
-          bio: {type:String,default:''},
+          website: String,
+          bio: String,
           keywords: [String], 
           phone: {type:String,index: {unique: true, sparse: true}},
-          bdate: {type:String,default:''},
-          gender: {type:String,default:''},
-          address: {type:String,default:''},
+          bdate: String,
+          gender: String,
+          address: String,
      },
      elemType: {
           type: String,

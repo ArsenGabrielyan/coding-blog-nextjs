@@ -12,10 +12,7 @@ const postSchema = new Schema({
      banner: String,
      keywords: [String],
      email: String,author: String,
-     profileImage: {
-          type: String,
-          default: ''
-     },
+     profileImage: String,
      date: {
           type: String,
           default: new Date().toDateString()

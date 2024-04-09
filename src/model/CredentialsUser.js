@@ -13,10 +13,7 @@ const userSchema = new Schema({
           unique: [true, "Username is Already Taken"]
      },
      password: Schema.Types.Mixed,
-     image: {
-          type: String,
-          default: '',
-     },
+     image: String,
      details: {
           likedPosts: [String],
           likedComments: [String],
@@ -28,13 +25,13 @@ const userSchema = new Schema({
           }
      },
      otherData: {
-          website: {type:String,default:''},
-          bio: {type:String,default:''},
+          website: String,
+          bio: String,
           keywords: [String], 
           phone: {type:String,index: {unique: true, sparse: true}},
-          bdate: {type:String,default:''},
-          gender: {type:String,default:''},
-          address: {type:String,default:''},
+          bdate: String,
+          gender: String,
+          address: String,
      },
      user_id: {
           type: String,
